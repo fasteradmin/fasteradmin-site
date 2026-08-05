@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useRef, useState } from "react";
 
 /**
  * The dark contact block that closes every page.
@@ -15,10 +15,14 @@ import { useState } from "react";
  *     means the form is never a dead end and no lead is silently dropped.
  */
 const FORM_ENDPOINT = process.env.NEXT_PUBLIC_FORM_ENDPOINT || "";
+const FA_TOKEN = process.env.NEXT_PUBLIC_FA_TOKEN || "";
 export const CONTACT_EMAIL = "joey@getfasteradmin.com";
 
 export default function ContactSection() {
   const [state, setState] = useState("idle");
+  // When this form rendered. The workflow rejects submissions that arrive
+  // faster than a human could plausibly type. See the Abuse Gate node.
+  const renderedAt = useRef(Date.now());
 
   async function handleSubmit(e) {
     e.preventDefault();
@@ -52,13 +56,19 @@ export default function ContactSection() {
       Email: data.get("Email") || "",
       Message: data.get("Message") || "",
       page: typeof window !== "undefined" ? window.location.pathname : "",
+      hp_field: data.get("hp_field") || "",
+      t: renderedAt.current,
     };
 
     try {
       const res = await fetch(FORM_ENDPOINT, {
         method: "POST",
         body: JSON.stringify(payload),
-        headers: { "Content-Type": "application/json", Accept: "application/json" },
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+          "x-fa-token": FA_TOKEN,
+        },
       });
 
       if (res.ok) {
@@ -96,7 +106,7 @@ export default function ContactSection() {
           </a>
         </div>
 
-        <form onSubmit={handleSubmit} className="flex flex-col gap-8">
+        <form onSubmit={handleSubmit} className="relative flex flex-col gap-8">
           <Field label="Name *" name="Name" placeholder="Jane Foster" required />
           <Field
             label="E-mail *"
@@ -112,6 +122,19 @@ export default function ContactSection() {
             required
             textarea
           />
+
+          {/*
+            Honeypot. Hidden from sighted users by position, and from screen
+            readers by aria-hidden, so no real visitor can fill it in. Bots
+            that populate every input trip it and get a decoy success.
+            Deliberately NOT display:none — some bots skip those.
+          */}
+          <div className="absolute left-[-9999px] top-auto h-px w-px overflow-hidden" aria-hidden="true">
+            <label>
+              Do not fill this in
+              <input type="text" name="hp_field" tabIndex={-1} autoComplete="off" />
+            </label>
+          </div>
 
           <button
             type="submit"
