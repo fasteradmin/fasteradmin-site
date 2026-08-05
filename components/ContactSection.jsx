@@ -45,11 +45,20 @@ export default function ContactSection() {
 
     setState("sending");
 
+    // Sent as JSON so the n8n webhook can read $json.body.Name etc.
+    // predictably; multipart lands in a less stable shape.
+    const payload = {
+      Name: data.get("Name") || "",
+      Email: data.get("Email") || "",
+      Message: data.get("Message") || "",
+      page: typeof window !== "undefined" ? window.location.pathname : "",
+    };
+
     try {
       const res = await fetch(FORM_ENDPOINT, {
         method: "POST",
-        body: data,
-        headers: { Accept: "application/json" },
+        body: JSON.stringify(payload),
+        headers: { "Content-Type": "application/json", Accept: "application/json" },
       });
 
       if (res.ok) {
