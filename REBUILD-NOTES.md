@@ -154,6 +154,58 @@ added as an attendee with `sendUpdates=all`, so Google sends the invite.
 scope and needs reconnecting — read-only is enough for availability but not for
 booking.
 
+### How the connections actually work
+
+Three separate hops, with different trust levels:
+
+1. **Claude → n8n management API.** `N8N_API_KEY` from `~/.zshenv`, sent as an
+   `X-N8N-API-KEY` header. Used only to create and update workflows. The key is
+   never written into any file in either repo.
+2. **n8n → Google / Microsoft.** Joey's own stored n8n credentials, referenced in
+   the workflow JSON **by id and name only** (`ALMuHEPOMNHH6hve` for Google
+   Calendar, `xLVIvHjRCSmV7vbR` for Outlook). No OAuth tokens ever appear in the
+   workflow definition; n8n injects them at runtime.
+3. **Website → n8n webhooks.** **No authentication at all.** This is the weak
+   link, see below.
+
+### ⚠️ The webhooks are public and unauthenticated
+
+`allowedOrigins` on the webhook node sets CORS headers, which only constrains
+**browsers**. It is not an access control: any `curl` from anywhere can POST to
+these URLs, and in fact every test above was done exactly that way. So today:
+
+- anyone who learns `/webhook/fasteradmin-contact` can send mail to Joey's inbox
+- anyone who learns `/webhook/fasteradmin-book` can **create events in Joey's
+  calendar**, and Google will email an invite to whatever address they supply
+
+The booking one is the one that matters. Before the booking UI goes live it
+needs at least one of:
+
+- a shared secret header the site sends and the workflow checks (simplest, but
+  the value is visible in the client bundle, so it only stops drive-by abuse)
+- a honeypot field plus a minimum time-on-page check (stops most bots)
+- rate limiting per IP
+- a proper CAPTCHA / Turnstile check verified inside the workflow (strongest)
+
+For a static site with no backend, Turnstile verified server-side in n8n is the
+only option that genuinely resists a determined abuser. Everything else raises
+the cost without closing the hole.
+
+### Error handling
+
+All three workflows originally had the same defect: a thrown error in a Code
+node aborts the run **before** Respond to Webhook, so n8n answers HTTP 200 with
+an empty body. The site checked `res.ok` and would have told visitors their
+message was sent or their call was booked when nothing had happened.
+
+Fixed by never throwing on the request path: validation returns a flag, external
+calls are set to `onError: continueRegularOutput`, and every branch terminates in
+a Respond node. Verified: bad input now returns 400 with a readable message,
+a taken slot 409, and calendar failures 502.
+
+Note `responseCode` belongs under `options` on the Respond node, not top level —
+set at the top level it is silently ignored and you still get 200.
+
 ### Why the existing workflows were not reused directly
 
 - `Create Reservation` writes to **Airtable**, not Google Calendar. Only
