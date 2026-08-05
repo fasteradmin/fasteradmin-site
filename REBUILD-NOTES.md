@@ -191,6 +191,30 @@ For a static site with no backend, Turnstile verified server-side in n8n is the
 only option that genuinely resists a determined abuser. Everything else raises
 the cost without closing the hole.
 
+### Turnstile
+
+Verification runs inside the **contact form** and **create booking** workflows —
+not in the availability workflow, which is a read endpoint that the booking UI
+calls on page load (Turnstile tokens are single-use, so spending one there would
+leave none for the booking itself).
+
+The siteverify call is a real **HTTP Request node**, not code. Doing it inside a
+Code node with `this.helpers.httpRequest` / `URLSearchParams` throws in the n8n
+sandbox, and because the throw happens before Respond to Webhook, the caller
+gets a misleading empty HTTP 200 instead of a rejection. It failed closed on the
+calendar write, but reported success. Verified after the fix: a forged token now
+returns 403 on both endpoints, and a genuine browser submission still succeeds.
+
+`Check Verification` fails closed — if Cloudflare is unreachable the request is
+rejected, because these paths send mail and write to a real calendar.
+
+**On the secret's confidentiality:** pasting it by hand into the node keeps it
+out of git and out of the chat transcript, but it does *not* hide it from anyone
+holding `N8N_API_KEY`, who can read the workflow JSON. That key already grants
+full workflow read/write, so it is strictly more powerful than the Turnstile
+secret. If the secret should genuinely be unreadable, it has to live in an n8n
+**credential** (whose values the API does not return), not in node code.
+
 ### Error handling
 
 All three workflows originally had the same defect: a thrown error in a Code
