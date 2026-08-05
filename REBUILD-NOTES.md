@@ -120,6 +120,52 @@ quietly breaks deploys.
 Not verified: cross-browser rendering beyond Chromium, and real form submission
 (no endpoint configured yet, so only the mailto fallback path has been exercised).
 
+## n8n backend (2026-08-05)
+
+Instance: `https://jcmt.app.n8n.cloud`. The REST API is reachable with
+`N8N_API_KEY` from `~/.zshenv`. The key can **create and read** workflows but
+returns 403 on `/activate`, and `/projects` and `/folders` are unavailable — so
+new workflows land unfiled and inactive, and must be moved into
+`Personal/FasterAdmin` and published by hand.
+
+| Workflow | id | Purpose |
+|---|---|---|
+| FasterAdmin \| Website Contact Form | `l9ZH89g9ngG1wXca` | Contact form → Outlook email to joey@getfasteradmin.com. **Live and verified.** |
+| FasterAdmin \| Booking \| Get Availability | `ctywAWP6xmqvctAb` | `POST /webhook/fasteradmin-availability` → bookable slots |
+| FasterAdmin \| Booking \| Create Booking | `bM8c48E0XUCKOnYM` | `POST /webhook/fasteradmin-book` → creates the calendar event |
+
+Both booking workflows call Google's `freeBusy` and `events` REST endpoints via
+HTTP Request nodes using the predefined `googleCalendarOAuth2Api` credential
+(`ALMuHEPOMNHH6hve`), rather than the Google Calendar node. That was deliberate:
+it gives exact control over the request and response shape instead of depending
+on the node's output-format option.
+
+Booking config (timezone, working hours, slot length, notice period, horizon)
+lives in the first Code node of each workflow. Currently: Europe/Amsterdam,
+Mon–Fri, 09:00–17:00, 30-minute slots, 4 hours' minimum notice, 14-day horizon.
+Slots are built per-day in the local zone so DST transitions stay correct.
+
+`Create Booking` re-checks `freeBusy` for the exact slot immediately before
+creating the event and returns HTTP 409 if it was taken in the meantime, so two
+visitors picking the same slot seconds apart cannot both book it. The visitor is
+added as an attendee with `sendUpdates=all`, so Google sends the invite.
+
+**If `Create Event` returns 403**, the OAuth credential lacks calendar write
+scope and needs reconnecting — read-only is enough for availability but not for
+booking.
+
+### Why the existing workflows were not reused directly
+
+- `Create Reservation` writes to **Airtable**, not Google Calendar. Only
+  `Check Availability` touches the calendar, so the GHL pair cannot book calls.
+- `Google Calendar - Availability Lookup` and `Google Calendar - Schedule Call`
+  target the right calendar with lead-shaped inputs, but are **scaffolds**: the
+  availability node has no `timeMin`/`timeMax` mapping and the schedule node has
+  no `start`/`end` at all, with empty attendee and description expressions. They
+  declare inputs that are never wired into the calendar nodes.
+- `Get Google Calendar Availability` is the only one with a webhook, and it
+  points at the **Salonized - fasteradmin** calendar, not Joey's.
+
 ## Next up, in the order agreed with Joey
 
 Baseline first, then the rest.
