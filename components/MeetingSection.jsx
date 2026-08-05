@@ -1,24 +1,13 @@
-"use client";
-
-import { useEffect } from "react";
-
-const CALENDLY_URL = "https://calendly.com/joey-fasteradmin/30min";
+import BookingWidget from "@/components/BookingWidget";
 
 /**
- * Calendly inline embed. The Framer original wrapped this in a sandboxed
- * iframe; here it loads directly, which is both faster and lets us fire
- * tracking events on booking.
+ * The "book a call" block.
+ *
+ * This replaced the Framer site's Calendly embed. Booking now runs on Joey's
+ * own Google Calendar via two n8n workflows, so there is no third-party
+ * branding, no per-seat cost, and the styling matches the rest of the site.
  */
 export default function MeetingSection() {
-  useEffect(() => {
-    if (document.querySelector('script[src*="calendly.com/assets/external/widget.js"]')) return;
-
-    const s = document.createElement("script");
-    s.src = "https://assets.calendly.com/assets/external/widget.js";
-    s.async = true;
-    document.body.appendChild(s);
-  }, []);
-
   return (
     <section id="section-meeting" className="bg-grey-100">
       <div className="container-site grid gap-12 py-24 lg:grid-cols-2 lg:py-32">
@@ -27,13 +16,14 @@ export default function MeetingSection() {
             Want to find out where you too, can get more done in less time?
           </h2>
           <p className="h-section mt-2 text-brand">Book a short meeting now.</p>
+
+          <p className="body-base mt-8 max-w-md text-grey-600">
+            Go through your current set-up with one of our experts, get honest advice, and a team
+            that cares about the outcome as much as you do.
+          </p>
         </div>
 
-        <div
-          className="calendly-inline-widget overflow-hidden rounded-[var(--radius-card)] bg-white"
-          data-url={CALENDLY_URL}
-          style={{ minWidth: "320px", height: "1100px" }}
-        />
+        <BookingWidget />
       </div>
     </section>
   );
