@@ -1,6 +1,7 @@
 "use client";
 
 import { useRef, useState } from "react";
+import Turnstile, { resetTurnstile } from "@/components/Turnstile";
 
 /**
  * The dark contact block that closes every page.
@@ -23,6 +24,7 @@ export default function ContactSection() {
   // When this form rendered. The workflow rejects submissions that arrive
   // faster than a human could plausibly type. See the Abuse Gate node.
   const renderedAt = useRef(Date.now());
+  const [turnstileToken, setTurnstileToken] = useState("");
 
   async function handleSubmit(e) {
     e.preventDefault();
@@ -58,6 +60,7 @@ export default function ContactSection() {
       page: typeof window !== "undefined" ? window.location.pathname : "",
       hp_field: data.get("hp_field") || "",
       t: renderedAt.current,
+      turnstileToken,
     };
 
     try {
@@ -71,8 +74,13 @@ export default function ContactSection() {
         },
       });
 
+      // Turnstile tokens are single-use, so a fresh one is needed either way.
+      resetTurnstile();
+      setTurnstileToken("");
+
       if (res.ok) {
         form.reset();
+        renderedAt.current = Date.now();
         setState("sent");
         // Let the tracking stack see a real conversion.
         window.gtag?.("event", "generate_lead", { form: "contact" });
@@ -135,6 +143,8 @@ export default function ContactSection() {
               <input type="text" name="hp_field" tabIndex={-1} autoComplete="off" />
             </label>
           </div>
+
+          <Turnstile onToken={setTurnstileToken} />
 
           <button
             type="submit"
