@@ -19,6 +19,18 @@ npm run build
 
 The dev server runs on port 3210. `build` writes the static site to `out/`.
 
+> **Do not run `npm run build` while `npm run dev` is running.** They share
+> `.next/`, so the build clobbers the dev server's chunk manifest. The dev page
+> then 404s `main-app.js` and `layout.css` and renders as unstyled HTML with
+> dead menus and accordions. It looks like the site is broken; it isn't. Stop
+> the dev server, then restart it.
+
+To check the real production output, serve the export instead:
+
+```bash
+npx serve out -p 3211
+```
+
 ## Layout
 
 | Path | What's there |
@@ -69,11 +81,20 @@ load so nothing double-counts.
 
 ### Contact form
 
-Framer's built-in form handler does not exist off-platform, so the form has no
-backend yet. Point `NEXT_PUBLIC_FORM_ENDPOINT` at a handler (Formspree, Netlify
-Forms, or an n8n webhook — n8n is already in the stack) before launch. Until it
-is set, the form refuses to submit and says so rather than silently dropping
-leads.
+Framer's built-in form handler does not exist off-platform. The form has two
+modes, in `components/ContactSection.jsx`:
+
+- **With `NEXT_PUBLIC_FORM_ENDPOINT` set** it POSTs the fields there as
+  multipart form data, and fires a GA4 `generate_lead` and a Meta `Lead` event
+  on success. Any handler works: an n8n webhook, Formspree, Web3Forms.
+- **Without it** the form opens the visitor's mail client prefilled to
+  `joey@getfasteradmin.com`. Not as good as a real handler, but it means the
+  form is never a dead end.
+
+The recipient address is `CONTACT_EMAIL` in that same file. Note it is on
+`getfasteradmin.com`, a different domain from the site itself — that is
+deliberate, but worth remembering when setting up SPF/DKIM for whatever handler
+you choose.
 
 ## Deploying
 

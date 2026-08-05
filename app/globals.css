@@ -53,6 +53,22 @@ body {
   color: var(--color-navy);
 }
 
+/* Several source images are far wider than any viewport (the before/after
+   diagrams are 2109px). Grid and flex children default to min-width:auto, so
+   without this they refuse to shrink and push the whole page into horizontal
+   scroll on narrow screens. */
+img,
+svg,
+video,
+iframe {
+  max-width: 100%;
+}
+
+main > section > *,
+.container-site > * {
+  min-width: 0;
+}
+
 /* Framer's headings run tight and negative-tracked. These utilities
    reproduce that scale so headings match the original 1:1. */
 .h-display {

@@ -63,8 +63,16 @@ gtag('js', new Date());
 gtag('config', '${GA4_ID}');`}
       </Script>
 
+      {/*
+        The browser warns "Duplicate Pixel ID" because the GTM container very
+        likely fires this same pixel too. The guard below stops THIS snippet
+        double-initialising, but it cannot stop GTM. Check whether the pixel
+        is also configured as a GTM tag and remove it from one of the two,
+        otherwise every PageView and Lead is counted twice.
+      */}
       <Script id="meta-pixel" strategy="afterInteractive">
-        {`!function(f,b,e,v,n,t,s)
+        {`if(!window.__faMetaPixelInit){window.__faMetaPixelInit=1;
+!function(f,b,e,v,n,t,s)
 {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
 n.callMethod.apply(n,arguments):n.queue.push(arguments)};
 if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
@@ -73,7 +81,7 @@ t.src=v;s=b.getElementsByTagName(e)[0];
 s.parentNode.insertBefore(t,s)}(window,document,'script',
 'https://connect.facebook.net/en_US/fbevents.js');
 fbq('init', '${META_PIXEL_ID}');
-fbq('track', 'PageView');`}
+fbq('track', 'PageView');}`}
       </Script>
     </>
   );

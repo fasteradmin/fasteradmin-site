@@ -69,6 +69,39 @@ need to keep resolving.
   animations were dropped. Content and layout match; motion does not.
 - **Footer year is dynamic** rather than hardcoded to 2026.
 
+## Bugs found and fixed after the first pass (2026-08-05, later)
+
+1. **Horizontal overflow on mobile.** The before/after diagrams are 2109px
+   wide. Grid and flex children default to `min-width: auto`, so they refused
+   to shrink and pushed the whole page into horizontal scroll on phones. Fixed
+   in `globals.css` with a global `max-width: 100%` on media plus `min-width: 0`
+   on section and container children. Verified: body width now equals viewport
+   width at 375px on every page.
+
+2. **Six wrong images.** The first pass assigned images by download order. The
+   hero showed a background photo, Sarah's headshot rendered as a diagram, and
+   the Cupcake logo was swapped with the before/after artwork. Re-derived by
+   querying each image's real position and neighbouring text on the live page.
+   The current mapping is measured, not guessed.
+
+3. **Missing favicon.** `layout.jsx` referenced `/favicon.png`, which did not
+   exist, producing a 404 on every page. Added.
+
+4. **Duplicate Meta Pixel init.** The browser reports "Duplicate Pixel ID". The
+   snippet now guards against initialising twice, but the likely second source
+   is the GTM container firing the same pixel as a tag. **Check the GTM
+   container** — if the pixel is configured in both places, every PageView and
+   Lead is counted twice. Not something the code can fix on its own.
+
+## Gotcha that looks like a bug but isn't
+
+Running `npm run build` while `npm run dev` is up clobbers the shared `.next/`
+directory. The dev page then 404s `main-app.js` and `layout.css`, React never
+hydrates, and the site renders as unstyled serif HTML with a dead menu. This
+cost real debugging time once already. Stop dev, then restart it. Do not try to
+fix it with `distDir` — that relocates the static export out of `out/` and
+quietly breaks deploys.
+
 ## Verification done
 
 - All 8 routes build and return the right status (404 route returns 404).
@@ -79,5 +112,28 @@ need to keep resolving.
 - Calendly embed, both YouTube embeds and the FAQ accordion confirmed working
   in-browser.
 
-Not verified: cross-browser rendering, mobile breakpoints beyond the responsive
-rules, and real form submission (no endpoint yet).
+- Mobile (375px) verified against the **production export**, not just the dev
+  server: no horizontal overflow on any page, the nav menu toggles open and
+  shut, and the FAQ accordion expands. React hydration confirmed working in the
+  built artifact.
+
+Not verified: cross-browser rendering beyond Chromium, and real form submission
+(no endpoint configured yet, so only the mailto fallback path has been exercised).
+
+## Next up, in the order agreed with Joey
+
+Baseline first, then the rest.
+
+1. **Booking:** replace the Calendly embed with a Google Calendar Appointment
+   Schedule routed to Joey's own calendar. Needs the booking page URL from
+   Google Calendar; the swap itself is one component,
+   `components/MeetingSection.jsx`.
+2. **Voice + WhatsApp assistant page:** one general page replacing the four
+   voice-assistant URLs. Design to be a combination of
+   `/voice-assistant-sc-gentle-clinics` (minus the Gentle Clinics
+   personalisation — logo, appointment times, client-specific detail) and
+   `/voice-assistant-beautyv1`.
+3. **Dutch + English across the whole site.** Wanted eventually, deliberately
+   deferred so the baseline lands first. Worth planning the routing (`/nl`,
+   `/en`) before writing content, since retrofitting i18n is more expensive
+   than building for it.

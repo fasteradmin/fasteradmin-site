@@ -5,27 +5,45 @@ import { useState } from "react";
 /**
  * The dark contact block that closes every page.
  *
- * NOTE: the Framer original posted to Framer's own hosted form handler,
- * which does not exist off-platform. FORM_ENDPOINT below needs to point at
- * a real handler (Formspree, Netlify Forms, n8n webhook, etc.) before
- * launch. Until it is set, the form fails closed and tells the user to
- * email instead, rather than silently dropping leads.
+ * The Framer original posted to Framer's own hosted form handler, which does
+ * not exist off-platform. Two modes here:
+ *
+ *  1. If NEXT_PUBLIC_FORM_ENDPOINT is set, the form POSTs there (n8n webhook,
+ *     Formspree, Web3Forms — anything that accepts multipart form data).
+ *  2. If it is not set, the form falls back to opening the visitor's mail
+ *     client prefilled to CONTACT_EMAIL. Not as good as a real handler, but it
+ *     means the form is never a dead end and no lead is silently dropped.
  */
 const FORM_ENDPOINT = process.env.NEXT_PUBLIC_FORM_ENDPOINT || "";
+export const CONTACT_EMAIL = "joey@getfasteradmin.com";
 
 export default function ContactSection() {
   const [state, setState] = useState("idle");
 
   async function handleSubmit(e) {
     e.preventDefault();
+    const form = e.currentTarget;
+    const data = new FormData(form);
 
+    // No backend configured: hand off to the visitor's mail client.
     if (!FORM_ENDPOINT) {
-      setState("unconfigured");
+      const subject = `Website enquiry from ${data.get("Name") || "the website"}`;
+      const body = [
+        `Name: ${data.get("Name") || ""}`,
+        `Email: ${data.get("Email") || ""}`,
+        "",
+        "Project and goals:",
+        data.get("Message") || "",
+      ].join("\n");
+
+      window.location.href = `mailto:${CONTACT_EMAIL}?subject=${encodeURIComponent(
+        subject
+      )}&body=${encodeURIComponent(body)}`;
+      setState("mailto");
       return;
     }
 
     setState("sending");
-    const data = new FormData(e.currentTarget);
 
     try {
       const res = await fetch(FORM_ENDPOINT, {
@@ -33,8 +51,16 @@ export default function ContactSection() {
         body: data,
         headers: { Accept: "application/json" },
       });
-      setState(res.ok ? "sent" : "error");
-      if (res.ok) e.target.reset();
+
+      if (res.ok) {
+        form.reset();
+        setState("sent");
+        // Let the tracking stack see a real conversion.
+        window.gtag?.("event", "generate_lead", { form: "contact" });
+        window.fbq?.("track", "Lead");
+      } else {
+        setState("error");
+      }
     } catch {
       setState("error");
     }
@@ -53,11 +79,23 @@ export default function ContactSection() {
             that cares about the outcome as much as you do. Whether you prefer a quick call or a
             simple email, getting started is easy.
           </p>
+          <a
+            href={`mailto:${CONTACT_EMAIL}`}
+            className="mt-6 inline-block text-base text-brand hover:text-white"
+          >
+            {CONTACT_EMAIL}
+          </a>
         </div>
 
         <form onSubmit={handleSubmit} className="flex flex-col gap-8">
           <Field label="Name *" name="Name" placeholder="Jane Foster" required />
-          <Field label="E-mail *" name="Email" type="email" placeholder="jerry@fasteradmin.com" required />
+          <Field
+            label="E-mail *"
+            name="Email"
+            type="email"
+            placeholder="jerry@fasteradmin.com"
+            required
+          />
           <Field
             label="Project and goals *"
             name="Message"
@@ -77,14 +115,14 @@ export default function ContactSection() {
           {state === "sent" && (
             <p className="text-sm text-brand">Thanks, we&apos;ll be in touch shortly.</p>
           )}
-          {state === "error" && (
-            <p className="text-sm text-accent">
-              Something went wrong. Please email us directly instead.
+          {state === "mailto" && (
+            <p className="text-sm text-brand">
+              Opening your email app. If nothing happened, mail us at {CONTACT_EMAIL}.
             </p>
           )}
-          {state === "unconfigured" && (
+          {state === "error" && (
             <p className="text-sm text-accent">
-              This form isn&apos;t connected yet. Set NEXT_PUBLIC_FORM_ENDPOINT before launch.
+              Something went wrong. Please email us at {CONTACT_EMAIL} instead.
             </p>
           )}
         </form>
@@ -101,9 +139,21 @@ function Field({ label, name, placeholder, type = "text", required, textarea }) 
     <label className="block">
       <span className="mb-3 block text-base text-white">{label}</span>
       {textarea ? (
-        <textarea name={name} placeholder={placeholder} required={required} rows={3} className={`${cls} resize-y`} />
+        <textarea
+          name={name}
+          placeholder={placeholder}
+          required={required}
+          rows={3}
+          className={`${cls} resize-y`}
+        />
       ) : (
-        <input type={type} name={name} placeholder={placeholder} required={required} className={cls} />
+        <input
+          type={type}
+          name={name}
+          placeholder={placeholder}
+          required={required}
+          className={cls}
+        />
       )}
     </label>
   );
