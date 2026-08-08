@@ -1,4 +1,23 @@
-# Rebuild notes — 2026-08-05
+# Rebuild notes
+
+**STATUS: LIVE since 2026-08-08.** fasteradmin.com serves this site. Hosting is
+GitHub `fasteradmin/fasteradmin-site` (private) → Netlify project
+`fasteradmin-site`. DNS stays at GoDaddy: apex `A` → `75.2.60.5`, `www` CNAME →
+`fasteradmin-site.netlify.app`. Do not touch the `tool` or `app` records.
+
+**Before adding any new origin** (preview URL, staging domain, new local port):
+add it to the `allowedOrigins` of all three n8n webhooks AND to the Cloudflare
+Turnstile hostname list. Miss either and forms fail silently with a CORS block
+or a 403 — this looked exactly like a broken build during launch and cost hours.
+
+**Public config lives in `lib/config.js` as literals**, with env overrides on
+top. This is deliberate: builds with missing `NEXT_PUBLIC_` values succeed and
+render perfectly while every integration is dead. Do not "clean this up" back
+into env-only.
+
+---
+
+## Original rebuild notes — 2026-08-05
 
 Faithful 1:1 rebuild of the Framer site. Copy was reproduced verbatim and no
 content problems were fixed in this pass, per the agreed scope. This file
