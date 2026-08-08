@@ -12,6 +12,18 @@
 [build.environment]
   NODE_VERSION = "20"
 
+  # This is a static export, not server-rendered Next. Skip Netlify's Next.js
+  # Runtime so it does not fight the export.
+  NETLIFY_NEXT_PLUGIN_SKIP = "true"
+
+  # Netlify scans build output for the values of declared environment
+  # variables and fails the build when it finds them. For NEXT_PUBLIC_ vars
+  # that check is a false positive by construction: Next.js inlines them into
+  # the browser bundle on purpose, so they are *supposed* to be in the output.
+  # Listing them here tells the scanner they are public, without disabling
+  # secret scanning entirely — a real secret leaking would still fail the build.
+  SECRETS_SCAN_OMIT_KEYS = "NEXT_PUBLIC_FORM_ENDPOINT,NEXT_PUBLIC_AVAILABILITY_ENDPOINT,NEXT_PUBLIC_BOOKING_ENDPOINT,NEXT_PUBLIC_FA_TOKEN,NEXT_PUBLIC_TURNSTILE_SITE_KEY"
+
 # ---------------------------------------------------------------------------
 # Redirects
 #
