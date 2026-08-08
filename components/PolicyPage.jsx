@@ -8,7 +8,7 @@ import ContactSection from "@/components/ContactSection";
 export default function PolicyPage({ title, intro, blocks, updated }) {
   return (
     <>
-      <section className="bg-grey-150">
+      <section className="bg-white">
         <div className="container-site py-20 lg:py-24">
           <h1 className="h-display text-navy">{title}</h1>
           <p className="body-base mt-6 max-w-2xl text-grey-600">{intro}</p>

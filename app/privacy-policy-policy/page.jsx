@@ -2,15 +2,6 @@ import PolicyPage from "@/components/PolicyPage";
 
 export const metadata = { title: "Privacy - Policy" };
 
-/*
- * ⚠️ Reproduced verbatim from the Framer site per the 1:1 rebuild rule.
- * Two known defects carried over intentionally, both need fixing before
- * or shortly after launch:
- *   1. Section 6 points users at legal@noora.studio — a different company's
- *      address, left over from the purchased template.
- *   2. The third-party tool list is inaccurate for the current stack
- *      (names Framer/Plausible; the real stack is GTM, GA4 and Meta Pixel).
- */
 const blocks = [
   {
     heading: "1. What We Collect",
@@ -19,9 +10,10 @@ const blocks = [
       "Here’s what that might include:",
     ],
     list: [
-      "Basic contact info (like your name, email, or company) when you fill out a form or send us a message",
-      "Analytics data (like page views, time on site, device type, etc.) collected via tools like Google Analytics or Plausible",
-      "Project-related details if you’re working with us — like brand files, content, and feedback",
+      "Basic contact info (like your name, email, or company) when you fill out a form or book a call",
+      "Analytics data (like page views, time on site, device type, etc.) collected via Google Analytics and Google Tag Manager",
+      "Advertising data collected via the Meta Pixel, if you arrived from a Meta ad",
+      "Project-related details if you’re working with us — tools, workflows, and feedback",
       "Any info you choose to share when you email, call, or message us",
     ],
   },
@@ -41,17 +33,17 @@ const blocks = [
   {
     heading: "3. How We Store It",
     paras: [
-      "All personal data is stored securely and only accessible by people who need it to do the work — usually just us. We use secure systems (e.g. Gmail, Notion, Framer, Slack) and keep everything password-protected. If you’ve ever worked with us, your project files are safe and archived for backup purposes only.",
+      "All personal data is stored securely and only accessible by people who need it to do the work — usually just us, based in Amsterdam. We use secure systems (Google Workspace, Airtable, n8n) and keep everything password-protected. If you’ve ever worked with us, your project files are safe and archived for backup purposes only.",
     ],
   },
   {
     heading: "4. Third-Party Tools",
-    paras: ["Like most websites, we use a few trusted tools to make things work better:"],
+    paras: ["We use a few trusted tools to make the site and the booking flow work:"],
     list: [
-      "Google Analytics / Plausible – for anonymous site usage stats",
-      "Framer – for collaborative design feedback",
-      "Slack / Email – for direct project communication",
-      "Notion – to organize your project scope, timelines, and feedback",
+      "Google Analytics and Google Tag Manager – for anonymous site usage stats",
+      "Meta Pixel – for advertising, if you arrived from a Meta ad",
+      "Google Calendar – to book and manage The Ops Call",
+      "n8n – to route contact form submissions and booking requests",
     ],
   },
   {
@@ -75,7 +67,7 @@ const blocks = [
       "Tell us to stop contacting you",
     ],
   },
-  { paras: ["To do any of that, just email us at legal@noora.studio"] },
+  { paras: ["To do any of that, just email us at joey@getfasteradmin.com"] },
   {
     heading: "7. Data Retention",
     paras: [
@@ -97,7 +89,7 @@ export default function PrivacyPolicy() {
       title="Privacy"
       intro="Whether you’re browsing the site or reaching out for a project, this policy covers how we handle your data."
       blocks={blocks}
-      updated="Last updated: September 2025"
+      updated="Last updated: August 2026"
     />
   );
 }

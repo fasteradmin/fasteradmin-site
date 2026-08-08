@@ -1,77 +1,58 @@
 import Image from "next/image";
-import Link from "next/link";
 import Button from "@/components/Button";
 import Faq from "@/components/Faq";
 import MeetingSection from "@/components/MeetingSection";
 import ContactSection from "@/components/ContactSection";
-import SolutionSystem from "@/components/home/SolutionSystem";
 
-const painPoints = [
-  "You calculate in Excel, because you have unique calculations",
-  "You use separate tools that don't communicate back and forth",
-  "You copy/paste customers and product items to create invoices",
-  "You do your planning in Excel and it's only visible to you",
-  "...A thousand other manual checks and moving data from one tool to another",
-];
-
-const principles = [
+const mechanismSteps = [
   {
     n: "01",
-    title: "Your tools aren’t the problem, the disconnect between them is",
-    body: "Every handoff forces you to copy-paste, double-check, and chase missing info, that’s where hours disappear and mistakes get billed.",
+    title: "Map where the work actually goes",
+    body: "Not where you assume it goes. We walk through requests, handoffs and approvals until we can see exactly where time and accuracy are lost.",
   },
   {
     n: "02",
-    title: "We connect what you already use",
-    body: "One central automation layer (n8n) pulls data from Tool A, verifies it, transforms it when needed, then pushes it into Tool B automatically.",
+    title: "Design the system before buying anything new",
+    body: "Most of what's broken isn't a missing tool. It's two tools that were bought to talk to each other and never actually got connected.",
   },
   {
     n: "03",
-    title: "So work moves forward without you pushing it",
-    body: "Requests become jobs, jobs become quotes, quotes get followed up, hours turn into invoices, invoices get paid, and customers get the right updates.",
+    title: "Build and connect what you already use",
+    body: "No new software to learn and no data migration, we build into the tools you already have open.",
+  },
+  {
+    n: "04",
+    title: "Test it on real cases, not a demo",
+    body: "Including the edge cases that normally surface three months in, after something has already gone wrong for a real customer.",
+  },
+  {
+    n: "05",
+    title: "Go live on a date in writing, then stay",
+    body: "Two to four weeks of hypercare after launch, so the system isn't the thing nobody owns six months from now.",
   },
 ];
-
-const beforeSteps = [
-  "Logged hours are manually exported into a .csv. The downloaded file imported into your data sheet like Excel or Google Sheets.",
-  "You spend many hours checking the data, going from sheet to sheet, manually copy/paste, add new rows, calculate, make mistakes without even knowing, so you need to check it a hundred times.",
-  "Once you're sure the Data Sheet is correct, you go back and forth manually copy/pasting the data to your Invoicing Tool and finally send the invoice. Laying in bed worrying if you did everything correct.",
-];
-
-const afterSteps = [
-  "Logged hours are automatically transfered from the Hours Tracking Tool to the Data Sheet on a set schedule.",
-  "Data is checked and transformed by set rules, invoice items are calculated.",
-  "Invoice items are automatically sent to the Invoicing Tool and send to the client. Reminder emails are pending. Invoice status waits signal of payment.",
-];
-
-// Tool-logo chips, in the order Framer renders them per step.
-const hoursLogos = ["FEYcj8ezZSQi8LQ1Q5BIvCRNfKc.png", "zhS9wQgXpiqpdULqnDiWOj3C1o.png", "CZwbfnOg4sMj1WEsJ9jgYnQBUvY.png", "AUYa04NCrwLENeKLXzfbUI3wI.png"];
-const dbLogos = ["Wp3IZfIWBGUdjKG2OwoSGL8KgQ.png", "qHgNS6eLjWWLWNW32ZzAyz7Pobw.png", "iuQPNZEpjh8HceJYE2G3TsUM.png"];
-const invoiceLogos = ["BEJslv8NLRjCIa4IW2J3jy1ik.png", "fO91l2eNgLk0L5qsxhacm1xpx4.png", "x82oPMXxzHp8UsJvTJdjzeh9Kqo.png", "KnJqTr0bC2kdsShN4VZ9hXqibU.png"];
-const sendLogos = ["ycO7xGLgM5nxPpiEo8sVFAeA.png", "leHC2BAVnM06i3ki7d9KEbnKyE.png", "wCioXkSjVIXlJcHaBrT5D8DC3Js.png"];
 
 export default function HomePage() {
   return (
     <>
       {/* ---------------------------------------------------------- Hero */}
-      <section className="bg-grey-150">
+      <section className="bg-white">
         <div className="container-site grid items-center gap-12 py-20 lg:grid-cols-2 lg:py-28">
           <div>
-            <h1 className="h-display text-navy">
-              Stop Letting Admin Tasks Steal Your Time.
-              <br />
-              <span className="text-grey-400">Automate it. Get Your Time Back.</span>
+            <p className="eyebrow text-grey-600">Reliable AI for your operations mess</p>
+            <h1 className="h-display mt-4 text-navy">
+              Get the work done, without the hire you can&apos;t make.
             </h1>
 
             <p className="body-base mt-8 max-w-md text-grey-600">
-              We connect your current tools into one smooth workflow that runs itself. No switching
-              software needed.
+              We put AI where someone has to read something and decide, and reliable code
+              everywhere else, so it keeps running after go-live.
             </p>
 
             <div className="mt-10 flex flex-wrap gap-4">
-              <Button href="/#section-meeting">Yes, I want to stop losing time</Button>
-              <Button href="/#section-solutions" variant="outline">
-                What can I automate?
+              <Button href="/#section-meeting">Book The Ops Call — 20 Minutes, No Pitch</Button>
+              <Button href="/#section-proof" variant="outline">
+                See a system that caught what a human missed
               </Button>
             </div>
           </div>
@@ -83,87 +64,82 @@ export default function HomePage() {
               width={871}
               height={1084}
               priority
-              className="h-auto w-full max-w-[560px]"
+              className="h-auto w-full max-w-[360px] lg:max-h-[460px] lg:w-auto lg:max-w-none"
             />
           </div>
         </div>
       </section>
 
-      {/* --------------------------------------------------- Pain points */}
-      <section className="bg-grey-200 py-10">
+      {/* -------------------------------------------------------- Problem */}
+      <section className="bg-surface-alt py-24 lg:py-32">
         <div className="container-site">
-          <div className="relative overflow-hidden rounded-[var(--radius-block)] bg-navy px-8 py-16 md:px-14">
-            <Image
-              src="/img/fMOrnUMWhn1rEixCfZ6cS3mcOU.png"
-              alt=""
-              fill
-              className="pointer-events-none object-cover"
-            />
+          <h2 className="h-section max-w-3xl text-navy">
+            You&apos;re not short on tools. You&apos;re short on people.
+          </h2>
 
-            <div className="relative">
-              <h2 className="h-section max-w-2xl text-white">
-                If you recognize these time-eating tasks, we have good news for you
-              </h2>
-
-              <ul className="mt-12 max-w-2xl space-y-3">
-                {painPoints.map((p) => (
-                  <li
-                    key={p}
-                    className="flex items-center gap-3 rounded-[40px] bg-grey-50 px-6 py-4 text-sm text-navy"
-                  >
-                    <span className="text-base text-red-500" aria-hidden>
-                      🚫
-                    </span>
-                    {p}
-                  </li>
-                ))}
-              </ul>
-            </div>
+          <div className="body-base mt-8 max-w-2xl space-y-5 text-grey-600">
+            <p>
+              Ask most owners at this size how the back office is running and the answer is
+              some version of &quot;it&apos;s a mess.&quot; Four out of five companies
+              we&apos;ve talked to opened with exactly that word.
+            </p>
+            <p>
+              A request comes in by email or WhatsApp. Someone reads it, then retypes the
+              same details into three different tools by hand. Somewhere in that stack is
+              probably a tool you already paid for to fix exactly this, sitting there
+              unconnected to everything else. The week&apos;s plan lives in a spreadsheet, or
+              in one person&apos;s head, and it only updates when that person remembers to.
+            </p>
+            <p className="text-navy">
+              You can&apos;t fix this by hiring. Most Dutch companies at this size can&apos;t
+              fill the role that would fix it, which is why automation ends up first on the
+              list, not somewhere down it.
+            </p>
           </div>
         </div>
       </section>
 
-      {/* ---------------------------------------------------- Principles */}
-      <section className="bg-grey-200 py-24 lg:py-32">
-        <div className="container-site">
-          <p className="eyebrow text-grey-600">Enjoy your work again</p>
+      {/* ------------------------------------------------------ Mechanism */}
+      <section className="bg-white py-24 lg:py-32">
+        {/* Stacked on mobile, two columns from lg. minmax(0,…) on both tracks
+            is what stops the intro clipping — grid children default to
+            min-width:auto and refuse to shrink below their content. */}
+        <div className="container-site grid gap-12 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.5fr)] lg:gap-20">
+          <div className="lg:sticky lg:top-28 lg:self-start">
+            <p className="eyebrow text-grey-600">Five steps, in this order, every time</p>
 
-          <div className="mt-8 grid gap-12 lg:grid-cols-[1fr_1.4fr]">
-            <h2 className="h-section text-navy">
-              We relieve service business owners from the repetitive tasks they hate the most.
-            </h2>
+            <p className="body-base mt-6 text-grey-600">
+              This isn&apos;t an AI agency pitch. AI use among Dutch small businesses roughly
+              doubled to 70% this past year, but more than half of that is someone writing text
+              or generating images. Here, AI goes exactly where a person would otherwise have to
+              read something and decide. Everything else runs as ordinary, testable code.
+            </p>
+          </div>
 
-            <div className="space-y-10">
-              {principles.map((p) => (
-                <div key={p.n} className="flex gap-8">
-                  <span className="text-4xl font-bold tracking-[-0.05em] text-brand">{p.n}</span>
-                  <div>
-                    <h3 className="text-xl font-medium tracking-[-0.03em] text-navy">{p.title}</h3>
-                    <p className="body-base mt-3 max-w-lg text-grey-600">{p.body}</p>
-                  </div>
+          <div className="space-y-10 lg:mt-0">
+            {mechanismSteps.map((s) => (
+              <div key={s.n} className="flex gap-6 sm:gap-8">
+                <span className="text-4xl font-bold tracking-[-0.05em] text-brand">{s.n}</span>
+                <div className="min-w-0">
+                  <h3 className="text-xl font-medium tracking-[-0.03em] text-navy">{s.title}</h3>
+                  <p className="body-base mt-3 text-grey-600">{s.body}</p>
                 </div>
-              ))}
-
-              <Button href="/#section-meeting" variant="brand">
-                Relieve me of time-consuming admin tasks
-              </Button>
-            </div>
+              </div>
+            ))}
           </div>
         </div>
       </section>
 
-      {/* --------------------------------------------------- Testimonial */}
-      <section className="bg-brand">
+      {/* ------------------------------------------------- Proof (Cupcake leads) */}
+      <section className="bg-surface-alt">
         <div className="container-site py-24 lg:py-28">
-          <Image
-            src="/img/dNraMAmDpigdLDLaOSq7yxj1zy8.png"
-            alt="Cupcake STHLM"
-            width={279}
-            height={208}
-            className="h-14 w-auto object-contain"
-          />
+          <p className="eyebrow text-ink-muted">Proof, not promises</p>
 
-          <blockquote className="mt-12 max-w-3xl text-2xl font-medium italic leading-tight tracking-[-0.03em] text-white md:text-[34px]">
+          <p className="mt-6 text-sm font-semibold uppercase tracking-wide text-navy">
+            8+ hours saved a week. 3 weeks to build.
+          </p>
+
+          <blockquote className="mt-4 max-w-3xl text-2xl font-medium italic leading-tight tracking-[-0.03em] text-navy md:text-[34px]">
             “Not only did I go from 2-3+ hours to less than 1 hour of admin a day (answering emails,
             sending offers, etc.). More importantly, I don&apos;t have the worry of &quot;Did I miss
             something or did I do it correct?&quot;
@@ -178,8 +154,8 @@ export default function HomePage() {
               className="h-14 w-14 rounded-xl object-cover"
             />
             <div>
-              <p className="text-base font-medium text-white">Alexander Cordova</p>
-              <p className="text-xs font-semibold text-accent">Marketing Specialist</p>
+              <p className="text-base font-medium text-navy">Alexander Cordova</p>
+              <p className="text-xs font-semibold text-ink-muted">Marketing Specialist, Cupcake STHLM</p>
             </div>
           </div>
 
@@ -189,228 +165,121 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ------------------------------------------- Before / after (dark) */}
-      <section className="bg-ink py-24 lg:py-32">
+      {/* ------------------------------------------- Proof (MeetPartner, second) */}
+      <section id="section-proof" className="bg-white py-24 lg:py-32">
         <div className="container-site">
-          <h2 className="h-section text-center text-white">
-            <span className="text-brand">An</span> example how...
+          <p className="eyebrow text-ink-muted">Not just faster</p>
+
+          <h2 className="h-section mt-4 max-w-2xl text-navy">
+            An invoice can be internally perfect and still be wrong
           </h2>
 
-          {/* Before */}
-          <div className="mt-20 grid gap-12 lg:grid-cols-2 lg:items-center">
-            <div>
-              <p className="eyebrow text-grey-500">Tiring, slow &amp; stressful</p>
-              <h3 className="h-section mt-4 text-white">You might be losing valuable time</h3>
-
-              <ol className="mt-10 space-y-6">
-                {beforeSteps.map((s, i) => (
-                  <li key={s} className="flex gap-4">
-                    <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full border border-brand text-xs text-brand">
-                      {i + 1}
-                    </span>
-                    <p className="body-base text-grey-400">{s}</p>
-                  </li>
-                ))}
-              </ol>
-            </div>
-
-            <div className="text-center">
-              <Image
-                src="/img/bbulW11EMwSjPI1vsuEIad3mPs.png"
-                alt="Hours tracking tool, data sheet and invoicing tool, each edited by hand"
-                width={2109}
-                height={731}
-                className="h-auto w-full"
-              />
-              <p className="mt-6 text-xl text-white">Long hours of boring manual work</p>
-            </div>
-          </div>
-
-          <p className="my-16 text-center text-2xl text-grey-500">vs</p>
-
-          {/* After */}
-          <div className="grid gap-12 lg:grid-cols-2 lg:items-center">
-            <div className="order-2 text-center lg:order-1">
-              <Image
-                src="/img/bqQoav1F23VXVUwzlnKMR9s1KXU.png"
-                alt="The same three tools, now connected and running automatically"
-                width={2109}
-                height={731}
-                className="h-auto w-full"
-              />
-              <p className="mt-6 text-xl text-white">Check. Approve. Done</p>
-            </div>
-
-            <div className="order-1 lg:order-2">
-              <p className="eyebrow text-brand">📈 Fast, reliable &amp; worry-free</p>
-              <h3 className="h-section mt-4 text-white">
-                The change <span className="text-grey-500">that gets back your time</span>
-              </h3>
-
-              <ol className="mt-10 space-y-6">
-                {afterSteps.map((s, i) => (
-                  <li key={s} className="flex gap-4">
-                    <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full border border-brand text-xs text-brand">
-                      {i + 1}
-                    </span>
-                    <p className="body-base text-grey-400">{s}</p>
-                  </li>
-                ))}
-              </ol>
-            </div>
-          </div>
-
-          <div className="mt-16 flex justify-center">
-            <Button href="/#section-meeting" variant="brand">
-              Yes, help me get back my time
-            </Button>
+          <div className="body-base mt-8 max-w-2xl space-y-5 text-ink-muted">
+            <p>
+              Freelancers on MeetPartner&apos;s survey teams submit their own weekly invoice.
+              One of them was flawless on its own terms: the math was right, the line items
+              added up, and the declared total matched his own numbers exactly. Every check
+              that looks at the paperwork alone would pass it.
+            </p>
+            <p>
+              Only one thing disagreed with it: MeetPartner&apos;s own independent
+              time-tracking record, which the invoice itself never touches. Catching that
+              means checking against a third source, not against itself.
+            </p>
+            <p className="text-navy">
+              This runs as a paid, ongoing engagement, not a one-off build.
+            </p>
           </div>
         </div>
       </section>
 
-      {/* ------------------------------------------- Universal plug (dark) */}
-      <section className="bg-ink pb-24 lg:pb-32">
-        <div className="container-site text-center">
-          <h2 className="h-section text-white">We make your current software work together</h2>
-
-          <Image
-            src="/img/z4PUBjQZy0f5ftktw8SqT2x3fc.png"
-            alt="A universal plug acting as an intelligent processor between Tool A and Tool B"
-            width={1513}
-            height={1246}
-            className="mx-auto mt-12 h-auto w-full max-w-5xl"
-          />
-
-          <p className="mt-8 text-lg text-grey-400">Imagine A Universal Plug</p>
-
-          <div className="body-base mx-auto mt-8 max-w-2xl space-y-4 text-grey-400">
-            <p>
-              You can plug it in practically every socket. This &quot;Intelligent Processor&quot;
-              (n8n) can plug into almost any software. We configure it to:
-            </p>
-            <p className="text-white">
-              Pull specific data from Tool A ➔ Transform it under set conditions ➔ Send it to Tool B.
-            </p>
-            <p>All in a few seconds… And the best thing?</p>
-          </div>
-        </div>
-      </section>
-
-      {/* ---------------------------------------------------- Methodology */}
-      <section className="bg-white py-24 lg:py-32">
+      {/* --------------------------------------------------- Offer ladder */}
+      <section className="bg-surface-alt py-24 lg:py-32">
         <div className="container-site">
-          <p className="eyebrow text-grey-600">Methodology</p>
-          <h2 className="h-section mt-4 max-w-3xl text-navy">
-            You don&apos;t need to change the software you use
+          <p className="eyebrow text-grey-600">How we start working together</p>
+          <h2 className="h-section mt-4 max-w-2xl text-navy">
+            Four steps, no long contract up front
           </h2>
 
-          <div className="body-base mt-10 max-w-2xl space-y-5 text-grey-600">
-            <p>
-              On a short call, you show us your current tools, walk us through how you do it today
-              and tell us what&apos;s stealing your time. After that, we design a workflow and
-              discuss this with you.
-            </p>
-            <p>Once approved, we handle the build, testing, and setup.</p>
-            <p>
-              You don’t need to change software, write documents, or learn a new system. If
-              something is unclear, we ask. If something breaks, we fix it.
-            </p>
-          </div>
+          <ol className="mt-12 max-w-2xl space-y-10">
+            <li>
+              <p className="text-lg font-medium text-navy">1. The Ops Call</p>
+              <p className="body-base mt-2 text-grey-600">
+                20 to 30 minutes. No pitch. You walk us through how work moves today and
+                where it gets stuck.
+              </p>
+            </li>
+            <li>
+              <p className="text-lg font-medium text-navy">2. The paid scope</p>
+              <p className="body-base mt-2 text-grey-600">
+                One working session, 60 to 90 minutes. You leave owning a document: where work
+                actually flows now, what those hours cost, a ranked list of what to fix first,
+                what not to automate, and a fixed price and go-live date for the first build.
+                Delivered within <strong>5 working days</strong> of the session.
+              </p>
+            </li>
+            <li>
+              <p className="text-lg font-medium text-navy">3. The build</p>
+              <p className="body-base mt-2 text-grey-600">
+                Quoted at the scope and held at that price through delivery, go-live date in
+                writing.
+              </p>
+              <p className="body-base mt-3 text-grey-600">
+                If it doesn&apos;t do what the scope said it would by that date, we keep
+                working until it does. No extra charge, no new scope. The scope document is
+                the definition of done: that&apos;s what bounds the promise and keeps it from
+                becoming unlimited rework.
+              </p>
+            </li>
+            <li>
+              <p className="text-lg font-medium text-navy">4. Hypercare</p>
+              <p className="body-base mt-2 text-grey-600">
+                Two to four weeks after go-live, so someone still owns the system while it
+                beds in. A retainer after that, if you want one.
+              </p>
+            </li>
+          </ol>
 
           <Button href="/#section-meeting" variant="brand" className="mt-12">
-            Let&apos;s hop on a call!
+            Book The Ops Call — 20 Minutes, No Pitch
           </Button>
         </div>
       </section>
 
-      {/* ------------------------------------------------------ Solutions */}
-      <section id="section-solutions" className="bg-grey-150 py-24 lg:py-32">
+      {/* --------------------------------------------------------- Pricing */}
+      <section className="bg-white py-24 lg:py-32">
         <div className="container-site">
-          <h2 className="h-section text-center text-brand">
-            The 3 most sought after <span className="text-grey-400">solutions</span>
-          </h2>
+          <p className="eyebrow text-grey-600">Pricing</p>
+          <h2 className="h-section mt-4 max-w-2xl text-navy">Two numbers, no rate card</h2>
 
-          <div className="mt-16 space-y-8">
-            <SolutionSystem
-              eyebrow="Time Multiplying System #1"
-              title="From logged hours to invoice,"
-              titleMuted="with your unique calculations."
-              blurb={[
-                "Hours flow straight into invoice tool, get checked and calculate where needed. Then send to your invoicing tool. No more worrying about payments.",
-              ]}
-              video="stfHh1bxQFY"
-              steps={[
-                { icon: "🕐", title: "Your hours tracking tool", body: "The automation extracts the hours tracked in the tool you're already using.", logos: hoursLogos },
-                { icon: "🗂️", title: "Your database", body: "Sends it to your database like Google Sheets, Excel or Airtable.", logos: dbLogos },
-                { icon: "🧾", title: "Your invoicing tool", body: "Customers and invoices are automatically created.", logos: invoiceLogos },
-                { icon: "✉️", title: "Send!", body: "Invoices and reminders are sent. Status automatically updated.", logos: sendLogos },
-              ]}
-            />
-
-            <SolutionSystem
-              eyebrow="Time Multiplying System #2"
-              title="Automatic email replies, customers, offers & invoices"
-              blurb={[
-                "With human control steps where you want them.",
-                "No more long hours checking spreadsheets, chasing timesheets, or rebuilding invoices. Approved hours flow straight into invoice tool. No more worrying about payments.",
-              ]}
-              steps={[
-                { icon: "📧", title: "Your email provider", body: "The system detects new relevant emails and pulls in the content.", logos: sendLogos },
-                { icon: "🤖", title: "Our A.I. Engine", body: "Reads the email and extracts key details into structured fields.", logos: [] },
-                { icon: "🗂️", title: "Your database", body: "Everything is stored in one place. Turns the request into an offer or invoice draft.", logos: dbLogos },
-                { icon: "🧾", title: "Your invoicing tool", body: "Creates the real offer/invoice in your invoicing tool and sends it to the customer.", logos: invoiceLogos },
-              ]}
-            />
-
-            <SolutionSystem
-              eyebrow="Time Multiplying System #3"
-              title="From form order to reply & offer in seconds"
-              blurb={[
-                "No more manually processing orders, allocating employees, chasing payments, or remembering follow-ups.",
-                "One flow from purchase, to invoicing, to sending out employees.",
-              ]}
-              steps={[
-                { icon: "🎯", title: "Capture lead", body: "Customer places an order or submits a request on your website", logos: [] },
-                { icon: "🗂️", title: "Your database", body: "Send it to your database like Google Sheets, Excel or Airtable.", logos: dbLogos },
-                { icon: "🧾", title: "Your invoicing tool", body: "Customers and invoices are automatically created.", logos: invoiceLogos },
-                { icon: "✉️", title: "Send!", body: "Invoices and reminders are sent. Status automatically updated.", logos: sendLogos },
-              ]}
-            />
+          <div className="mt-10 max-w-2xl space-y-8">
+            <div>
+              <p className="text-lg font-medium text-navy">The paid scope</p>
+              <p className="body-base mt-2 text-grey-600">
+                EUR 1,500, fixed. One working session, a document you own outright, delivered
+                within 5 working days.
+              </p>
+            </div>
+            <div>
+              <p className="text-lg font-medium text-navy">The build</p>
+              <p className="body-base mt-2 text-grey-600">
+                Typically EUR 10,000 to EUR 20,000, fixed at the scope stage and held through
+                delivery. The number depends on what the scope finds, not on hours worked.
+              </p>
+            </div>
           </div>
-        </div>
-      </section>
 
-      {/* ----------------------------------------- Single pain vs system */}
-      <section className="bg-ink py-24 lg:py-32">
-        <div className="container-site">
-          <p className="eyebrow text-grey-500">Methodology</p>
-
-          <h2 className="h-section mt-4 max-w-3xl">
-            <span className="text-grey-500">Relieve 1 single pain or...</span>
-            <br />
-            <span className="text-brand">Total relief with a complete system</span>
-          </h2>
-
-          <p className="body-base mt-8 max-w-xl text-grey-400">
-            We start with research and strategy, shape it into a strong creative direction, and
-            deliver branding, design, and web development that aligns with your goals. Simple,
-            effective, and always tailored to your business.
+          <p className="body-base mt-10 max-w-2xl text-grey-600">
+            No hourly rate. A fixed price with a guarantee attached to it answers a different
+            question than an hourly one does: not how many hours this takes, but what it costs
+            to fix.
           </p>
-
-          <div className="mt-10 flex flex-col gap-4">
-            <Link href="/#section-meeting" className="flex w-64 items-center justify-between text-base text-white hover:text-brand">
-              Let’s work together <span aria-hidden>→</span>
-            </Link>
-            <Link href="/works" className="flex w-64 items-center justify-between text-base text-white hover:text-brand">
-              Check our case studies <span aria-hidden>→</span>
-            </Link>
-          </div>
         </div>
       </section>
 
       <Faq />
       <MeetingSection />
-      <ContactSection />
+      <ContactSection minimal />
     </>
   );
 }

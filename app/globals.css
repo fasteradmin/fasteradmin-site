@@ -8,34 +8,68 @@
 @font-face { font-family: "Inter"; src: url("/fonts/Inter-500.woff2") format("woff2"); font-weight: 500; font-display: swap; }
 @font-face { font-family: "Inter"; src: url("/fonts/Inter-600.woff2") format("woff2"); font-weight: 600; font-display: swap; }
 @font-face { font-family: "Inter"; src: url("/fonts/Inter-700.woff2") format("woff2"); font-weight: 700; font-display: swap; }
-@font-face { font-family: "Open Runde"; src: url("/fonts/OpenRunde-400.woff2") format("woff2"); font-weight: 400; font-display: swap; }
 
 /* ---------------------------------------------------------------
-   Design tokens, extracted from the live Framer site
+   Design tokens — memory/visual-profiles/fasteradmin.md
+   Evidence: outputs/2026-08-05-brand-identity-market-fit.md
+
+   Grounds: white is primary, --color-surface-alt is the alternating
+   band, --color-navy appears exactly once (the bottom CTA) plus button
+   fills. The black bg-ink sections and the full-bleed brand-blue
+   testimonial are retired. Reference: code.visualstudio.com — one
+   ground, and the imagery carries the colour.
+
+   Still outstanding: the hero proof strip (needs the n8n Expert
+   Partner badge), team photography, and real redacted n8n/Airtable
+   screenshots. Without real artefacts a plain ground has nothing to
+   carry it.
    --------------------------------------------------------------- */
 @theme {
-  --color-brand: #0096f2;
-  --color-brand-dark: #0f67af;
-  --color-navy: #022848;
+  /* Accent. Was #0096f2, which is ~2.9:1 on white and fails AA for text
+     and links. #0a6fd1 is 4.6:1 and passes. */
+  --color-brand: #0a6fd1;
+  --color-brand-dark: #08579f;
+
+  --color-navy: #0e2a44;
   --color-ink: #000a12;
   --color-ink-soft: #001526;
-  --color-accent: #ff9922;
+
+  /* De-emphasised text on LIGHT grounds. Replaces --color-grey-400
+     (#d4d4d4 on #f1f1f1 is ~1.4:1 — reads as disabled or half-loaded,
+     not as de-emphasis). 4.9:1 on white. */
+  --color-ink-muted: #5a6b7a;
+
+  /* Logo orange, tightened. Mark and one CTA state only. */
+  --color-accent: #e8760d;
+
+  /* The only two page grounds. White is primary, surface-alt is the
+     alternating band. Navy is the single dark moment, at the bottom
+     CTA only. Reference: code.visualstudio.com — one ground, and the
+     imagery carries the colour. */
+  --color-surface-alt: #f4f6f8;
+
+  /* Hairlines and card borders. */
+  --color-line: #dfe4e9;
 
   --color-grey-50: #fcfcfc;
   --color-grey-100: #fafafa;
   --color-grey-150: #f5f5f5;
   --color-grey-200: #f1f1f1;
-  --color-grey-300: #e5e5e5;
+  --color-grey-300: #dfe4e9;
+  /* grey-400 is retained ONLY for muted text sitting on the dark
+     bg-ink sections, where it is legible. Never on a light ground —
+     use text-ink-muted there. */
   --color-grey-400: #d4d4d4;
   --color-grey-500: #999999;
   --color-grey-600: #7a7a7a;
   --color-grey-900: #1f1f1f;
 
+  /* One typeface. Open Runde dropped — Pineo, Comena, Hessian and
+     MinorCo each use exactly one family. */
   --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
-  --font-runde: "Open Runde", "Inter", sans-serif;
 
-  --radius-card: 24px;
-  --radius-block: 40px;
+  --radius-card: 12px;
+  --radius-block: 16px;
 }
 
 /* ---------------------------------------------------------------
@@ -49,7 +83,7 @@ html {
 
 body {
   font-family: var(--font-sans);
-  background: var(--color-grey-200);
+  background: #ffffff;
   color: var(--color-navy);
 }
 
@@ -69,52 +103,146 @@ main > section > *,
   min-width: 0;
 }
 
-/* Framer's headings run tight and negative-tracked. These utilities
-   reproduce that scale so headings match the original 1:1. */
+/* Type scale. Tracking now scales with size — the Framer original ran
+   -0.06em at every size, which closes counters below 40px, and -0.04em
+   on 16px body text. Headings also come down: 72px works for Hessian
+   and Auctor because their headlines are five words; these run two
+   full lines. */
 .h-display {
-  font-size: clamp(2.5rem, 4.4vw, 4rem);
-  line-height: 1.1;
+  font-size: clamp(2.25rem, 3.6vw, 3.25rem);
+  line-height: 1.08;
   font-weight: 600;
-  letter-spacing: -0.06em;
+  letter-spacing: -0.03em;
 }
 
 .h-section {
-  font-size: clamp(2rem, 3.4vw, 3rem);
-  line-height: 1.1;
+  font-size: clamp(1.75rem, 2.6vw, 2.5rem);
+  line-height: 1.12;
   font-weight: 600;
-  letter-spacing: -0.06em;
+  letter-spacing: -0.02em;
 }
 
 .h-card {
-  font-size: clamp(1.375rem, 1.6vw, 1.75rem);
-  line-height: 1.2;
+  font-size: 1.375rem;
+  line-height: 1.25;
   font-weight: 600;
-  letter-spacing: -0.04em;
+  letter-spacing: -0.01em;
 }
 
 .body-lg {
   font-size: 1.25rem;
   line-height: 1.5;
-  font-family: var(--font-runde);
 }
 
 .body-base {
-  font-size: 1rem;
-  line-height: 1.4;
-  letter-spacing: -0.04em;
+  font-size: 1.0625rem;
+  line-height: 1.6;
+  letter-spacing: 0;
 }
 
+/* The eyebrow carries the category and the AI vocabulary, per
+   memory/company/positioning.md. Uppercase with positive tracking,
+   matching Cofia's "RELIABLE AI FOR INTERNAL OPERATIONS". */
 .eyebrow {
   font-size: 0.75rem;
   line-height: 1.3;
-  letter-spacing: -0.04em;
-  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-weight: 600;
 }
 
-/* Section wrapper: the site uses a 1200px content column */
+/* Rendered markdown from content/blog. Deliberately hand-written rather
+   than pulling in @tailwindcss/typography — the type scale above is the
+   spec, and a plugin would bring its own opinions about it.
+
+   H2s are the GEO surface: an answer engine lifts a question heading plus
+   the paragraph beneath it, so they are sized to be scannable and given
+   room above. */
+.prose-post > * + * {
+  margin-top: 1.25em;
+}
+
+.prose-post h2 {
+  font-size: 1.5rem;
+  line-height: 1.25;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  color: var(--color-navy);
+  margin-top: 2.5em;
+}
+
+.prose-post h3 {
+  font-size: 1.1875rem;
+  line-height: 1.3;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  color: var(--color-navy);
+  margin-top: 2em;
+}
+
+.prose-post p,
+.prose-post li {
+  font-size: 1.0625rem;
+  line-height: 1.7;
+  color: var(--color-grey-600);
+}
+
+.prose-post ul,
+.prose-post ol {
+  padding-left: 1.25rem;
+}
+
+.prose-post ul { list-style: disc; }
+.prose-post ol { list-style: decimal; }
+.prose-post li + li { margin-top: 0.5em; }
+
+.prose-post a {
+  color: var(--color-brand);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.prose-post strong {
+  font-weight: 600;
+  color: var(--color-navy);
+}
+
+.prose-post blockquote {
+  border-left: 3px solid var(--color-line);
+  padding-left: 1.25rem;
+  font-style: italic;
+}
+
+.prose-post code {
+  font-size: 0.9375em;
+  background: var(--color-surface-alt);
+  padding: 0.125em 0.375em;
+  border-radius: 4px;
+}
+
+.prose-post pre {
+  background: var(--color-surface-alt);
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-card);
+  padding: 1.25rem;
+  overflow-x: auto;
+}
+
+.prose-post pre code {
+  background: none;
+  padding: 0;
+}
+
+.prose-post hr {
+  border: 0;
+  border-top: 1px solid var(--color-line);
+  margin-top: 2.5em;
+}
+
+/* 1120px content column */
 .container-site {
   width: 100%;
-  max-width: 1200px;
+  max-width: 1120px;
   margin-inline: auto;
   padding-inline: 24px;
 }

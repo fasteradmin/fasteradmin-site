@@ -1,4 +1,5 @@
 import Image from "next/image";
+import MeetingSection from "@/components/MeetingSection";
 import ContactSection from "@/components/ContactSection";
 
 export const metadata = {
@@ -57,7 +58,7 @@ const outcomes = [
 export default function CaseStudyPage() {
   return (
     <>
-      <section className="bg-grey-150">
+      <section className="bg-white">
         <div className="container-site py-20 lg:py-28">
           <dl className="flex flex-wrap gap-x-16 gap-y-6">
             <Meta label="Client" value="Cupcake STHLM" />
@@ -101,7 +102,7 @@ export default function CaseStudyPage() {
       />
 
       {/* Walkthrough video */}
-      <section className="bg-grey-200 py-16">
+      <section className="bg-surface-alt py-16">
         <div className="container-site">
           <div className="overflow-hidden rounded-[var(--radius-block)] bg-black">
             <div className="relative aspect-video w-full">
@@ -125,9 +126,9 @@ export default function CaseStudyPage() {
       </section>
 
       {/* Testimonial */}
-      <section className="bg-brand">
+      <section className="bg-surface-alt">
         <div className="container-site py-20">
-          <blockquote className="max-w-3xl text-2xl font-medium italic leading-tight tracking-[-0.03em] text-white md:text-[32px]">
+          <blockquote className="max-w-3xl text-2xl font-medium italic leading-tight tracking-[-0.03em] text-navy md:text-[32px]">
             “Not only did I go from 2-3+ hours to less than 1 hour of admin a day (answering emails,
             sending offers, etc.). More importantly, I don&apos;t have the worry of &quot;Did I miss
             something or did I do it correct?&quot;
@@ -142,15 +143,15 @@ export default function CaseStudyPage() {
               className="h-14 w-14 rounded-xl object-cover"
             />
             <div>
-              <p className="text-base font-medium text-white">Alexander Cordova</p>
-              <p className="text-xs font-semibold text-accent">Marketing Specialist</p>
+              <p className="text-base font-medium text-navy">Alexander Cordova</p>
+              <p className="text-xs font-semibold text-ink-muted">Marketing Specialist</p>
             </div>
           </div>
         </div>
       </section>
 
       {/* Relevance */}
-      <section className="bg-grey-200 py-24">
+      <section className="bg-surface-alt py-24">
         <div className="container-site">
           <p className="eyebrow text-grey-600">Recognise these problems?</p>
           <h2 className="h-section mt-4 text-navy">This case is relevant if…</h2>
@@ -227,12 +228,12 @@ export default function CaseStudyPage() {
       </section>
 
       {/* What we built */}
-      <section className="bg-ink py-24">
+      <section className="bg-white py-24">
         <div className="container-site">
-          <h2 className="h-section text-white">What we actually built</h2>
+          <h2 className="h-section text-navy">What we actually built</h2>
           <p className="mt-6 text-xl text-brand">Core idea: Turn email chaos into a clean pipeline</p>
 
-          <div className="body-base mt-8 max-w-2xl space-y-4 text-grey-400">
+          <div className="body-base mt-8 max-w-2xl space-y-4 text-ink-muted">
             <p>
               We created a central base in a program called Airtable (think Google Sheets or Excel
               2.0) where all information is stored and controlled in a custom designed interface.
@@ -247,7 +248,7 @@ export default function CaseStudyPage() {
             {built.map((b) => (
               <li
                 key={b}
-                className="rounded-[40px] border border-white/10 bg-white/5 px-6 py-4 text-sm text-white"
+                className="rounded-[40px] border border-line bg-white px-6 py-4 text-sm text-navy"
               >
                 {b}
               </li>
@@ -267,7 +268,7 @@ export default function CaseStudyPage() {
             ))}
           </div>
 
-          <div className="body-base mt-10 max-w-2xl space-y-4 text-grey-400">
+          <div className="body-base mt-10 max-w-2xl space-y-4 text-ink-muted">
             <p>
               By just clicking a few buttons the client generates emails, registers new clients and
               creates offers.
@@ -280,7 +281,7 @@ export default function CaseStudyPage() {
       </section>
 
       {/* Outcomes */}
-      <section className="bg-grey-200 py-24">
+      <section className="bg-surface-alt py-24">
         <div className="container-site">
           <h2 className="h-section text-navy">Key Outcomes</h2>
 
@@ -295,7 +296,8 @@ export default function CaseStudyPage() {
         </div>
       </section>
 
-      <ContactSection />
+      <MeetingSection />
+      <ContactSection minimal />
     </>
   );
 }
@@ -314,7 +316,7 @@ function Meta({ label, value, icon }) {
 
 function Panel({ title, items, tone, img }) {
   return (
-    <div className="rounded-[var(--radius-block)] bg-grey-150 p-8">
+    <div className="rounded-[var(--radius-block)] bg-surface-alt p-8">
       {img && (
         <Image
           src={`/img/${img}`}

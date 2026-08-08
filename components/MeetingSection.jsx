@@ -9,17 +9,15 @@ import BookingWidget from "@/components/BookingWidget";
  */
 export default function MeetingSection() {
   return (
-    <section id="section-meeting" className="bg-grey-100">
+    <section id="section-meeting" className="bg-white">
       <div className="container-site grid gap-12 py-24 lg:grid-cols-2 lg:py-32">
         <div>
-          <h2 className="h-section text-navy">
-            Want to find out where you too, can get more done in less time?
-          </h2>
-          <p className="h-section mt-2 text-brand">Book a short meeting now.</p>
+          <h2 className="h-section text-navy">The Ops Call</h2>
+          <p className="h-section mt-2 text-brand">20 to 30 minutes. No pitch.</p>
 
           <p className="body-base mt-8 max-w-md text-grey-600">
-            Go through your current set-up with one of our experts, get honest advice, and a team
-            that cares about the outcome as much as you do.
+            You walk us through how work moves today and where it gets stuck. If it&apos;s not a
+            fit, you&apos;ll know by the end of the call.
           </p>
         </div>
 

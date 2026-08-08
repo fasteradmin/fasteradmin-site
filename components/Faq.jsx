@@ -6,20 +6,24 @@ import { useState } from "react";
 
 const items = [
   {
-    q: "How long does a project take?",
-    a: "Most projects fall between 2 and 8 weeks, depending on complexity. A brand identity with a simple website might take closer to two weeks, while a larger project with UX, UI, and multiple page templates could take longer.",
+    q: "Do we need to change the tools we already use?",
+    a: "No. We connect what you have. Changing tools is a separate conversation, and usually not the first one worth having.",
   },
   {
-    q: "What do I need to get started?",
-    a: "Yes — that’s part of our process. We design websites that don’t require a developer for every small change. You’ll be able to update content, add projects, write blog posts, and adjust visuals without technical stress. We also provide a short training session or handoff guide, so your team feels confident managing things internally. Think of it as future-proofing your investment.",
+    q: "What if this turns into a six-month project?",
+    a: "The price and the go-live date get fixed at the scope stage, in writing, before the build starts. Not after.",
   },
   {
-    q: "Do I need to change software?",
-    a: "Not at all. We work with companies at every stage. If you already have a brand system, we’ll refine and extend it. If you’re starting from scratch, we’ll guide you through strategy, naming, identity, and tone of voice before we move into design. Many of our clients came to us with just an idea — by the time we launched, they had a full brand and website they could grow with.",
+    q: "What if it just doesn't work?",
+    a: "The scope document defines what \"working\" means before the build starts, so there's a fixed line for what's included. If it doesn't do that by the go-live date, we fix it at no extra charge. Work outside what the scope defined is a new scope, not unlimited rework on the old one.",
   },
   {
-    q: "Do you offer support after launch?",
-    a: "Yes. Design and branding don’t end at launch day. We provide post-launch support for small fixes, adjustments, or questions in the first weeks. For brands that want ongoing help — adding new pages, refreshing visuals, optimizing UX — we offer retainer options. This means you’ll always have us as a creative partner when you need to evolve or scale.",
+    q: "What happens after launch?",
+    a: "Two to four weeks of hypercare while the system runs against real volume. Then a retainer if you want ongoing changes, or nothing if you don't.",
+  },
+  {
+    q: "Does the scope fee count toward the build?",
+    a: "No, it's a separate purchase. You own the document either way, and what you do with it afterward, including building with someone else, is up to you.",
   },
 ];
 
@@ -27,7 +31,7 @@ export default function Faq() {
   const [open, setOpen] = useState(0);
 
   return (
-    <section className="bg-grey-200">
+    <section className="bg-surface-alt">
       <div className="container-site py-24 lg:py-32">
         <div className="grid gap-12 lg:grid-cols-[1fr_1.6fr]">
           <div>
@@ -40,7 +44,7 @@ export default function Faq() {
 
             <h2 className="h-section mt-6 text-navy">
               Here are some of the things{" "}
-              <span className="text-grey-400">most clients want to know.</span>
+              <span className="text-ink-muted">most clients want to know.</span>
             </h2>
 
             <p className="body-base mt-8 text-grey-600">

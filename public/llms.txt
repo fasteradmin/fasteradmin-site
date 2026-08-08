@@ -1,0 +1,42 @@
+# FasterAdmin
+
+> FasterAdmin builds operations systems that let a 20 to 50 person company
+> handle more work without hiring for it. Based in Amsterdam, three people,
+> no subcontractors. We connect the tools a company already uses, put AI only
+> where a person would otherwise have to read something and decide, and keep
+> the rest as ordinary testable code.
+
+## What we do
+
+- Build operations systems on n8n, Airtable and Supabase, inside the tools a
+  client already has open. No new software to learn, no data migration.
+- Put AI where judgement is needed (reading an email, classifying a request,
+  extracting from a document) and deterministic code everywhere else.
+- Stay on through hypercare after go-live, then optionally on retainer.
+
+## How an engagement works
+
+1. A free 20 minute call, no pitch.
+2. A paid scope, EUR 1,500 fixed, delivered within five working days of one
+   working session. The client owns the document outright.
+3. A fixed-price build, quoted at the scope and held through delivery, with a
+   go-live date in writing.
+4. Two to four weeks of hypercare after go-live.
+
+## Who it is for
+
+Service businesses of roughly 20 to 50 employees, usually owner-led, where the
+work has outgrown how it is organised. Common trigger: a role they cannot fill.
+
+## Pages
+
+- [Home](https://fasteradmin.com/): what we build and who for
+- [About](https://fasteradmin.com/about/): the team and how an engagement starts
+- [Work](https://fasteradmin.com/works/): case studies
+- [Blog](https://fasteradmin.com/blog/): how operations break, and what fixing
+  them costs
+- [Contact](https://fasteradmin.com/contact/): book the Ops Call
+
+## Contact
+
+joey@getfasteradmin.com

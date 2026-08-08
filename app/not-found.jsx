@@ -4,7 +4,7 @@ export const metadata = { title: "Page not found | FasterAdmin.com" };
 
 export default function NotFound() {
   return (
-    <section className="bg-grey-150">
+    <section className="bg-white">
       <div className="container-site flex min-h-[60vh] flex-col justify-center py-24">
         <p className="eyebrow text-brand">404</p>
         <h1 className="h-display mt-4 max-w-2xl text-navy">

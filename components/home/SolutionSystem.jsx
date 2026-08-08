@@ -20,7 +20,7 @@ export default function SolutionSystem({
         <div>
           <p className="eyebrow text-brand">{eyebrow}</p>
           <h3 className="h-section mt-4 text-navy">
-            {title} {titleMuted && <span className="text-grey-400">{titleMuted}</span>}
+            {title} {titleMuted && <span className="text-ink-muted">{titleMuted}</span>}
           </h3>
           <div className="body-base mt-6 max-w-md space-y-4 text-grey-600">
             {blurb.map((p) => (

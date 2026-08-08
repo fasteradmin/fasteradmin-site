@@ -27,7 +27,7 @@ const columns = [
 
 export default function Footer() {
   return (
-    <footer className="bg-grey-200">
+    <footer className="bg-surface-alt">
       <div className="container-site py-20">
         <div className="grid gap-12 md:grid-cols-[1fr_2fr]">
           <div>
@@ -40,8 +40,12 @@ export default function Footer() {
             <p className="mt-3 text-xs text-grey-600">
               Automating repetitive manual tasks you hate.
             </p>
-            <p className="mt-8 h-card max-w-sm text-grey-400">
-              Stop Letting Admin Tasks Steal Your Time. Automate it. Get Your Time Back.
+            <p className="mt-8 h-card max-w-sm text-ink-muted">
+              The operations systems that let you handle more work without hiring for it.
+            </p>
+            <p className="mt-4 max-w-sm text-xs text-grey-600">
+              Amsterdam, EU. Your data stays in the tools you already use, not shared or sold
+              to anyone else.
             </p>
           </div>
 

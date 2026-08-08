@@ -1,0 +1,72 @@
+# Netlify configuration.
+#
+# This is a Next.js STATIC EXPORT (`output: "export"` in next.config.mjs).
+# There is no server, no serverless function and no ISR. Do NOT install the
+# Next.js Netlify plugin — it is for server-rendered Next and will fight the
+# export. Netlify just serves the contents of out/ as files.
+
+[build]
+  command = "npm run build"
+  publish = "out"
+
+[build.environment]
+  NODE_VERSION = "20"
+
+# ---------------------------------------------------------------------------
+# Redirects
+#
+# The old Framer site is being replaced. Anything that existed there and does
+# not exist here needs to resolve, or inbound links and any indexed URL 404.
+# See REBUILD-NOTES.md for the full list of pages that were not rebuilt.
+# ---------------------------------------------------------------------------
+
+# /articles held four posts of leftover brand and web-design content, off the
+# current positioning. The blog replaces it. 301 so any accumulated equity
+# follows, rather than being thrown away.
+[[redirects]]
+  from = "/articles"
+  to = "/blog/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/articles/*"
+  to = "/blog/"
+  status = 301
+  force = true
+
+# ---------------------------------------------------------------------------
+# Voice-assistant pages. Decided 2026-08-08: all point at the homepage for now.
+#
+# Five were live on Framer at cutover: /voice-assistant, -restv2, -beautyv1,
+# -book-meeting, and /voice-assistant-sc-gentle-clinics. That last one is
+# reachable but absent from Framer's sitemap, so anything working off the
+# sitemap alone would have missed it.
+#
+# The wildcard is deliberate: it catches per-clinic pages whether or not we
+# knew they existed.
+#
+# WHEN THE COMBINED VOICE + WHATSAPP PAGE SHIPS, repoint the `to` below at it.
+# A clinic prospect clicking their personalised link currently lands on a
+# general automation homepage: survivable, not ideal.
+# ---------------------------------------------------------------------------
+
+[[redirects]]
+  from = "/voice-assistant"
+  to = "/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/voice-assistant*"
+  to = "/"
+  status = 301
+  force = true
+
+# Framer's own internal asset page. No equivalent here, but it is in the old
+# sitemap so it may be indexed.
+[[redirects]]
+  from = "/image-library"
+  to = "/"
+  status = 301
+  force = true

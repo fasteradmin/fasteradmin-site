@@ -4,24 +4,24 @@ import ContactSection from "@/components/ContactSection";
 export const metadata = {
   title: "Contact | FasterAdmin.com",
   description:
-    "Book a short meeting. Go through your current set-up with one of our experts and get honest advice.",
+    "Book The Ops Call: 20 to 30 minutes, no pitch. Walk us through how work moves today and where it gets stuck.",
 };
 
 export default function ContactPage() {
   return (
     <>
-      <section className="bg-grey-150">
+      <section className="bg-white">
         <div className="container-site py-20 lg:py-24">
-          <p className="eyebrow text-grey-600">Contact</p>
+          <p className="eyebrow text-grey-600">Book The Ops Call</p>
           <h1 className="h-display mt-4 max-w-3xl text-navy">
-            Want to find out where you too, can optimize your workflow?
+            Twenty minutes, no pitch.
           </h1>
-          <p className="h-display mt-2 text-brand">Book a short meeting now.</p>
+          <p className="h-display mt-2 text-brand">Pick a time below.</p>
         </div>
       </section>
 
       <MeetingSection />
-      <ContactSection />
+      <ContactSection minimal />
     </>
   );
 }

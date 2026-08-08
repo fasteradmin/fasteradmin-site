@@ -5,13 +5,13 @@ import Analytics, { GtmNoScript } from "@/components/Analytics";
 
 export const metadata = {
   metadataBase: new URL("https://fasteradmin.com"),
-  title: "FasterAdmin.com | Automating Repetitive Manual Tasks For Businesses",
+  title: "FasterAdmin.com | Get the work done, without the hire you can't make",
   description:
-    "Stop Letting Admin Tasks Steal Your Time. Automate it. Get Your Time Back. We connect your current tools into one smooth workflow that runs itself. No switching software needed.",
+    "We put AI where someone has to read something and decide, and reliable code everywhere else, so it keeps running after go-live.",
   openGraph: {
-    title: "FasterAdmin.com | Automating Repetitive Manual Tasks For Businesses",
+    title: "FasterAdmin.com | Get the work done, without the hire you can't make",
     description:
-      "We connect your current tools into one smooth workflow that runs itself. No switching software needed.",
+      "We put AI where someone has to read something and decide, and reliable code everywhere else, so it keeps running after go-live.",
     url: "https://fasteradmin.com",
     siteName: "Faster Admin",
     type: "website",

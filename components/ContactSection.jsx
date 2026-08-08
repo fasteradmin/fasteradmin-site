@@ -19,7 +19,7 @@ const FORM_ENDPOINT = process.env.NEXT_PUBLIC_FORM_ENDPOINT || "";
 const FA_TOKEN = process.env.NEXT_PUBLIC_FA_TOKEN || "";
 export const CONTACT_EMAIL = "joey@getfasteradmin.com";
 
-export default function ContactSection() {
+export default function ContactSection({ minimal = false }) {
   const [state, setState] = useState("idle");
   // When this form rendered. The workflow rejects submissions that arrive
   // faster than a human could plausibly type. See the Abuse Gate node.
@@ -93,18 +93,36 @@ export default function ContactSection() {
     }
   }
 
+  // Contact already leads with The Ops Call above this section on /contact.
+  // A second full form here would be a second primary action, not a fallback,
+  // so this variant drops the form entirely and leaves one plain line.
+  if (minimal) {
+    return (
+      <section id="section-contact" className="bg-navy">
+        <div className="container-site py-16 lg:py-20">
+          <p className="body-base max-w-md text-grey-400">
+            Rather send a message first than pick a time?{" "}
+            <a
+              href={`mailto:${CONTACT_EMAIL}`}
+              className="text-brand hover:text-white"
+            >
+              {CONTACT_EMAIL}
+            </a>
+          </p>
+        </div>
+      </section>
+    );
+  }
+
   return (
     <section id="section-contact" className="bg-navy">
       <div className="container-site grid gap-16 py-24 lg:grid-cols-2 lg:py-32">
         <div>
-          <h2 className="h-section text-white">
-            If you&apos;re tired of repetitive manual admin work, and ready to get your time back.
-          </h2>
-          <p className="h-section mt-2 text-brand">Fill in the form below now.</p>
+          <h2 className="h-section text-white">Not ready to pick a time yet?</h2>
+          <p className="h-section mt-2 text-brand">Send us what&apos;s going on instead.</p>
           <p className="body-base mt-8 max-w-md text-grey-400">
-            Go through your current set-up with one of our experts, get honest advice, and a team
-            that cares about the outcome as much as you do. Whether you prefer a quick call or a
-            simple email, getting started is easy.
+            Tell us how work moves today and where it gets stuck. We&apos;ll read it and get
+            back to you.
           </p>
           <a
             href={`mailto:${CONTACT_EMAIL}`}

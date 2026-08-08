@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import MeetingSection from "@/components/MeetingSection";
 import ContactSection from "@/components/ContactSection";
 
 export const metadata = {
@@ -24,7 +25,7 @@ const cases = [
 export default function WorksPage() {
   return (
     <>
-      <section className="bg-grey-150">
+      <section className="bg-white">
         <div className="container-site py-20 lg:py-28">
           <h1 className="h-display text-navy">Case studies</h1>
           <p className="body-base mt-8 max-w-2xl text-grey-600">
@@ -34,7 +35,7 @@ export default function WorksPage() {
         </div>
       </section>
 
-      <section className="bg-grey-200 py-16 lg:py-24">
+      <section className="bg-surface-alt py-16 lg:py-24">
         <div className="container-site">
           <div className="grid gap-8 md:grid-cols-2">
             {cases.map((c) => (
@@ -66,7 +67,8 @@ export default function WorksPage() {
         </div>
       </section>
 
-      <ContactSection />
+      <MeetingSection />
+      <ContactSection minimal />
     </>
   );
 }

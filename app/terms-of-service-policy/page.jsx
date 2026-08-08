@@ -2,12 +2,6 @@ import PolicyPage from "@/components/PolicyPage";
 
 export const metadata = { title: "Terms of Service - Policy" };
 
-/*
- * ⚠️ Reproduced verbatim from the Framer site per the 1:1 rebuild rule.
- * Known defect carried over intentionally: the intro line reads "By working
- * with Noora" — a different company's name, left over from the purchased
- * template. Needs fixing before or shortly after launch.
- */
 const blocks = [
   {
     heading: "1. Scope of Work",
@@ -85,7 +79,7 @@ export default function TermsOfService() {
   return (
     <PolicyPage
       title="Terms of Service"
-      intro="By working with Noora or using our website, you agree to the terms below."
+      intro="By working with FasterAdmin or using our website, you agree to the terms below."
       blocks={blocks}
     />
   );
