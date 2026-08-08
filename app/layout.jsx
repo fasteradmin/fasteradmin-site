@@ -2,6 +2,12 @@ import "./globals.css";
 import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
 import Analytics, { GtmNoScript } from "@/components/Analytics";
+import {
+  FORM_ENDPOINT,
+  AVAILABILITY_ENDPOINT,
+  BOOKING_ENDPOINT,
+  TURNSTILE_SITE_KEY,
+} from "@/lib/config";
 
 // Fail the build rather than ship a site that looks fine and does nothing.
 //
@@ -16,25 +22,26 @@ import Analytics, { GtmNoScript } from "@/components/Analytics";
 // dashboard will beat .env.production and inline as "" — hence checking the
 // resolved value here, not merely that a file exists.
 if (process.env.NODE_ENV === "production") {
-  const required = {
-    NEXT_PUBLIC_FORM_ENDPOINT: process.env.NEXT_PUBLIC_FORM_ENDPOINT,
-    NEXT_PUBLIC_AVAILABILITY_ENDPOINT: process.env.NEXT_PUBLIC_AVAILABILITY_ENDPOINT,
-    NEXT_PUBLIC_BOOKING_ENDPOINT: process.env.NEXT_PUBLIC_BOOKING_ENDPOINT,
-    NEXT_PUBLIC_TURNSTILE_SITE_KEY: process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY,
-  };
-
-  const missing = Object.entries(required)
+  // Checks the RESOLVED config, not raw env. lib/config.js falls back to
+  // literals, so this should now be unreachable — it stays as a backstop in
+  // case an override sets one of these to an empty string, which would
+  // otherwise sail through and ship a dead form again.
+  const missing = Object.entries({
+    FORM_ENDPOINT,
+    AVAILABILITY_ENDPOINT,
+    BOOKING_ENDPOINT,
+    TURNSTILE_SITE_KEY,
+  })
     .filter(([, v]) => !v || !String(v).trim())
     .map(([k]) => k);
 
   if (missing.length) {
     throw new Error(
-      `Production build aborted. These variables resolved empty:\n` +
+      `Production build aborted. Config resolved empty:\n` +
         missing.map((m) => `  - ${m}`).join("\n") +
-        `\n\nThey are defined in .env.production, so an empty value here means ` +
-        `something is overriding it — most likely an empty or mistyped entry ` +
-        `in the hosting provider's dashboard, which takes precedence over ` +
-        `.env files. Remove the dashboard entry or give it the correct value.`,
+        `\n\nlib/config.js provides literal fallbacks, so an empty value here ` +
+        `means an environment variable is explicitly overriding it with "". ` +
+        `Check the hosting provider's environment variables.`,
     );
   }
 }

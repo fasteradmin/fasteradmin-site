@@ -2,7 +2,9 @@
 
 import { useEffect, useRef, useState } from "react";
 
-export const TURNSTILE_SITE_KEY = process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY || "";
+import { TURNSTILE_SITE_KEY } from "@/lib/config";
+
+export { TURNSTILE_SITE_KEY };
 
 const SCRIPT_SRC = "https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit";
 

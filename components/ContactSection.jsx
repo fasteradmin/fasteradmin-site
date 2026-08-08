@@ -15,9 +15,9 @@ import Turnstile, { resetTurnstile } from "@/components/Turnstile";
  *     client prefilled to CONTACT_EMAIL. Not as good as a real handler, but it
  *     means the form is never a dead end and no lead is silently dropped.
  */
-const FORM_ENDPOINT = process.env.NEXT_PUBLIC_FORM_ENDPOINT || "";
-const FA_TOKEN = process.env.NEXT_PUBLIC_FA_TOKEN || "";
-export const CONTACT_EMAIL = "joey@getfasteradmin.com";
+import { FORM_ENDPOINT, FA_TOKEN, CONTACT_EMAIL } from "@/lib/config";
+
+export { CONTACT_EMAIL };
 
 export default function ContactSection({ minimal = false }) {
   const [state, setState] = useState("idle");

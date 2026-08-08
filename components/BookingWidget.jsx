@@ -3,9 +3,7 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import Turnstile, { resetTurnstile } from "@/components/Turnstile";
 
-const AVAILABILITY_ENDPOINT = process.env.NEXT_PUBLIC_AVAILABILITY_ENDPOINT || "";
-const BOOKING_ENDPOINT = process.env.NEXT_PUBLIC_BOOKING_ENDPOINT || "";
-const FA_TOKEN = process.env.NEXT_PUBLIC_FA_TOKEN || "";
+import { AVAILABILITY_ENDPOINT, BOOKING_ENDPOINT, FA_TOKEN } from "@/lib/config";
 
 const headers = {
   "Content-Type": "application/json",
