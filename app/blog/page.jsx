@@ -1,12 +1,13 @@
 import Link from "next/link";
 import { getPublishedPosts, formatDate } from "@/lib/posts";
+import { pageMetadata } from "@/lib/seo";
 
-export const metadata = {
+export const metadata = pageMetadata({
+  path: "/blog",
   title: "Blog | FasterAdmin",
   description:
     "How operations actually break in 20 to 50 person companies, and what it costs to fix.",
-  alternates: { canonical: "https://fasteradmin.com/blog/" },
-};
+});
 
 export default function BlogIndex() {
   const posts = getPublishedPosts();

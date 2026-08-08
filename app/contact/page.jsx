@@ -1,11 +1,13 @@
 import MeetingSection from "@/components/MeetingSection";
 import ContactSection from "@/components/ContactSection";
+import { pageMetadata } from "@/lib/seo";
 
-export const metadata = {
+export const metadata = pageMetadata({
+  path: "/contact",
   title: "Contact | FasterAdmin.com",
   description:
     "Book The Ops Call: 20 to 30 minutes, no pitch. Walk us through how work moves today and where it gets stuck.",
-};
+});
 
 export default function ContactPage() {
   return (

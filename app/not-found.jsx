@@ -1,6 +1,15 @@
 import Button from "@/components/Button";
+import { pageMetadata } from "@/lib/seo";
 
-export const metadata = { title: "Page not found | FasterAdmin.com" };
+// noIndex, and therefore no canonical: a 404 body can be served under any URL,
+// so a self-referencing canonical here would invite indexing the very pages
+// this page exists to reject.
+export const metadata = pageMetadata({
+  path: "/404",
+  title: "Page not found | FasterAdmin.com",
+  description: "The page you're looking for doesn't exist or has moved.",
+  noIndex: true,
+});
 
 export default function NotFound() {
   return (

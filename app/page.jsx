@@ -3,6 +3,17 @@ import Button from "@/components/Button";
 import Faq from "@/components/Faq";
 import MeetingSection from "@/components/MeetingSection";
 import ContactSection from "@/components/ContactSection";
+import { pageMetadata } from "@/lib/seo";
+
+// The homepage previously exported no metadata at all and inherited title and
+// description from the layout. That worked for both, but it also meant the
+// most-linked page on the site carried no canonical.
+export const metadata = pageMetadata({
+  path: "/",
+  title: "FasterAdmin.com | Get the work done, without the hire you can't make",
+  description:
+    "We put AI where someone has to read something and decide, and reliable code everywhere else, so it keeps running after go-live.",
+});
 
 const mechanismSteps = [
   {

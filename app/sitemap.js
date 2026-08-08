@@ -1,6 +1,5 @@
 import { getPublishedPosts } from "@/lib/posts";
-
-const BASE = "https://fasteradmin.com";
+import { SITE_URL as BASE } from "@/lib/seo";
 
 const routes = [
   "/",

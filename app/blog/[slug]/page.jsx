@@ -2,8 +2,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import Button from "@/components/Button";
 import { getPost, getPostSlugs, renderMarkdown, formatDate } from "@/lib/posts";
-
-const BASE = "https://fasteradmin.com";
+import { absoluteUrl, pageMetadata, ORG_ID, OG_IMAGE, SITE_URL } from "@/lib/seo";
 
 /**
  * Only published slugs are returned, so a future-dated post is never built
@@ -19,22 +18,27 @@ export function generateMetadata({ params }) {
   const post = getPost(params.slug);
   if (!post) return {};
 
-  const url = `${BASE}/blog/${post.slug}/`;
-
-  return {
+  return pageMetadata({
+    path: `/blog/${post.slug}`,
     title: `${post.title} | FasterAdmin`,
     description: post.description,
-    alternates: { canonical: url },
+    // A post may ship its own share card via an `image` field in frontmatter.
+    // Most will not, and fall back to the site default rather than to nothing.
+    image: post.image
+      ? { url: post.image, width: 1200, height: 630, alt: post.title }
+      : OG_IMAGE,
     openGraph: {
       type: "article",
+      // The share card shows the post's own title, not the "| FasterAdmin"
+      // suffixed <title> — the suffix is wasted characters in a link preview.
       title: post.title,
       description: post.description,
-      url,
       publishedTime: post.publishedAt.toISOString(),
       modifiedTime: (post.updatedAt ?? post.publishedAt).toISOString(),
       authors: [post.author],
+      tags: post.tags,
     },
-  };
+  });
 }
 
 export default function BlogPost({ params }) {
@@ -43,8 +47,15 @@ export default function BlogPost({ params }) {
 
   const html = renderMarkdown(post.content);
 
+  const url = absoluteUrl(`/blog/${post.slug}`);
+
   // BlogPosting schema. This is the main lever for being quotable by an
   // answer engine: it states plainly who wrote it, when, and what it is about.
+  //
+  // `publisher` is now a reference to the Organization node emitted by the root
+  // layout rather than a second, thinner copy of it. Two Organization objects
+  // with the same name and no shared @id read as two entities; one node plus a
+  // reference reads as one business that also publishes a blog.
   const schema = {
     "@context": "https://schema.org",
     "@type": "BlogPosting",
@@ -53,12 +64,10 @@ export default function BlogPost({ params }) {
     datePublished: post.publishedAt.toISOString(),
     dateModified: (post.updatedAt ?? post.publishedAt).toISOString(),
     author: { "@type": "Person", name: post.author },
-    publisher: {
-      "@type": "Organization",
-      name: "FasterAdmin",
-      url: BASE,
-    },
-    mainEntityOfPage: { "@type": "WebPage", "@id": `${BASE}/blog/${post.slug}/` },
+    publisher: { "@id": ORG_ID },
+    image: `${SITE_URL}${post.image ?? OG_IMAGE.url}`,
+    mainEntityOfPage: { "@type": "WebPage", "@id": url },
+    url,
     keywords: post.tags.join(", "),
   };
 

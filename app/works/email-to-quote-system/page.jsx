@@ -1,13 +1,16 @@
 import Image from "next/image";
 import MeetingSection from "@/components/MeetingSection";
 import ContactSection from "@/components/ContactSection";
+import { pageMetadata } from "@/lib/seo";
 
-export const metadata = {
+export const metadata = pageMetadata({
+  path: "/works/email-to-quote-system",
   title:
     "Cupcake STHLM - How We Save A Bakery 40h+ A Month With Email Order Handling Automation",
   description:
     "From 2-3 hours of manually replying to emails and copy/pasting details into their invoicing system, to less than 1 hour a day.",
-};
+  openGraph: { type: "article" },
+});
 
 const relevantIf = [
   "Most of your jobs start with a custom request by email or WhatsApp",

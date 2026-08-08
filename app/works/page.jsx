@@ -2,12 +2,14 @@ import Image from "next/image";
 import Link from "next/link";
 import MeetingSection from "@/components/MeetingSection";
 import ContactSection from "@/components/ContactSection";
+import { pageMetadata } from "@/lib/seo";
 
-export const metadata = {
+export const metadata = pageMetadata({
+  path: "/works",
   title: "Case studies | FasterAdmin.com",
   description:
     "Stop guessing what automation can do. Here are the real builds: the workflow, the tools we connected, and the time we removed from the week.",
-};
+});
 
 // Case studies are data, not markup. Adding one is a new entry here plus a
 // page under app/works/<slug>/.

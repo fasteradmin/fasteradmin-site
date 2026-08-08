@@ -1,6 +1,12 @@
 import PolicyPage from "@/components/PolicyPage";
+import { pageMetadata } from "@/lib/seo";
 
-export const metadata = { title: "Privacy - Policy" };
+export const metadata = pageMetadata({
+  path: "/privacy-policy-policy",
+  title: "Privacy - Policy",
+  description:
+    "How FasterAdmin collects, uses and stores your data, and how to exercise your rights under the GDPR.",
+});
 
 const blocks = [
   {

@@ -3,12 +3,14 @@ import Link from "next/link";
 import Button from "@/components/Button";
 import MeetingSection from "@/components/MeetingSection";
 import ContactSection from "@/components/ContactSection";
+import { pageMetadata } from "@/lib/seo";
 
-export const metadata = {
+export const metadata = pageMetadata({
+  path: "/about",
   title: "About | FasterAdmin.com",
   description:
     "FasterAdmin builds the operations systems that let a 20-50 person company handle more work without hiring for it.",
-};
+});
 
 const team = [
   { name: "Joey Tan", role: "Founder", img: "cikrWotQJls4kqizrkcGapqI25k.png" },
