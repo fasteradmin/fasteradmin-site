@@ -3,6 +3,7 @@ title: "An invoice can be internally perfect and still be wrong"
 description: "Every figure adds up, the total matches the lines, the paperwork is clean. It is still wrong, and no human review catches it."
 publishedAt: 2026-08-05
 author: "Joey Tan"
+collection: finance-ops
 tags: ["operations", "invoicing", "data integrity"]
 ---
 

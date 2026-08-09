@@ -1,4 +1,5 @@
 import { getPublishedPosts } from "@/lib/posts";
+import { getPopulatedCollections } from "@/lib/collections";
 import { SITE_URL as BASE } from "@/lib/seo";
 
 const routes = [
@@ -37,5 +38,14 @@ export default function sitemap() {
     priority: 0.6,
   }));
 
-  return [...staticEntries, ...postEntries];
+  // Only hubs that have posts. A collection with nothing in it has no page,
+  // so listing it would advertise a 404.
+  const topicEntries = getPopulatedCollections(getPublishedPosts()).map((c) => ({
+    url: `${BASE}/blog/topic/${c.slug}/`,
+    lastModified: new Date(),
+    changeFrequency: "weekly",
+    priority: 0.6,
+  }));
+
+  return [...staticEntries, ...topicEntries, ...postEntries];
 }

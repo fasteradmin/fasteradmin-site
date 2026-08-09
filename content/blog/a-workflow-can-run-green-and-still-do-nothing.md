@@ -3,6 +3,7 @@ title: "A workflow can run green every day and still do nothing"
 description: "Most automation does not fail loudly. It reports success while writing nothing useful. This is what to ask a provider before you hire one."
 publishedAt: 2026-08-08
 author: "Joey Tan"
+collection: reliability
 tags: ["operations", "automation", "buying guide"]
 ---
 

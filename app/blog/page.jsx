@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { getPublishedPosts, formatDate } from "@/lib/posts";
+import { getPopulatedCollections } from "@/lib/collections";
 import { pageMetadata } from "@/lib/seo";
 
 export const metadata = pageMetadata({
@@ -11,6 +12,7 @@ export const metadata = pageMetadata({
 
 export default function BlogIndex() {
   const posts = getPublishedPosts();
+  const topics = getPopulatedCollections(posts);
 
   return (
     <main>
@@ -27,8 +29,41 @@ export default function BlogIndex() {
         </div>
       </section>
 
+      {/*
+        Browse by topic. Renders only when at least one collection has posts,
+        and only shows collections that do. A grid of empty topics reads as a
+        half-built site, so with little content this section simply is not there.
+      */}
+      {topics.length > 0 && (
+        <section className="bg-white pb-8">
+          <div className="container-site">
+            <p className="eyebrow text-brand">Browse by topic</p>
+            <div className="mt-6 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+              {topics.map((t) => (
+                <Link
+                  key={t.slug}
+                  href={`/blog/topic/${t.slug}/`}
+                  className="group rounded-[var(--radius-card)] border border-line p-6 transition-colors hover:border-brand"
+                >
+                  <h2 className="text-lg font-medium tracking-[-0.03em] text-navy group-hover:text-brand">
+                    {t.title}
+                  </h2>
+                  <p className="body-base mt-2 text-grey-600">{t.description}</p>
+                  <p className="mt-4 text-xs text-ink-muted">
+                    {t.posts.length} {t.posts.length === 1 ? "article" : "articles"}
+                  </p>
+                </Link>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
+
       <section className="bg-surface-alt py-20 lg:py-24">
         <div className="container-site">
+          {topics.length > 0 && (
+            <p className="eyebrow mb-6 text-grey-600">Latest</p>
+          )}
           {posts.length === 0 ? (
             <p className="body-base text-grey-600">Nothing published yet.</p>
           ) : (
