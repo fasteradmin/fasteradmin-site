@@ -8,6 +8,7 @@ const columns = [
       { label: "Home", href: "/" },
       { label: "About", href: "/about" },
       { label: "Cases", href: "/works" },
+      { label: "Blog", href: "/blog" },
       { label: "Contact", href: "/contact" },
       { label: "Automation Checker", href: "https://tool.fasteradmin.com" },
     ],

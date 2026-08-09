@@ -6,6 +6,7 @@ import { useState } from "react";
 
 const links = [
   { label: "About", href: "/about" },
+  { label: "Blog", href: "/blog" },
   { label: "Contact", href: "/contact" },
   { label: "Automation Checker", href: "https://tool.fasteradmin.com" },
 ];
