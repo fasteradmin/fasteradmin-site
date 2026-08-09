@@ -53,7 +53,7 @@ Three things, roughly.
 work and confirms the work, it is grading its own homework. The confirmation has
 to come from a system it does not control: the count in the source, not the count
 it wrote. This is the [same shape as an invoice that adds up perfectly and is
-still wrong](/blog/an-invoice-can-be-perfect-and-still-be-wrong/).
+still wrong](/learn/an-invoice-can-be-perfect-and-still-be-wrong/).
 
 **An alert on absence, not just on failure.** Most alerting fires when something
 goes wrong. The more useful one fires when something that should have happened

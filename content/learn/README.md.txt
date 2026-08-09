@@ -2,7 +2,7 @@ Blog content directory
 ======================
 
 One markdown file per post. The filename is the URL slug:
-`content/blog/invoice-reconciliation.md` becomes `/blog/invoice-reconciliation/`.
+`content/learn/invoice-reconciliation.md` becomes `/learn/invoice-reconciliation/`.
 
 This file has a `.txt` extension on purpose so the build skips it — only
 `.md` files are read.

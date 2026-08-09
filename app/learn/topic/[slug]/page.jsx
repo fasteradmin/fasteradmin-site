@@ -18,7 +18,7 @@ export function generateMetadata({ params }) {
   if (!collection) return {};
 
   return pageMetadata({
-    path: `/blog/topic/${collection.slug}`,
+    path: `/learn/topic/${collection.slug}`,
     title: `${collection.title} | FasterAdmin`,
     description: collection.description,
   });
@@ -35,7 +35,7 @@ export default function TopicPage({ params }) {
     <main>
       <section className="bg-white">
         <div className="container-site py-20 lg:py-28">
-          <Link href="/blog/" className="eyebrow text-grey-600 hover:text-brand">
+          <Link href="/learn/" className="eyebrow text-grey-600 hover:text-brand">
             ← All writing
           </Link>
           <h1 className="h-display mt-4 max-w-3xl text-navy">{collection.title}</h1>
@@ -49,7 +49,7 @@ export default function TopicPage({ params }) {
             {posts.map((post) => (
               <li key={post.slug}>
                 <Link
-                  href={`/blog/${post.slug}/`}
+                  href={`/learn/${post.slug}/`}
                   className="group flex flex-col gap-2 py-8 transition-colors hover:bg-white/60 sm:px-4"
                 >
                   <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-ink-muted">

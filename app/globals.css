@@ -151,7 +151,7 @@ main > section > *,
   font-weight: 600;
 }
 
-/* Rendered markdown from content/blog. Deliberately hand-written rather
+/* Rendered markdown from content/learn. Deliberately hand-written rather
    than pulling in @tailwindcss/typography — the type scale above is the
    spec, and a plugin would bring its own opinions about it.
 

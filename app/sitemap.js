@@ -7,7 +7,7 @@ const routes = [
   "/about",
   "/works",
   "/works/email-to-quote-system",
-  "/blog",
+  "/learn",
   "/contact",
   "/terms-of-service-policy",
   "/privacy-policy-policy",
@@ -32,7 +32,7 @@ export default function sitemap() {
   // same reason it is not built as a page: until its date passes it does not
   // exist on the site, and listing it would advertise a 404.
   const postEntries = getPublishedPosts().map((post) => ({
-    url: `${BASE}/blog/${post.slug}/`,
+    url: `${BASE}/learn/${post.slug}/`,
     lastModified: post.updatedAt ?? post.publishedAt,
     changeFrequency: "monthly",
     priority: 0.6,
@@ -41,7 +41,7 @@ export default function sitemap() {
   // Only hubs that have posts. A collection with nothing in it has no page,
   // so listing it would advertise a 404.
   const topicEntries = getPopulatedCollections(getPublishedPosts()).map((c) => ({
-    url: `${BASE}/blog/topic/${c.slug}/`,
+    url: `${BASE}/learn/topic/${c.slug}/`,
     lastModified: new Date(),
     changeFrequency: "weekly",
     priority: 0.6,

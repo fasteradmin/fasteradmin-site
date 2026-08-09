@@ -37,13 +37,28 @@
 # follows, rather than being thrown away.
 [[redirects]]
   from = "/articles"
-  to = "/blog/"
+  to = "/learn/"
   status = 301
   force = true
 
 [[redirects]]
   from = "/articles/*"
-  to = "/blog/"
+  to = "/learn/"
+  status = 301
+  force = true
+
+# The blog shipped at /blog for a few hours on 2026-08-09 before being renamed
+# to /learn. Both post URLs were in the sitemap in that window, so they may have
+# been crawled. Splat preserves the slug: /blog/foo/ -> /learn/foo/.
+[[redirects]]
+  from = "/blog"
+  to = "/learn/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/blog/*"
+  to = "/learn/:splat"
   status = 301
   force = true
 

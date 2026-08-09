@@ -19,7 +19,7 @@ export function generateMetadata({ params }) {
   if (!post) return {};
 
   return pageMetadata({
-    path: `/blog/${post.slug}`,
+    path: `/learn/${post.slug}`,
     title: `${post.title} | FasterAdmin`,
     description: post.description,
     // A post may ship its own share card via an `image` field in frontmatter.
@@ -47,7 +47,7 @@ export default function BlogPost({ params }) {
 
   const html = renderMarkdown(post.content);
 
-  const url = absoluteUrl(`/blog/${post.slug}`);
+  const url = absoluteUrl(`/learn/${post.slug}`);
 
   // BlogPosting schema. This is the main lever for being quotable by an
   // answer engine: it states plainly who wrote it, when, and what it is about.
@@ -81,7 +81,7 @@ export default function BlogPost({ params }) {
       <article>
         <section className="bg-white">
           <div className="container-site py-16 lg:py-24">
-            <Link href="/blog/" className="text-sm text-ink-muted hover:text-brand">
+            <Link href="/learn/" className="text-sm text-ink-muted hover:text-brand">
               ← All writing
             </Link>
 
