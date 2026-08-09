@@ -10,6 +10,13 @@ add it to the `allowedOrigins` of all three n8n webhooks AND to the Cloudflare
 Turnstile hostname list. Miss either and forms fail silently with a CORS block
 or a 403 — this looked exactly like a broken build during launch and cost hours.
 
+**The blog lives at `/learn`**, published by an n8n webhook that commits
+markdown to `content/learn/`. Endpoint, scheduling and topic collections are
+documented in the brain at `memory/projects/fasteradmin-blog-pipeline.md`.
+Two things not to undo: post HTML is **sanitised at render** in `lib/posts.js`
+because an external system can now write post bodies, and a **nightly Netlify
+build** exists because date-gated posts never publish without one.
+
 **Public config lives in `lib/config.js` as literals**, with env overrides on
 top. This is deliberate: builds with missing `NEXT_PUBLIC_` values succeed and
 render perfectly while every integration is dead. Do not "clean this up" back
