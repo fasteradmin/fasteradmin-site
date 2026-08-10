@@ -20,8 +20,12 @@ export function generateMetadata({ params }) {
 
   return pageMetadata({
     path: `/learn/${post.slug}`,
-    title: `${post.title} | FasterAdmin`,
+    // meta_title wins when the publishing webhook sent one. Per SEOforGPT's
+    // contract everything that must stay accurate comes from the payload, so
+    // there is no separate SEO field for anyone to maintain here.
+    title: post.metaTitle ?? `${post.title} | FasterAdmin`,
     description: post.description,
+    keywords: post.keywords.length ? post.keywords : undefined,
     // A post may ship its own share card via an `image` field in frontmatter.
     // Most will not, and fall back to the site default rather than to nothing.
     image: post.image
@@ -56,7 +60,11 @@ export default function BlogPost({ params }) {
   // layout rather than a second, thinner copy of it. Two Organization objects
   // with the same name and no shared @id read as two entities; one node plus a
   // reference reads as one business that also publishes a blog.
-  const schema = {
+  // When the webhook ships its own JSON-LD, use it verbatim rather than
+  // emitting ours alongside. Two BlogPosting nodes for one page is a
+  // contradiction, and their spec is explicit: use what was shipped, do not
+  // tack on supplementary schema that is not grounded in the payload.
+  const ourSchema = {
     "@context": "https://schema.org",
     "@type": "BlogPosting",
     headline: post.title,
@@ -70,6 +78,8 @@ export default function BlogPost({ params }) {
     url,
     keywords: post.tags.join(", "),
   };
+
+  const schema = post.jsonLd ?? ourSchema;
 
   return (
     <main>
