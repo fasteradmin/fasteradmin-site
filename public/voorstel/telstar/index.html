@@ -1520,8 +1520,8 @@
   <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="drop-title">
     <button class="modal-x" type="button" data-close aria-label="Sluiten">&times;</button>
     <div class="modal-count" id="drop-count"><span>10</span></div>
-    <p class="modal-kicker" id="drop-kicker">Er komt iets binnen</p>
-    <h3 id="drop-title">Je hebt hier niets voor gedaan</h3>
+    <p class="modal-kicker" id="drop-kicker">Schrik niet</p>
+    <h3 id="drop-title">Er wordt een automatisch rapport gemaakt</h3>
     <p class="modal-body" id="drop-body">Terwijl je zat te lezen, heeft de bot <span data-drop-bron>een van jullie bronnen</span> gelezen en er een kort rapport van gemaakt. Dat is nu onderweg naar je mail.</p>
   </div>
 </div>
@@ -1757,7 +1757,7 @@
                 ? '<p class="tool-error">' + esc(okMsg) + '</p>'
                 : '<div class="verdict-block" style="animation-delay:.3s"><div class="verdict">'
                   + '<span class="verdict-pill v-goed">Klaar</span>'
-                  + '<span class="verdict-name">Kijk op je telefoon</span></div>'
+                  + '<span class="verdict-name">Check je email!</span></div>'
                   + '<p class="verdict-note">' + esc(okMsg) + '</p></div>');
           running = false;
           [].forEach.call(btns, function (b) { b.disabled = false; });
@@ -1840,7 +1840,7 @@
           countEl.classList.add('done');
           countEl.innerHTML = '<span aria-hidden="true">&#9993;</span>';
           kicker.textContent = 'Binnen';
-          title.textContent = 'Kijk op je telefoon';
+          title.textContent = 'Check je email!';
           bodyEl.innerHTML = 'Het rapport over <strong>' + esc(pick.naam)
             + '</strong> staat in je mail. Elke maand gebeurt dit voor al jullie bronnen tegelijk, en dan hoeft er ook niemand op een knop te drukken.';
         }, 1000);
@@ -1863,7 +1863,7 @@
     var melding = document.querySelector('[data-tool="melding"]');
     if (melding) wire(melding, function (value) {
       var done = '<div class="verdict"><span class="verdict-pill v-goed">Verstuurd</span>'
-        + '<span class="verdict-name">Kijk op je telefoon</span></div>'
+        + '<span class="verdict-name">Check je email!</span></div>'
         + '<p class="verdict-note">De melding is onderweg naar ' + esc(value)
         + '. Bij Pro komt zo’n bericht binnen op het moment dat het nieuws verschijnt.</p>';
       if (!live) {
