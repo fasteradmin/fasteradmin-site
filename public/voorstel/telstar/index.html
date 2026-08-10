@@ -4,10 +4,11 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex, nofollow, noarchive">
-<meta name="theme-color" content="#0E2A44">
+<meta name="color-scheme" content="light only">
+<meta name="theme-color" content="#FFFFFF">
 <title>Voorstel · Maandelijks marktrapport voor Telstar Marine</title>
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'><text y='14' font-size='14'>%E2%9A%93</text></svg>">
-<style>*,*::before,*::after{box-sizing:border-box}html{-webkit-text-size-adjust:100%}img{max-width:100%;height:auto}</style>
+<style>*,*::before,*::after{box-sizing:border-box}html{color-scheme:light;-webkit-text-size-adjust:100%}img{max-width:100%;height:auto}</style>
 </head>
 <body>
 <style>
@@ -53,63 +54,6 @@
     --r-sm: 8px;
     --r:    12px;
     --r-pill: 40px;
-  }
-
-  @media (prefers-color-scheme: dark) {
-    :root {
-      --ground:    #091725;
-      --surface:   #0F2334;
-      --surface-2: #12293D;
-      --ink:       #E8EEF4;
-      --ink-2:     #A7BAC8;
-      --ink-3:     #8698A6;
-      --accent:    #57A5F0;
-      --accent-2:  #10283D;
-      --accent-ink: #57A5F0;
-      --line:      #1C3348;
-      --line-2:    #294559;
-      --logo-chip: #FFFFFF;
-
-      --ok:        #4FBF9B;
-      --warn:      #E3A159;
-      --bad:       #E88478;
-    }
-  }
-
-  :root[data-theme="dark"] {
-    --ground:    #091725;
-    --surface:   #0F2334;
-    --surface-2: #12293D;
-    --ink:       #E8EEF4;
-    --ink-2:     #A7BAC8;
-    --ink-3:     #8698A6;
-    --accent:    #57A5F0;
-    --accent-2:  #10283D;
-    --accent-ink: #57A5F0;
-    --line:      #1C3348;
-    --line-2:    #294559;
-    --logo-chip: #FFFFFF;
-    --ok:        #4FBF9B;
-    --warn:      #E3A159;
-    --bad:       #E88478;
-  }
-
-  :root[data-theme="light"] {
-    --ground:    #FFFFFF;
-    --surface:   #F4F6F8;
-    --surface-2: #FFFFFF;
-    --ink:       #0E2A44;
-    --ink-2:     #5A6B7A;
-    --ink-3:     #667079;
-    --accent:    #0A6FD1;
-    --accent-2:  #E9F2FC;
-    --accent-ink: #0A5FB4;
-    --line:      #E2E8EE;
-    --line-2:    #CBD5DE;
-    --logo-chip: transparent;
-    --ok:        #147A5C;
-    --warn:      #94590F;
-    --bad:       #B3382B;
   }
 
   * { box-sizing: border-box; }
@@ -1017,12 +961,12 @@
   }
 
   @media print {
-    /* force the light palette, a dark-mode print would drink a cartridge */
+    /* page is light-only; on paper just deepen the greys and calm the tints */
     :root {
-      --ground: #FFFFFF; --surface: #F7F9FA; --surface-2: #FFFFFF;
-      --ink: #0E2A44; --ink-2: #46545F; --ink-3: #66707A;
-      --accent: #0A5FB4; --accent-2: #F2F7FD; --accent-ink: #0A5FB4;
-      --line: #DDE3E9; --line-2: #C4CED6; --logo-chip: transparent;
+      --surface: #F7F9FA;
+      --ink-2: #46545F; --ink-3: #66707A;
+      --accent: #0A5FB4; --accent-2: #F2F7FD;
+      --line: #DDE3E9; --line-2: #C4CED6;
       --ok: #14634C; --warn: #7D4A0D; --bad: #933025;
     }
     body { font-size: 10.5pt; line-height: 1.5; }
