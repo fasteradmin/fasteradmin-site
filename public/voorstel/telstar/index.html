@@ -1704,11 +1704,12 @@
       // the bot narrating itself, paced over the real stages of the job
       function beats(s) {
         return [
+          // paced against a real run, which lands in 15 to 18 seconds
           [0,     'De bot is wakker geschud.'],
-          [1800,  'Hij opent ' + s.host + '.'],
-          [7000,  'Pagina binnen. Nu uitzoeken wat er nieuw is en wat ruis.'],
-          [16000, 'Hij schrijft. Dit is het stukje waar hij traag doet.'],
-          [30000, 'Nog even. Hij herleest zichzelf.']
+          [1200,  'Hij opent ' + s.host + '.'],
+          [4000,  'Pagina binnen. Nu uitzoeken wat er nieuw is en wat ruis.'],
+          [8000,  'Hij schrijft. Dit is het stukje waar hij traag doet.'],
+          [13000, 'Nog even. Hij zet de bronlinks erbij.']
         ];
       }
 
@@ -1787,9 +1788,16 @@
       // email address ever sits in a URL. Fires once per browser.
       var token = (location.search.match(/[?&]v=([^&]+)/) || [])[1];
       if ((live && token) || window.__dropDemo) {
+        // Time-boxed, not once-ever. A hard flag means a second look at the
+        // page is silently dead, and incognito windows share storage anyway.
+        // ?v=…&again=1 forces a re-fire for demoing.
         var stamp = 'tm-auto-' + token;
-        var already = false;
-        try { already = localStorage.getItem(stamp) === '1'; } catch (e) {}
+        var WINDOW_MS = 6 * 60 * 60 * 1000;
+        var force = /[?&]again=1\b/.test(location.search);
+        var last = 0;
+        try { last = parseInt(localStorage.getItem(stamp) || '0', 10) || 0; } catch (e) {}
+        var already = !force && last > 0 && (Date.now() - last) < WINDOW_MS;
+
         if (!already) {
           setTimeout(function () {
             var pick = SOURCES[0];
@@ -1799,10 +1807,20 @@
 
             job.then(function (d) {
               if (!d || d.ok === false) return;
-              try { localStorage.setItem(stamp, '1'); } catch (e) {}
-              dropIn(pick);
+              try { localStorage.setItem(stamp, String(Date.now())); } catch (e) {}
+              // If he switched away while it worked, wait for him to come back
+              // rather than firing the moment into an unwatched tab.
+              if (document.visibilityState === 'hidden') {
+                document.addEventListener('visibilitychange', function once() {
+                  if (document.visibilityState !== 'visible') return;
+                  document.removeEventListener('visibilitychange', once);
+                  dropIn(pick);
+                });
+              } else {
+                dropIn(pick);
+              }
             }).catch(function () {});
-          }, window.__dropDemo ? 300 : 15000);
+          }, window.__dropDemo ? 300 : 6000);
         }
       }
 
