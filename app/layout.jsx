@@ -79,7 +79,17 @@ export const metadata = {
     description: DESCRIPTION,
     images: [OG_IMAGE.url],
   },
-  icons: { icon: "/favicon.png" },
+  // Cropped from the wordmark's chevron. The whole 919x189 wordmark was being
+  // served as the favicon, which a browser squashes into a 16px square and
+  // renders as an unreadable squiggle. .ico is included because browsers
+  // request /favicon.ico at the root regardless of what the tags say.
+  icons: {
+    icon: [
+      { url: "/favicon.ico", sizes: "any" },
+      { url: "/favicon.png", type: "image/png", sizes: "512x512" },
+    ],
+    apple: "/apple-touch-icon.png",
+  },
 };
 
 export default function RootLayout({ children }) {
