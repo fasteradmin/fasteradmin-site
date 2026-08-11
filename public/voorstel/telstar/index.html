@@ -740,6 +740,9 @@
   }
   ul.nots strong { display: block; color: var(--ink); font-weight: 600; margin-bottom: 0.12rem; }
 
+  /* the one that also opens a door runs the full width */
+  ul.nots li.wide { grid-column: 1 / -1; }
+
   .faq { margin-top: 1.4rem; border-top: 1px solid var(--line); }
   .faq details { border-bottom: 1px solid var(--line); }
   .faq summary {
@@ -1086,7 +1089,7 @@
           <li>Hogere frequentie</li>
           <li>Dagelijks pollen op specifieke industrie-updates die snel actie ondernemen vereisen</li>
           <li>Custom rapport per team</li>
-          <li>Vertaling voor het team in Roemenië en Spanje</li>
+          <li>Vertaling voor het team in Palma</li>
         </ul>
       </div>
 
@@ -1101,9 +1104,7 @@
       <ul class="nots">
         <li><strong>Het zoekt niet buiten jullie bronnenlijst.</strong> Staat een bron er niet in, dan komt dat nieuws er ook niet in.</li>
         <li><strong>Het leest niets achter een inlog of betaalmuur.</strong> Wat alleen voor abonnees zichtbaar is, blijft buiten het rapport.</li>
-        <li><strong>Het benadert geen werven of leveranciers.</strong> Het levert informatie, jullie bepalen wat ermee gebeurt.</li>
-        <li><strong>Het geeft geen advies over materialen of certificering.</strong> Het meldt wat er verandert en wat dat kan betekenen. De keuze blijft bij jullie.</li>
-        <li><strong>Het vervangt geen vakblad of beursbezoek.</strong> Het zorgt dat je niet mist wat online staat.</li>
+        <li class="wide"><strong>Het benadert geen werven of leveranciers.</strong> Het levert informatie, jullie bepalen wat ermee gebeurt. Willen jullie daar wel hulp bij, dan pakken we dat los op: uitzoekwerk over een werf, contactgegevens erbij zoeken, een concept-mail schrijven volgens jullie eigen aanpak, of samen een benaderingsstrategie opzetten als die er nog niet is. Laat maar weten of dat interessant klinkt.</li>
       </ul>
     </div>
   </section>
