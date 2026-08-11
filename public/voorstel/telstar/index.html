@@ -523,7 +523,8 @@
 
   /* ---------- pricing ---------- */
 
-  .tiers { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.15rem; margin-top: 1.9rem; }
+  /* one package now, so a capped single column rather than a stretched card */
+  .tiers { display: grid; grid-template-columns: minmax(0, 23rem); gap: 1.15rem; margin-top: 1.9rem; }
 
   .tier {
     background: var(--surface);
@@ -533,8 +534,6 @@
     display: flex;
     flex-direction: column;
   }
-
-  .tier.featured { border-color: var(--accent); box-shadow: 0 0 0 1px var(--accent); }
 
   .tier-name {
     font-size: var(--fs-xs);
@@ -548,8 +547,6 @@
     align-items: center;
     gap: 0.5rem;
   }
-
-  .pick { color: var(--accent); }
 
   .price { font-size: 1.75rem; font-weight: 600; letter-spacing: -0.032em; font-variant-numeric: tabular-nums; line-height: 1.12; }
   .price-sub { font-size: var(--fs-sm); color: var(--ink-2); margin-top: 0.35rem; font-variant-numeric: tabular-nums; }
@@ -568,17 +565,6 @@
     background: var(--accent);
   }
 
-  .tier ul li.inherit {
-    padding-left: 0;
-    font-size: var(--fs-xs);
-    font-weight: 600;
-    letter-spacing: 0.07em;
-    text-transform: uppercase;
-    color: var(--ink-3);
-    margin-bottom: 0.15rem;
-  }
-
-  .tier ul li.inherit::before { display: none; }
   .tier ul li strong { color: var(--ink); font-weight: 600; }
 
   .btw { font-size: var(--fs-sm); color: var(--ink-3); margin-top: 1.4rem; max-width: var(--measure); }
@@ -799,7 +785,7 @@
   .sig .name { font-weight: 600; font-size: var(--fs-lg); letter-spacing: -0.02em; }
   .sig .role { font-size: var(--fs-sm); color: var(--ink-3); margin-top: 0.2rem; }
 
-  @media (max-width: 900px) { .tiers { grid-template-columns: 1fr; } }
+  @media (max-width: 900px) { .tiers { grid-template-columns: minmax(0, 1fr); } }
 
   @media (max-width: 720px) {
     :root { --rail: 0px; }
@@ -1066,8 +1052,8 @@
   <section>
     <div class="num">07</div>
     <div class="body">
-      <h2>Pakketten</h2>
-      <p>Twee varianten. Het verschil zit niet in hoe mooi het rapport is, maar in hoeveel het voor jullie uitzoekt.</p>
+      <h2>Wat het kost</h2>
+      <p>Eén pakket om mee te beginnen, met een vaste prijs. Wat er daarna eventueel bij komt, bepalen we pas als het draait.</p>
 
       <div class="tiers">
 
@@ -1089,24 +1075,20 @@
           </ul>
         </div>
 
-        <div class="tier featured">
-          <p class="tier-name"><span>Plus</span><span class="pick">Aanbevolen</span></p>
-          <div class="price">vanaf € 1.400</div>
-          <div class="price-sub">eenmalig · daarna € 95 p/m</div>
-          <div class="tier-line"></div>
-          <p class="tier-for">Het rapport gaat ook kijken waar werk vandaan komt.</p>
-          <ul>
-            <li class="inherit">Alles uit Basis, plus</li>
-            <li><strong>Engelse editie</strong> voor het team in Palma.</li>
-            <li><strong>Feedbackknop</strong> per onderdeel, zodat het rapport leert wat jullie wel en niet nuttig vinden.</li>
-          </ul>
-        </div>
-
       </div>
 
       <p class="btw">Alle bedragen zijn exclusief btw. Het maandbedrag dekt hosting, gebruik en onderhoud.</p>
 
-      <p style="margin-top:1.4rem">De prijs voor Basis staat vast. Plus is een richtprijs: wat daar precies in hoort bepalen we pas als Basis draait en we zien wat het rapport in de praktijk oplevert.</p>
+      <div class="deepdive">
+        <h3>Potentiële upgrades</h3>
+        <p>Deze zitten niet in de prijs hierboven en hoeven nu niet besloten te worden. Het zijn richtingen die pas echt zinvol worden als het rapport draait en jullie zien wat eruit komt.</p>
+        <ul class="plain">
+          <li>Hogere frequentie</li>
+          <li>Dagelijks pollen op specifieke industrie-updates die snel actie ondernemen vereisen</li>
+          <li>Custom rapport per team</li>
+          <li>Vertaling voor het team in Roemenië en Spanje</li>
+        </ul>
+      </div>
 
     </div>
   </section>
@@ -1180,7 +1162,7 @@
         </details>
         <details>
           <summary>Wat als het rapport iets mist of er iets in staat dat niet klopt?</summary>
-          <p>Zeg het en we sturen bij. Bij Plus en Pro zit er een feedbackknop bij elk onderdeel, zodat het bijsturen vanzelf gaat in plaats van via de mail.</p>
+          <p>Zeg het en we sturen bij. Reken daar de eerste maanden ook op: het rapport wordt scherper naarmate we weten wat jullie er wel en niet uit halen.</p>
         </details>
       </div>
     </div>
