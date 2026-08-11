@@ -118,7 +118,7 @@ export default function BlogPost({ params }) {
 
       <section className="bg-surface-alt py-20 lg:py-24">
         <div className="container-site">
-          <h2 className="h-section max-w-2xl text-navy">
+          <h2 id="what-is-this-costing-you" className="h-section max-w-2xl text-navy">
             Want to know what this is costing you?
           </h2>
           <p className="body-base mt-6 max-w-xl text-grey-600">

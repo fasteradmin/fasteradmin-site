@@ -2,6 +2,7 @@ import Image from "next/image";
 import MeetingSection from "@/components/MeetingSection";
 import ContactSection from "@/components/ContactSection";
 import { pageMetadata } from "@/lib/seo";
+import { headingSlug } from "@/lib/posts";
 
 export const metadata = pageMetadata({
   path: "/works/email-to-quote-system",
@@ -157,7 +158,7 @@ export default function CaseStudyPage() {
       <section className="bg-surface-alt py-24">
         <div className="container-site">
           <p className="eyebrow text-grey-600">Recognise these problems?</p>
-          <h2 className="h-section mt-4 text-navy">This case is relevant if…</h2>
+          <h2 id="this-case-is-relevant-if" className="h-section mt-4 text-navy">This case is relevant if…</h2>
 
           <ul className="mt-10 max-w-3xl space-y-3">
             {relevantIf.map((r) => (
@@ -186,7 +187,7 @@ export default function CaseStudyPage() {
       {/* Before / after */}
       <section className="bg-white py-24">
         <div className="container-site">
-          <h2 className="h-section text-navy">Time saved and invested elsewhere</h2>
+          <h2 id="time-saved-and-invested-elsewhere" className="h-section text-navy">Time saved and invested elsewhere</h2>
 
           <div className="body-base mt-8 max-w-2xl space-y-4 text-grey-600">
             <p>
@@ -233,7 +234,7 @@ export default function CaseStudyPage() {
       {/* What we built */}
       <section className="bg-white py-24">
         <div className="container-site">
-          <h2 className="h-section text-navy">What we actually built</h2>
+          <h2 id="what-we-actually-built" className="h-section text-navy">What we actually built</h2>
           <p className="mt-6 text-xl text-brand">Core idea: Turn email chaos into a clean pipeline</p>
 
           <div className="body-base mt-8 max-w-2xl space-y-4 text-ink-muted">
@@ -286,12 +287,12 @@ export default function CaseStudyPage() {
       {/* Outcomes */}
       <section className="bg-surface-alt py-24">
         <div className="container-site">
-          <h2 className="h-section text-navy">Key Outcomes</h2>
+          <h2 id="key-outcomes" className="h-section text-navy">Key Outcomes</h2>
 
           <div className="mt-12 grid gap-6 md:grid-cols-3">
             {outcomes.map((o) => (
               <div key={o.title} className="rounded-[var(--radius-card)] bg-white p-8">
-                <h3 className="h-card text-navy">{o.title}</h3>
+                <h3 id={headingSlug(o.title)} className="h-card text-navy">{o.title}</h3>
                 <p className="body-base mt-4 text-grey-600">{o.body}</p>
               </div>
             ))}
@@ -329,7 +330,7 @@ function Panel({ title, items, tone, img }) {
           className="mb-8 h-auto w-full rounded-[var(--radius-card)]"
         />
       )}
-      <h3 className={`h-card ${tone === "brand" ? "text-brand" : "text-grey-500"}`}>{title}</h3>
+      <h3 id={headingSlug(title)} className={`h-card ${tone === "brand" ? "text-brand" : "text-grey-500"}`}>{title}</h3>
       <ul className="mt-6 space-y-4">
         {items.map((i) => (
           <li key={i} className="body-base flex gap-3 text-navy">

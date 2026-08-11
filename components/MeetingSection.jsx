@@ -12,7 +12,7 @@ export default function MeetingSection() {
     <section id="section-meeting" className="bg-white">
       <div className="container-site grid gap-12 py-24 lg:grid-cols-2 lg:py-32">
         <div>
-          <h2 className="h-section text-navy">The Ops Call</h2>
+          <h2 id="the-ops-call" className="h-section text-navy">The Ops Call</h2>
           <p className="h-section mt-2 text-brand">20 to 30 minutes. No pitch.</p>
 
           <p className="body-base mt-8 max-w-md text-grey-600">

@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import { headingSlug } from "@/lib/posts";
 
 /**
  * One "Time Multiplying System" block: heading + blurb + optional video,
@@ -19,7 +20,7 @@ export default function SolutionSystem({
       <div className={`grid gap-10 lg:grid-cols-[1.1fr_1fr] ${reversed ? "lg:[&>*:first-child]:order-2" : ""}`}>
         <div>
           <p className="eyebrow text-brand">{eyebrow}</p>
-          <h3 className="h-section mt-4 text-navy">
+          <h3 id={headingSlug(title)} className="h-section mt-4 text-navy">
             {title} {titleMuted && <span className="text-ink-muted">{titleMuted}</span>}
           </h3>
           <div className="body-base mt-6 max-w-md space-y-4 text-grey-600">

@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { getPublishedPosts, formatDate } from "@/lib/posts";
+import { getPublishedPosts, formatDate, headingSlug } from "@/lib/posts";
 import { getPopulatedCollections } from "@/lib/collections";
 import { pageMetadata } from "@/lib/seo";
 
@@ -45,7 +45,7 @@ export default function BlogIndex() {
                   href={`/learn/topic/${t.slug}/`}
                   className="group rounded-[var(--radius-card)] border border-line p-6 transition-colors hover:border-brand"
                 >
-                  <h2 className="text-lg font-medium tracking-[-0.03em] text-navy group-hover:text-brand">
+                  <h2 id={headingSlug(t.title)} className="text-lg font-medium tracking-[-0.03em] text-navy group-hover:text-brand">
                     {t.title}
                   </h2>
                   <p className="body-base mt-2 text-grey-600">{t.description}</p>
@@ -82,7 +82,7 @@ export default function BlogIndex() {
                       <span>{post.readingMinutes} min read</span>
                     </div>
 
-                    <h2 className="h-card text-navy group-hover:text-brand">{post.title}</h2>
+                    <h2 id={headingSlug(post.title)} className="h-card text-navy group-hover:text-brand">{post.title}</h2>
 
                     {post.description ? (
                       <p className="body-base max-w-2xl text-grey-600">{post.description}</p>

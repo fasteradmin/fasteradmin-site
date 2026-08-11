@@ -1,4 +1,5 @@
 import ContactSection from "@/components/ContactSection";
+import { headingSlug } from "@/lib/posts";
 
 /**
  * Shared shell for the two policy pages.
@@ -21,7 +22,7 @@ export default function PolicyPage({ title, intro, blocks, updated }) {
             {blocks.map((b) => (
               <div key={b.heading || b.paras?.[0]}>
                 {b.heading && (
-                  <h2 className="text-xl font-semibold tracking-[-0.03em] text-navy">
+                  <h2 id={headingSlug(b.heading)} className="text-xl font-semibold tracking-[-0.03em] text-navy">
                     {b.heading}
                   </h2>
                 )}

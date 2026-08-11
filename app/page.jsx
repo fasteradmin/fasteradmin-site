@@ -4,6 +4,7 @@ import Faq from "@/components/Faq";
 import MeetingSection from "@/components/MeetingSection";
 import ContactSection from "@/components/ContactSection";
 import { pageMetadata } from "@/lib/seo";
+import { headingSlug } from "@/lib/posts";
 
 // The homepage previously exported no metadata at all and inherited title and
 // description from the layout. That worked for both, but it also meant the
@@ -84,7 +85,7 @@ export default function HomePage() {
       {/* -------------------------------------------------------- Problem */}
       <section className="bg-surface-alt py-24 lg:py-32">
         <div className="container-site">
-          <h2 className="h-section max-w-3xl text-navy">
+          <h2 id="not-short-on-tools" className="h-section max-w-3xl text-navy">
             You&apos;re not short on tools. You&apos;re short on people.
           </h2>
 
@@ -132,7 +133,7 @@ export default function HomePage() {
               <div key={s.n} className="flex gap-6 sm:gap-8">
                 <span className="text-4xl font-bold tracking-[-0.05em] text-brand">{s.n}</span>
                 <div className="min-w-0">
-                  <h3 className="text-xl font-medium tracking-[-0.03em] text-navy">{s.title}</h3>
+                  <h3 id={headingSlug(s.title)} className="text-xl font-medium tracking-[-0.03em] text-navy">{s.title}</h3>
                   <p className="body-base mt-3 text-grey-600">{s.body}</p>
                 </div>
               </div>
@@ -181,7 +182,7 @@ export default function HomePage() {
         <div className="container-site">
           <p className="eyebrow text-ink-muted">Not just faster</p>
 
-          <h2 className="h-section mt-4 max-w-2xl text-navy">
+          <h2 id="an-invoice-can-be-perfect-and-still-be-wrong" className="h-section mt-4 max-w-2xl text-navy">
             An invoice can be internally perfect and still be wrong
           </h2>
 
@@ -208,7 +209,7 @@ export default function HomePage() {
       <section className="bg-surface-alt py-24 lg:py-32">
         <div className="container-site">
           <p className="eyebrow text-grey-600">How we start working together</p>
-          <h2 className="h-section mt-4 max-w-2xl text-navy">
+          <h2 id="four-steps-no-long-contract" className="h-section mt-4 max-w-2xl text-navy">
             Four steps, no long contract up front
           </h2>
 
@@ -261,7 +262,7 @@ export default function HomePage() {
       <section className="bg-white py-24 lg:py-32">
         <div className="container-site">
           <p className="eyebrow text-grey-600">Pricing</p>
-          <h2 className="h-section mt-4 max-w-2xl text-navy">Two numbers, no rate card</h2>
+          <h2 id="two-numbers-no-rate-card" className="h-section mt-4 max-w-2xl text-navy">Two numbers, no rate card</h2>
 
           <div className="mt-10 max-w-2xl space-y-8">
             <div>

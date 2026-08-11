@@ -118,7 +118,7 @@ export default function ContactSection({ minimal = false }) {
     <section id="section-contact" className="bg-navy">
       <div className="container-site grid gap-16 py-24 lg:grid-cols-2 lg:py-32">
         <div>
-          <h2 className="h-section text-white">Not ready to pick a time yet?</h2>
+          <h2 id="send-a-message" className="h-section text-white">Not ready to pick a time yet?</h2>
           <p className="h-section mt-2 text-brand">Send us what&apos;s going on instead.</p>
           <p className="body-base mt-8 max-w-md text-grey-400">
             Tell us how work moves today and where it gets stuck. We&apos;ll read it and get

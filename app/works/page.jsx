@@ -3,6 +3,7 @@ import Link from "next/link";
 import MeetingSection from "@/components/MeetingSection";
 import ContactSection from "@/components/ContactSection";
 import { pageMetadata } from "@/lib/seo";
+import { headingSlug } from "@/lib/posts";
 
 export const metadata = pageMetadata({
   path: "/works",
@@ -61,7 +62,7 @@ export default function WorksPage() {
                     {c.tag}
                   </p>
                   <p className="mt-3 text-lg font-medium text-navy">{c.client}</p>
-                  <h2 className="h-card mt-2 text-navy">{c.title}</h2>
+                  <h2 id={headingSlug(c.title)} className="h-card mt-2 text-navy">{c.title}</h2>
                 </div>
               </Link>
             ))}

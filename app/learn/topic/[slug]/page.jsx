@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { getPublishedPosts, formatDate } from "@/lib/posts";
+import { getPublishedPosts, formatDate, headingSlug } from "@/lib/posts";
 import { getCollection, getPopulatedCollections } from "@/lib/collections";
 import { pageMetadata } from "@/lib/seo";
 
@@ -60,7 +60,7 @@ export default function TopicPage({ params }) {
                     <span>{post.readingMinutes} min read</span>
                   </div>
 
-                  <h2 className="h-card text-navy group-hover:text-brand">{post.title}</h2>
+                  <h2 id={headingSlug(post.title)} className="h-card text-navy group-hover:text-brand">{post.title}</h2>
 
                   {post.description ? (
                     <p className="body-base max-w-2xl text-grey-600">{post.description}</p>

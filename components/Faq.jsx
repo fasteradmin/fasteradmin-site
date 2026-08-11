@@ -42,7 +42,7 @@ export default function Faq() {
               FAQ
             </p>
 
-            <h2 className="h-section mt-6 text-navy">
+            <h2 id="faq" className="h-section mt-6 text-navy">
               Here are some of the things{" "}
               <span className="text-ink-muted">most clients want to know.</span>
             </h2>
