@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { isOwnDomain } from "@/lib/links";
 import Image from "next/image";
 
 const columns = [
@@ -89,8 +90,13 @@ function FooterLink({ label, href }) {
   const cls = "text-base text-navy transition-colors hover:text-brand";
 
   if (href.startsWith("http")) {
+    const own = isOwnDomain(href);
     return (
-      <a href={href} target="_blank" rel="noopener noreferrer" className={cls}>
+      <a
+        href={href}
+        {...(own ? {} : { target: "_blank", rel: "noopener noreferrer" })}
+        className={cls}
+      >
         {label}
       </a>
     );

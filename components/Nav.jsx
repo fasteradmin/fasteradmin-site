@@ -3,6 +3,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { useState } from "react";
+import { isOwnDomain } from "@/lib/links";
 
 const links = [
   { label: "About", href: "/about" },
@@ -78,8 +79,14 @@ function NavLink({ label, href, onClick, block }) {
   const cls = `rounded-[40px] px-4 py-2 text-[13px] font-medium text-navy transition-colors hover:bg-grey-150 ${block ? "block" : ""}`;
 
   if (href.startsWith("http")) {
+    const own = isOwnDomain(href);
     return (
-      <a href={href} target="_blank" rel="noopener noreferrer" className={cls} onClick={onClick}>
+      <a
+        href={href}
+        {...(own ? {} : { target: "_blank", rel: "noopener noreferrer" })}
+        className={cls}
+        onClick={onClick}
+      >
         {label}
       </a>
     );
