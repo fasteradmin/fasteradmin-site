@@ -233,6 +233,62 @@ main > section > *,
   padding: 0;
 }
 
+/* Tables.
+   The first published post used a six-column comparison table and rendered
+   with no padding, no rules and colliding cells, because .prose-post had no
+   table styles at all. Generated posts will keep producing tables, so this is
+   part of the reading surface, not a one-off patch.
+
+   Rules are hairlines in --color-line rather than a boxed grid: the job is to
+   let the eye track a row across six columns, not to draw a spreadsheet. */
+.prose-post .table-wrap {
+  overflow-x: auto;
+  margin-top: 1.75em;
+  margin-bottom: 1.75em;
+  /* Faint edge so a table that scrolls does not look like a broken layout. */
+  border-bottom: 1px solid var(--color-line);
+}
+
+.prose-post table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9375rem;
+  line-height: 1.5;
+  /* Wide tables get their own scroll rather than squeezing six columns into
+     a phone, which is what produced the wrapped, misaligned cells. */
+  min-width: 34rem;
+}
+
+.prose-post thead th {
+  color: var(--color-navy);
+  font-weight: 600;
+  text-align: left;
+  vertical-align: bottom;
+  padding: 0 1rem 0.75rem;
+  border-bottom: 1.5px solid var(--color-line);
+  white-space: nowrap;
+}
+
+.prose-post tbody td {
+  color: var(--color-grey-600);
+  vertical-align: top;
+  padding: 0.875rem 1rem;
+  border-bottom: 1px solid var(--color-line);
+}
+
+/* First column is the row label, so it reads as one. */
+.prose-post tbody td:first-child {
+  color: var(--color-navy);
+  font-weight: 500;
+}
+
+.prose-post thead th:first-child,
+.prose-post tbody td:first-child { padding-left: 0; }
+.prose-post thead th:last-child,
+.prose-post tbody td:last-child { padding-right: 0; }
+
+.prose-post tbody tr:last-child td { border-bottom: 0; }
+
 .prose-post hr {
   border: 0;
   border-top: 1px solid var(--color-line);
