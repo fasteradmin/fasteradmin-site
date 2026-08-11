@@ -333,26 +333,6 @@
 
   .tool-intro { font-size: var(--fs-base); color: var(--ink-2); margin: 0; max-width: none; }
 
-  /* source buttons for the live mini-report */
-  .srcgrid {
-    display: grid; gap: 0.5rem; margin-top: 0.9rem;
-    grid-template-columns: repeat(auto-fit, minmax(13rem, 1fr));
-  }
-
-  /* .tool button already claims the primary style, so these need to outrank it */
-  .tool .srcbtn {
-    display: flex; align-items: center; gap: 0.6rem;
-    padding: 0.7rem 0.9rem; text-align: left;
-    background: var(--ground); color: var(--ink);
-    border: 1px solid var(--line-2); border-radius: var(--r);
-    font: inherit; font-size: var(--fs-base); font-weight: 600;
-    cursor: pointer; transition: border-color .15s ease, background .15s ease;
-  }
-  .tool .srcbtn:hover { border-color: var(--accent); background: var(--accent-2); opacity: 1; }
-  .tool .srcbtn:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
-  .tool .srcbtn[disabled] { opacity: .45; cursor: default; }
-  .tool .srcbtn img { width: 22px; height: 22px; border-radius: 5px; flex: none; }
-
   /* the "it just appeared" banner */
   .flash {
     display: none;
@@ -543,7 +523,7 @@
 
   /* ---------- pricing ---------- */
 
-  .tiers { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1.15rem; margin-top: 1.9rem; }
+  .tiers { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.15rem; margin-top: 1.9rem; }
 
   .tier {
     background: var(--surface);
@@ -601,45 +581,7 @@
   .tier ul li.inherit::before { display: none; }
   .tier ul li strong { color: var(--ink); font-weight: 600; }
 
-  .tier-note {
-    margin: 1.4rem 0 0;
-    padding-top: 0.95rem;
-    border-top: 1px solid var(--line-2);
-    font-size: var(--fs-xs);
-    line-height: 1.55;
-    color: var(--ink-3);
-  }
-
-  .tier-note span {
-    font-weight: 600;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    color: var(--warn);
-    margin-right: 0.35rem;
-  }
-
   .btw { font-size: var(--fs-sm); color: var(--ink-3); margin-top: 1.4rem; max-width: var(--measure); }
-
-  /* ---------- pull ---------- */
-
-  .pull {
-    margin: 1.9rem 0 0;
-    padding: 1.4rem 1.5rem;
-    background: var(--ink);
-    border-radius: var(--r);
-    max-width: var(--measure);
-  }
-
-  .pull p { font-size: var(--fs-md); line-height: 1.5; letter-spacing: -0.012em; margin: 0; color: #FFFFFF; }
-
-  .pull .attrib {
-    font-size: var(--fs-xs);
-    font-weight: 600;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: #8FB6DC;
-    margin-top: 0.8rem;
-  }
 
   /* ---------- deep dive ---------- */
 
@@ -649,15 +591,6 @@
     background: var(--surface);
     border: 1px solid var(--line);
     border-radius: var(--r);
-  }
-
-  .deepdive.addon { border-color: var(--accent); background: var(--accent-2); }
-
-  .addon-tag {
-    display: inline-block;
-    font-size: 0.6875rem; font-weight: 600; letter-spacing: 0.09em; text-transform: uppercase;
-    color: #FFFFFF; background: var(--accent);
-    padding: 0.18rem 0.65rem; border-radius: var(--r-pill); margin-bottom: 0.8rem;
   }
 
   .deepdive h3 { margin: 0 0 0.75rem; }
@@ -751,74 +684,6 @@
   .skel { height: 6px; background: #E7ECF1; border-radius: 3px; margin-bottom: 6px; }
   .pdf-link { font-size: 0.72rem; color: #0A5FB4; text-decoration: underline; }
 
-  /* top third of a handset: the lock screen is where a notification lands */
-  .phone-wrap { display: flex; justify-content: center; padding-top: 0.5rem; }
-
-  .phone {
-    width: 300px;
-    padding: 9px 9px 0;
-    border-radius: 44px 44px 0 0;
-    background: #16181C;
-    box-shadow: 0 -1px 0 rgba(255,255,255,.14) inset, 0 18px 40px rgba(9,23,37,.28);
-  }
-
-  .phone-screen {
-    position: relative;
-    height: 374px;
-    border-radius: 36px 36px 0 0;
-    overflow: hidden;
-    background:
-      radial-gradient(120% 80% at 20% 0%, #1E4E7A 0%, transparent 60%),
-      linear-gradient(170deg, #0E2A44 0%, #071726 100%);
-    padding: 10px 14px 0;
-    color: #fff;
-  }
-
-  .phone-status {
-    display: flex; align-items: center; justify-content: space-between;
-    font-size: 12px; font-weight: 600; letter-spacing: 0.01em;
-    padding: 0 6px;
-  }
-
-  .phone-island {
-    position: absolute; top: 8px; left: 50%; transform: translateX(-50%);
-    width: 84px; height: 24px; border-radius: 14px; background: #000;
-  }
-
-  /* the screen is cropped, so fade the cut rather than ending it abruptly */
-  .phone-screen::after {
-    content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 52px;
-    background: linear-gradient(to bottom, rgba(7,23,38,0), rgba(7,23,38,.9));
-    pointer-events: none;
-  }
-
-  .phone-clock { text-align: center; margin-top: 22px; }
-  .phone-date { font-size: 13px; opacity: .82; }
-  .phone-time { font-size: 52px; font-weight: 600; letter-spacing: -0.03em; line-height: 1.05; margin-top: 2px; }
-
-  .notif {
-    margin-top: 26px;
-    background: rgba(255,255,255,.92);
-    border-radius: 16px;
-    padding: 0.7rem 0.8rem 0.75rem;
-    color: #0E2A44;
-    box-shadow: 0 6px 18px rgba(0,0,0,.22);
-    text-align: left;
-  }
-
-  .notif-head {
-    display: flex; justify-content: space-between; align-items: center;
-    font-size: 10.5px; font-weight: 600; letter-spacing: 0.07em; text-transform: uppercase;
-    color: #5A6B7A; margin-bottom: 0.3rem;
-  }
-
-  .notif-title { font-size: 13.5px; font-weight: 600; letter-spacing: -0.01em; margin-bottom: 0.15rem; }
-  .notif-body { font-size: 13px; line-height: 1.42; color: #46545F; }
-  .notif-why {
-    display: block; margin-top: 0.5rem; padding-top: 0.45rem;
-    border-top: 1px solid #DDE3E9; font-size: 11.5px; line-height: 1.4; color: #667079;
-  }
-
   /* ---------- motion ----------
      Looping like a GIF, but as CSS so the text stays crisp, selectable and
      theme-aware. One 9s cycle shared by every preview: build, long hold,
@@ -840,18 +705,10 @@
     89%, 100% { transform: scaleX(0); }
   }
 
-  @keyframes notifLoop {
-    0%        { opacity: 0; transform: translateY(-28px) scale(.95); }
-    11%, 79%  { opacity: 1; transform: none; }
-    89%       { opacity: 0; transform: translateY(-22px) scale(.97); }
-    90%, 100% { opacity: 0; transform: translateY(-28px) scale(.95); }
-  }
-
   .anim ol.ev li,
   .anim table.at tbody tr,
   .anim .pdf-real,
-  .anim .pdf .skel,
-  .anim .notif {
+  .anim .pdf .skel {
     animation-duration: 9s;
     animation-iteration-count: infinite;
     animation-fill-mode: both;
@@ -864,14 +721,12 @@
   .anim .mock.in table.at tbody tr,
   .anim .mock.in .pdf-real,
   .anim .mock.in .pdf .skel,
-  .anim .mock.in .notif { animation-play-state: running; }
 
   .anim ol.ev li,
   .anim table.at tbody tr,
   .anim .pdf-real { animation-name: evLoop; }
 
   .anim .pdf .skel { animation-name: skelLoop; transform-origin: left center; }
-  .anim .notif { animation-name: notifLoop; animation-delay: .35s; }
 
   .anim ol.ev li:nth-child(1), .anim table.at tbody tr:nth-child(1) { animation-delay: .05s; }
   .anim ol.ev li:nth-child(2), .anim table.at tbody tr:nth-child(2) { animation-delay: .17s; }
@@ -956,8 +811,7 @@
 
   @media (prefers-reduced-motion: reduce) {
     * { animation: none !important; transition: none !important; }
-    .anim ol.ev li, .anim table.at tbody tr, .anim .pdf-real, .anim .notif,
-    .anim .pdf .skel { opacity: 1 !important; transform: none !important; }
+    .anim ol.ev li, .anim table.at tbody tr, .anim .pdf-real, .anim .notif { opacity: 1 !important; transform: none !important; }
   }
 
   @media print {
@@ -985,7 +839,7 @@
     .faq details p { display: block; }
     h2 { break-after: avoid; }
     /* a paused loop would otherwise print its hidden first frame */
-    ol.ev li, table.at tbody tr, .pdf-real, .notif, .pdf .skel {
+    ol.ev li, table.at tbody tr, .pdf-real, .pdf .skel {
       animation: none !important; opacity: 1 !important; transform: none !important;
     }
     .phone { box-shadow: none; }
@@ -1120,22 +974,11 @@
   <section>
     <div class="num">06</div>
     <div class="body">
-      <h2>Zo ziet het eruit</h2>
+      <h2>Zo zien we het voor ons</h2>
 
       <div class="flash" id="flash">
         <p class="flash-title">Even iets anders.</p>
         <p>Terwijl je zat te lezen, heeft de bot <span data-flash-bron>een van jullie bronnen</span> opgehaald en er een kort rapport van gemaakt. Dat staat inmiddels in je mail. Niemand heeft daar iets voor hoeven doen, en dat is precies het idee.</p>
-      </div>
-
-      <div class="tool" data-tool="rapport" data-busy="De bot wordt wakker…" hidden>
-        <p class="tool-label">Live, geen plaatje</p>
-        <p class="tool-title">Laat de bot nu een bron lezen</p>
-        <p class="tool-intro">Kies een bron. We halen hem op dit moment op, laten er een kort rapport van schrijven en mailen dat naar je. Duurt ongeveer een minuut.</p>
-        <div class="tool-row">
-          <input type="email" autocomplete="email" spellcheck="false" placeholder="waar mogen we het naartoe sturen?" aria-label="E-mailadres voor het mini-rapport">
-        </div>
-        <div class="srcgrid" role="group" aria-label="Kies een bron"></div>
-        <div class="tool-out" role="status" aria-live="polite"></div>
       </div>
 
       <p style="margin-top:1.6rem">Hieronder staat de opmaak: hoe het er straks uitziet als het klaar is. De voorbeelden gebruiken berichten die in juli 2026 daadwerkelijk langskwamen. De vormgeving van de PDF volgt zodra we jullie huisstijl hebben.</p>
@@ -1216,43 +1059,6 @@
           </div>
         </div>
 
-        <div class="mock">
-          <div class="mock-bar"><span>Een directe melding</span><em>Voorbeeld, alleen bij Pro</em></div>
-          <div class="mock-body">
-            <div class="phone-wrap">
-              <div class="phone">
-                <div class="phone-screen">
-                  <div class="phone-island"></div>
-                  <div class="phone-status">
-                    <span>09:14</span>
-                    <svg width="58" height="12" viewBox="0 0 58 12" fill="currentColor" aria-hidden="true">
-                      <rect x="0" y="7" width="3" height="4" rx="1"/>
-                      <rect x="5" y="5" width="3" height="6" rx="1"/>
-                      <rect x="10" y="3" width="3" height="8" rx="1"/>
-                      <rect x="15" y="1" width="3" height="10" rx="1"/>
-                      <path d="M23.4 4.3a7.6 7.6 0 0 1 8.4 0l-1.3 1.6a5.6 5.6 0 0 0-5.8 0z"/>
-                      <path d="M25.7 7.3a3.9 3.9 0 0 1 3.8 0l-1.9 2.4z"/>
-                      <rect x="38" y="2" width="17" height="8" rx="2.6" fill="none" stroke="currentColor" stroke-width="1" opacity=".6"/>
-                      <rect x="39.6" y="3.6" width="11" height="4.8" rx="1.4"/>
-                      <rect x="56.2" y="4.6" width="1.6" height="2.8" rx="0.8" opacity=".6"/>
-                    </svg>
-                  </div>
-                  <div class="phone-clock">
-                    <div class="phone-date">maandag 3 augustus</div>
-                    <div class="phone-time">09:14</div>
-                  </div>
-                  <div class="notif">
-                    <div class="notif-head"><span>Meldingen</span><span>nu</span></div>
-                    <div class="notif-title">Werf kondigt refit aan</div>
-                    <div class="notif-body">Het 74 meter lange Amels jacht New Dream gaat in Malta een uitgebreide refit in.</div>
-                    <span class="notif-why">Waarom je dit ziet: refitopdracht bij een werf die jullie kunnen bereiken. SuperYacht Times</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
       </div>
     </div>
   </section>
@@ -1261,7 +1067,7 @@
     <div class="num">07</div>
     <div class="body">
       <h2>Pakketten</h2>
-      <p>Drie varianten. Het verschil zit niet in hoe mooi het rapport is, maar in hoeveel het voor jullie uitzoekt en hoe snel je het hoort.</p>
+      <p>Twee varianten. Het verschil zit niet in hoe mooi het rapport is, maar in hoeveel het voor jullie uitzoekt.</p>
 
       <div class="tiers">
 
@@ -1281,7 +1087,6 @@
             <li>Bedieningspaneel in Airtable</li>
             <li>Elke 1e van de maand</li>
           </ul>
-          <p class="tier-note">Nieuws uit de eerste week van de maand lees je pas op de 1e van de maand erna. Voor iets waar snel op gehandeld moet worden, is dat vaak te laat.</p>
         </div>
 
         <div class="tier featured">
@@ -1292,25 +1097,8 @@
           <p class="tier-for">Het rapport gaat ook kijken waar werk vandaan komt.</p>
           <ul>
             <li class="inherit">Alles uit Basis, plus</li>
-            <li><strong>Werf- en opdrachtradar.</strong> Nieuwbouw- en refitopdrachten bij werven die jullie volgen. Daar komt jullie werk uiteindelijk vandaan.</li>
-            <li><strong>Regelgeving-wachthond.</strong> Wijzigingen in IMO FTP en MED, met in gewone taal wat het betekent voor materiaalkeuze en certificering.</li>
             <li><strong>Engelse editie</strong> voor het team in Palma.</li>
             <li><strong>Feedbackknop</strong> per onderdeel, zodat het rapport leert wat jullie wel en niet nuttig vinden.</li>
-          </ul>
-        </div>
-
-        <div class="tier">
-          <p class="tier-name"><span>Pro</span></p>
-          <div class="price">vanaf € 2.400</div>
-          <div class="price-sub">eenmalig · daarna € 165 p/m</div>
-          <div class="tier-line"></div>
-          <p class="tier-for">Je wacht niet meer tot de 1e van de maand.</p>
-          <ul>
-            <li class="inherit">Alles uit Plus, plus</li>
-            <li><strong>Directe meldingen</strong> bij groot nieuws. Niet wachten tot het rapport komt.</li>
-            <li><strong>Videobriefing</strong> van twee minuten, Nederlands ingesproken, voor wie liever kijkt dan leest.</li>
-            <li><strong>Vraag het archief.</strong> Stel vragen over alles wat er ooit in een rapport heeft gestaan.</li>
-            <li><strong>Beursradar.</strong> METSTRADE, Monaco en Düsseldorf: wie er staat, wat er gelanceerd wordt, wanneer je moet boeken.</li>
           </ul>
         </div>
 
@@ -1318,53 +1106,8 @@
 
       <p class="btw">Alle bedragen zijn exclusief btw. Het maandbedrag dekt hosting, gebruik en onderhoud.</p>
 
-      <p style="margin-top:1.4rem">De prijs voor Basis staat vast. Plus en Pro zijn richtprijzen. Wat daarin haalbaar is hangt af van welke bronnen zich laten uitlezen, en dat weten we pas zeker als Basis draait. We spreken de definitieve scope en prijs daarna af, niet nu.</p>
+      <p style="margin-top:1.4rem">De prijs voor Basis staat vast. Plus is een richtprijs: wat daar precies in hoort bepalen we pas als Basis draait en we zien wat het rapport in de praktijk oplevert.</p>
 
-      <div class="pull">
-        <p>Je zei in ons gesprek dat je iets doet met wat er in het rapport staat. Dan is nieuws van drie weken oud eigenlijk al te laat. Daar is Pro voor.</p>
-        <div class="attrib">Waarom er drie pakketten zijn</div>
-      </div>
-
-      <div class="deepdive">
-        <h3>Directe meldingen: we hebben al uitgezocht of het kan</h3>
-        <p>Een refit of een nieuwbouwopdracht wordt niet aangekondigd op de 1e van de maand. Die wordt aangekondigd op een dinsdag, en binnen een paar weken liggen de gesprekken over het interieur vast. Wie er dan al over nagedacht heeft, zit aan tafel. Wie het een maand later leest, leest wie de opdracht gekregen heeft.</p>
-        <p class="tight">Het verschil tussen op tijd en te laat is meestal één telefoontje. Dat telefoontje pleegt degene die het nieuws als eerste ziet.</p>
-        <p class="tight">We hebben elke bron al getest op één vraag: hoe snel kunnen we zien dat er iets nieuws staat?</p>
-        <ul class="source-check">
-          <li><span class="ok">Minuten</span><span>Jachtbouw Nederland en Megayacht News versturen een directe feed. Nieuw bericht, meteen binnen.</span></li>
-          <li><span class="ok">Binnen het uur</span><span>SuperyachtNews, IBI en Boat International hebben geen feed, maar wel een leesbare index van hun artikelen. Die controleren we elk half uur.</span></li>
-          <li><span class="warn">Enkele uren</span><span>SuperYacht Times kan alleen via de zoekindex, daar zit wat vertraging op.</span></li>
-        </ul>
-        <p class="tight">Voor de bronnen die er het meest toe doen praten we dus over minuten, niet over weken.</p>
-        <p class="tight">Het versturen is het makkelijke deel. De vraag is wat een melding waard is. Een jacht dat in Monaco gefotografeerd is, is geen melding. Een werf die een refit aankondigt, wel. Daarom krijgt elk bericht een score op één vraag: kunnen jullie hier binnen twee weken iets mee? Alleen bij een hoge score gaat er een melding uit, en waar die binnenkomt bepaal je zelf.</p>
-
-        <div class="tool" data-tool="melding" data-busy="Melding wordt verstuurd…" hidden>
-          <p class="tool-label">Zien hoe dat voelt?</p>
-          <p class="tool-title">Stuur jezelf deze melding</p>
-          <p class="tool-intro">Vul je e-mailadres in. Dan sturen we de melding hierboven nu meteen naar je toe, precies zoals hij er bij Pro uit zou zien.</p>
-          <div class="tool-row">
-            <input type="email" autocomplete="email" spellcheck="false" placeholder="jouw@bedrijf.nl" aria-label="E-mailadres voor de voorbeeldmelding">
-            <button type="button">Stuur mij een melding</button>
-          </div>
-          <div class="tool-out" role="status" aria-live="polite"></div>
-        </div>
-      </div>
-
-      <div class="deepdive addon">
-        <span class="addon-tag">Uitbreiding bovenop Pro</span>
-        <h3>Van melding naar actie</h3>
-        <p>Een melding vertelt je dat er iets speelt. Daarna begint het werk. Wie is die werf, wie gaat erover, wat schrijf je ze, wanneer bel je. Dat is al snel een uur uitzoeken, en dat uur is er zelden op het moment dat het nodig is. Zo blijft een melding een melding, en twee weken later is het nieuws.</p>
-        <p class="tight">Deze uitbreiding zet dat werk klaar voordat iemand erom vraagt. Bij een melding met een hoge score komt er een dossiertje mee:</p>
-        <ul class="plain">
-          <li>Achtergrond van de werf of eigenaar, en wat er eerder over ze geschreven is</li>
-          <li>Wie er publiek verantwoordelijk is voor inkoop of projecten, voor zover dat te vinden is</li>
-          <li>Algemene contactgegevens: telefoonnummer, adres, mailadres van het bedrijf</li>
-          <li>Of jullie eerder met ze te maken hebben gehad</li>
-          <li>Een concept-mail in jullie eigen toon, die verwijst naar precies dit nieuws</li>
-        </ul>
-        <p class="tight">Jullie lezen het, passen aan en versturen. Dat is het verschil tussen dezelfde middag reageren en er volgende week nog eens naar kijken.</p>
-        <p class="tight">De prijs bepalen we samen met Pro, zodra duidelijk is hoeveel meldingen er per maand echt uitkomen.</p>
-      </div>
     </div>
   </section>
 
@@ -1616,119 +1359,13 @@
 
     // ---- live mini-report: pick a source, it gets read and mailed now ----
 
+    // Fixed source: the picker widget that used to choose one is gone.
     var SOURCES = [
-      { key:'jachtbouw', naam:'Jachtbouw Nederland', host:'jachtbouwnederland.nl', icon:'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAMAAACdt4HsAAAAY1BMVEVHcEwdHToeHTodHDoAd4cbGzrgmxwcHDosKkEuOEgAc4MAZnrUkiOlbzgAYHTJiSoAb4EAbH6/gy35rBAcHDoAg5AXGDkpJDrKiijvpRURNlACZ3oJUGWNYjKxeilmSTZGNDhGcz4xAAAAE3RSTlMAP8bk+275pA8l2m/PS0agrI1wXryZjAAAAkVJREFUWIWVl+t6gyAMQBVt0W5tdwHs1m3t+z/lEBRJCATza/ZbjkkOKDZNGsP5evvE8fX6MRL/S6V/vB6TdBfH67kq/YtOd2WwiHMp3VdRamS4ZooHs2iz+SN3exe37pAtvyLdAiYlBzKfL38BGJJQm+8ABKEV6dopABLCKMz0tweg4CQHqZRRvzUSVgAkHOZfKgkrQEQrauzcT8Y8Kia5Akw0BqmWqCGsAKXCkmynADBPVkYAGDFsEwzBy9gqWOfYKhAcIQIsJUgIMFNZRgTwU1gURARTJMQAGdYAQpRkxIBuTDtgCTFgHmPSge8irxMAZOIgRFYGAFgPxAjKBACwQ6BG4NvI7C0AsCJFDpDTCQGHhpphIFAyMCCfr2idECAZAKFzF2AmYBn7AJaAdWIAuCQRSCcG3L9ZAtSJAZonQBkJQPcVNTxuWUBvCT88YdOJF5IFaP3DNRE9bDHgpD2BLWIl4M307gD6zutcZMDt3DYXvRBqdcIHythc+h2EWSd+pA2nBVCl83lMHqrrEHSNTmV1gsf6/Ga56C0qdD5/p+1KuHfraQ/B7s7oyr9dXyKAvvMLYvuz84eU8QQI/N4KqPWYBEqokIEKwCXUE7ZzGizBjrKKIKKz5hsm8Ommi4/9qIkqAjyqhh0RZHC7Ex+WXxJCeZQi+fJ530VI8wlCQacgv5uSLvrcKKn7OwJ2kZEhs19+F7we7N5KojuQn1w+hqSIRKfMfzY6wviGJgFliNLtQx99jlCTPscIG+m/fe+ypdL/AYlzBY5fMPSVAAAAAElFTkSuQmCC' },
-      { key:'megayacht', naam:'Megayacht News',      host:'megayachtnews.com',     icon:'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAMAAACdt4HsAAAARVBMVEVHcEwEBwcEBwcAAAAEBwcEBwcEBwcEBwcEBwcDBgb////s7Oyen5/X2NjFxcUcHh6zs7NbXV1HSEiMjY1wcXEyNDR/gIBTWTPlAAAACnRSTlMARf//vdkklmzvXlooHAAAAxBJREFUWIWlV4l2gyAQjOKFAgIC//+p3RViAMHjddq+JsIsy+whfD41NNPY9RTQd+PUVKeVMUx9e4DAT0v6cXhMBzZpC+inZ3RaIntf6HhLb+p0jxsvuhs6buRCi9vlb5yYHtEBFSXGp/y27f7JL1p4xS9YeLz/LzIdmrf8PBbP4pcizoda/hCP8mB/uYFAtVrbtWZlqm4A56tNLHPAwqVZCzYqEYCZRswn8G3NTJCx6ACxbME12WaU3qHMxiQHf4TKTAwlB4zcVNh2ilU7yXRiwbvQJ/wvdzWwKl8AHLwxx+NkMkX+cBawdT8BDyGFa8/BaE47qCjoIUxuYcx2AC4yXG3hAkR0xiiljHGgoYDdoA2WhILgHmI++C6dspFyR0rBR6scBANMJHFIsnBtI+5qtfI4shGhVcyYEgnCDNR/yVXEXW3G5mk9Ho1kX1Oxs/ynaGwqMtL5QtzjLj0XAy+kZIxtOxz8wRcpBQrp53CmWm+D+iBYB8PgobL2KOH994QWlXGYY9JYpH7oXrVx7rYXiCNjNS7yoUIwpx9wc61RbCHAgA3VetTQvQfa7cUJUAS2YGKJWUijCneN+8w8b7AFOAuwU6D0mhrx624yi7FEDToYFTO3WQFCoNafYK1iPBkWmwUSDFBMJEKWGetMn40gG8i5gzh5nrEouj2VyTov3wIw6XSe1HZorpgifMbmBG1xLyaiUI9DKnuo/FuXSx/sIIoBn/HD5MuZEDf/RPO+WCgMHkKTFxFsmvkvw7ehEMaynr0D/ShkB3HSP6HHe52QtFF8F5q9VvkACxa7X1MFnwsTwcByPjRCbw7PmqitF7MPRFiKA+H/3dkCUgzSpT4+Xh4OUDqJBuoFNlwdj+BVpi0YEPCKL+iIOA5KFQOhyS2YflcO1FQITby+g+ic1Zdn7HeFqoY0OiMNtUlXSG4xr4+Jp4Piy4Nq4aj64KYQo8/5Ly0U+K8sFPkvdCheF17E4uLqNlQz6gd6fYu9deL+5nipRPfk/juMlQZBn1+fm7MN2r28wQ9w+6df7jhV1/4D5F48tJep7X0AAAAASUVORK5CYII=' },
-      { key:'ibi',       naam:'IBI News',            host:'ibinews.com',           icon:'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAMAAACdt4HsAAAAZlBMVEWzEhn///+vAACwAADTi43lv8CyCBKxAAizDBW3KC3TjY7hsbLLcHO9P0L46uv35ufASk7YmpvDVlm9OT7pxcbz3+Dw19fdpab89vbQgIK3IijXlZft0dLqysvIaGq6MjfFXmHMd3lMJ1NQAAABzklEQVRYhe2WyZKDIBCGsVHAaIw7OmqM7/+SwyIEp5KpgjlkDv4ne/uqEbBF6NSpU/9J2BFBDB9ECbOJh5DjnmKrS03TS+xo3GoGQHRi44SmL0NgLHI0QRn9VJFdQWbT3PU2xHRA2rnTvlu/3GFd+kJbXT/vj1HCRDopl/mm7a5v0+caAOAhvZl4oEh0DLOsByncVIOiUZFPhKOS1iYenvVyGV/SHWNDzGSJtgikqosElKmX8WzfAFLpvrwCiBoVjHTLGnD1Amhz7y8IoIt4OIDU+hWHd/D4Ywd001sXDIBERnHwLtDVOST+AIaRPEgckDcAxJ0FQKM4ykUOyBswxOM48V6Ut3cw9T4Aq6Gb+R2wP6Do+qU1F3rYwBdQwK6VR0EnsTBfPQJNYTfSC2DDcFWrQCwUsJ/FnAYD9gsNwQCi1pB8ElCajQwE4FjGRxy+C72Mp8HbCKM9ir8C4pcAgnV9gdg7gLj26qNTiUkmxzuoc7PfBbxuqv+hoSqkYCWAs0A28UzNvyjhVUnTirfKErN1WTozXZGobyqe6LuZ8cpjvJv5/m68syWxanPcOKYQv+Tp/odBajfzON6t9Hh3JH5ybCZxA4fxfurUqU/rG+NdHu9GUxOUAAAAAElFTkSuQmCC' },
-      { key:'boat',      naam:'Boat International',  host:'boatinternational.com', icon:'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAMAAACdt4HsAAAAKlBMVEVHcEwWFhkKCg4ICAwHBwsTExYICAwCAggODhEDAwkEBAkKCg4FBQoAAAfmkc06AAAADXRSTlMAEj9SlCB76i+/1mms2Hy/YwAAAh1JREFUWIXtVduy5CAIFEG8YP7/dxe8ZyZnX/a8bFW6rHFEaLFR49yLFy9e/Bb8ANysAUUwfbiG0Sd/wF0DkTZFqt1W5Bafh0e5Drj9d847PmxhE9Alfye4aDoeiCsviFeBHwiIyIyxLSc9e6IcWw6TwPLqKdRSis1F7UsjsECzeFuorYt909cK6g5l7UcW9yQwZ5wC+OGWd1AXZqnKnwTe+jQ2SKsc0+qGVuWZIMa4RDwT6HSylelJfhMM8JAg7trVYW4K0JHCI4Gl8ANB0wzKTuFOULWOeWz3zLNvQUcjVO6aLoK+Yu6LWVdnPA6JLTL65GetH6rQnWioxT0+xOF2nr38kAHMbGnIdbWbhXGUBE+hegofZdQjueZ8d4tlCXs//D3uuQp1b/w0YdOpIc1lHgnmffZ7RZ6bG6q0q5pvBHEi79cDxG5iLNROMepkmbc6mKuaRbueMEy4GyClMEz32Tn6Dvl/sY4t/+ShT7cj/20PPAkg6XTK+gP2LYDggwuhvW+op5xZh2DfCjDtvJUm4UEAWVicz+iAkFGpJLjMwjau4Eirycl5QgrmRu0/HwTa9MBqw4pSdVbNuRk81uRQV1MCvR6erekYzG8T8CLgkJTeThSZLVGgkyC1aG0s4SAIzdnpWuoueCcoSsBgBMips2kjxDwJvGqoorgWF8Sen9DM1lCSCifeWeeVRcW1Bvblhc+P74sXL178G/4AkEQkF9zSdm4AAAAASUVORK5CYII=' }
+      { key:'jachtbouw', naam:'Jachtbouw Nederland', host:'jachtbouwnederland.nl' }
     ];
 
-    var rapport = document.querySelector('[data-tool="rapport"]');
-    if (rapport) {
-      var grid = rapport.querySelector('.srcgrid');
-      var mail = rapport.querySelector('input');
-      var rOut = rapport.querySelector('.tool-out');
-      var running = false;
-
-      if (simulate) {
-        var t2 = document.createElement('span');
-        t2.className = 'sim';
-        t2.textContent = 'Simulatie';
-        rapport.querySelector('.tool-label').appendChild(t2);
-      }
-
-      SOURCES.forEach(function (s) {
-        var b = document.createElement('button');
-        b.type = 'button';
-        b.className = 'srcbtn';
-        b.innerHTML = '<img src="' + s.icon + '" alt="" width="22" height="22">' + esc(s.naam);
-        b.addEventListener('click', function () { runReport(s); });
-        grid.appendChild(b);
-      });
-
-      // the bot narrating itself, paced over the real stages of the job
-      function beats(s) {
-        return [
-          // paced against a real run, which lands in 15 to 18 seconds
-          [0,     'De bot is wakker geschud.'],
-          [1200,  'Hij opent ' + s.host + '.'],
-          [4000,  'Pagina binnen. Nu uitzoeken wat er nieuw is en wat ruis.'],
-          [8000,  'Hij schrijft. Dit is het stukje waar hij traag doet.'],
-          [13000, 'Nog even. Hij zet de bronlinks erbij.']
-        ];
-      }
-
-      var timers = [];
-      function clearBeats() { timers.forEach(clearTimeout); timers = []; }
-
-      function runReport(s) {
-        if (running) return;
-        var email = (mail.value || '').trim();
-        if (!/^[^\s@]+@[^\s@]+\.[a-z]{2,}$/.test(email)) {
-          mail.focus();
-          rOut.innerHTML = '<p class="tool-error">Vul eerst een e-mailadres in, anders weten we niet waar het heen moet.</p>';
-          rOut.classList.add('show');
-          return;
-        }
-
-        running = true;
-        var btns = grid.querySelectorAll('button');
-        [].forEach.call(btns, function (b) { b.disabled = true; });
-
-        var log = [];
-        function paint(extra) {
-          rOut.innerHTML = '<ul class="trace">'
-            + log.map(function (l, i) { return '<li style="animation-delay:' + (i * 0.04).toFixed(2) + 's">' + esc(l) + '</li>'; }).join('')
-            + (extra ? '<li class="busy">' + esc(extra) + '</li>' : '')
-            + '</ul>';
-          rOut.classList.add('show');
-        }
-
-        clearBeats();
-        var seq = beats(s);
-        seq.forEach(function (b, i) {
-          timers.push(setTimeout(function () {
-            if (i > 0) log.push(seq[i - 1][1]);
-            paint(b[1]);
-          }, b[0]));
-        });
-
-        function finish(okMsg, isError) {
-          clearBeats();
-          rOut.innerHTML = '<ul class="trace">'
-            + log.concat([isError ? '' : 'Rapport verstuurd naar ' + email]).filter(Boolean)
-                .map(function (l, i) { return '<li style="animation-delay:' + (i * 0.05).toFixed(2) + 's">' + esc(l) + '</li>'; }).join('')
-            + '</ul>'
-            + (isError
-                ? '<p class="tool-error">' + esc(okMsg) + '</p>'
-                : '<div class="verdict-block" style="animation-delay:.3s"><div class="verdict">'
-                  + '<span class="verdict-pill v-goed">Klaar</span>'
-                  + '<span class="verdict-name">Check je email!</span></div>'
-                  + '<p class="verdict-note">' + esc(okMsg) + '</p></div>');
-          running = false;
-          [].forEach.call(btns, function (b) { b.disabled = false; });
-        }
-
-        var done = 'Het mini-rapport over ' + s.naam + ' staat in je mail. Dat bestond een minuut geleden nog niet.';
-
-        if (!live) {
-          timers.push(setTimeout(function () { finish('Simulatie. Verbonden met de server gaat er nu echt een mail uit.', false); }, 9000));
-          return;
-        }
-
-        post('/mini-rapport', { bron: s.key, email: email })
-          .then(function (d) {
-            if (!d || d.ok === false) throw new Error('fout');
-            finish(done, false);
-          })
-          .catch(function () {
-            finish('Dat lukte niet. Probeer het zo nog eens, of kies een andere bron.', true);
-          });
-      }
-
-      rapport.hidden = false;
-
-      // ---- and the version he did not ask for: fires on open ----
+    {
+      // ---- fires on open for ?v=<token> links ----
       // Link form: ...?v=<token>. The token maps to an address in n8n, so no
       // email address ever sits in a URL. Fires once per browser.
       var token = (location.search.match(/[?&]v=([^&]+)/) || [])[1];
@@ -1823,20 +1460,6 @@
       }
     }
 
-    var melding = document.querySelector('[data-tool="melding"]');
-    if (melding) wire(melding, function (value) {
-      var done = '<div class="verdict"><span class="verdict-pill v-goed">Verstuurd</span>'
-        + '<span class="verdict-name">Check je email!</span></div>'
-        + '<p class="verdict-note">De melding is onderweg naar ' + esc(value)
-        + '. Bij Pro komt zo’n bericht binnen op het moment dat het nieuws verschijnt.</p>';
-      if (!live) {
-        return new Promise(function (res) { setTimeout(function () { res(done); }, 900); });
-      }
-      return post('/voorbeeldmelding', { email: value }).then(function (d) {
-        if (!d || d.ok === false) throw new Error(d && d.error || 'fout');
-        return done;
-      });
-    });
   })();
 
   (function () {
