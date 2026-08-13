@@ -1364,7 +1364,14 @@
               : post('/mini-rapport', { bron: pick.key, token: decodeURIComponent(token) });
 
             job.then(function (d) {
-              if (!d || d.ok === false) return;
+              // Demand an explicit success, do not merely accept the absence of
+              // a failure. n8n only reaches its respond node after the mail has
+              // actually gone, so ok:true is proof of delivery, while a body
+              // that simply lacks the field (a timeout notice, "no data
+              // returned") would slip past an `ok === false` test and promise a
+              // mail that was never sent. No popup is fine, a popup without the
+              // mail is not.
+              if (!d || d.ok !== true) return;
               try { localStorage.setItem(stamp, String(Date.now())); } catch (e) {}
               // If he switched away while it worked, wait for him to come back
               // rather than firing the moment into an unwatched tab.
