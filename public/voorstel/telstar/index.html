@@ -1345,15 +1345,16 @@
       // email address ever sits in a URL. Fires once per browser.
       var token = (location.search.match(/[?&]v=([^&]+)/) || [])[1];
       if ((live && token) || window.__dropDemo) {
-        // Time-boxed, not once-ever. A hard flag means a second look at the
-        // page is silently dead, and incognito windows share storage anyway.
-        // ?v=…&again=1 forces a re-fire for demoing.
+        // Once per browser. This was a 6 hour window while the page was still
+        // being demoed, which meant a tab left open on a phone quietly sent a
+        // fresh report every time iOS reloaded it in the background. Fine for
+        // testing, wrong for a client who reopens the proposal to reread it.
+        // ?v=…&again=1 still forces a re-fire for demoing.
         var stamp = 'tm-auto-' + token;
-        var WINDOW_MS = 6 * 60 * 60 * 1000;
         var force = /[?&]again=1\b/.test(location.search);
         var last = 0;
         try { last = parseInt(localStorage.getItem(stamp) || '0', 10) || 0; } catch (e) {}
-        var already = !force && last > 0 && (Date.now() - last) < WINDOW_MS;
+        var already = !force && last > 0;
 
         if (!already) {
           setTimeout(function () {
