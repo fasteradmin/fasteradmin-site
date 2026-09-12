@@ -11,16 +11,75 @@ const headers = {
   "x-fa-token": FA_TOKEN,
 };
 
-function formatDay(iso) {
+/**
+ * UI copy per locale. This is functional/interface text (loading states,
+ * form labels, error and success messages), not sales copy, so it was
+ * translated in this pass under the same discretion Joey gave for the nav
+ * and footer labels — flagged in the PR for a native check, not held back
+ * for it.
+ */
+const COPY = {
+  en: {
+    dateLocale: "en-GB",
+    loading: "Loading available times…",
+    calendarError: "Couldn't load the calendar.",
+    calendarErrorBody: "and we'll sort a time.",
+    booked: "You're booked in.",
+    bookedBody:
+      "A calendar invite is on its way to your inbox. If it doesn't arrive in a few minutes, check your spam folder or email us at",
+    pickATime: "Pick a time",
+    durationLabel: (tz) => `30 minutes · times shown in ${tz}`,
+    noSlots: "No times left on this day. Try another.",
+    bookingLabel: "Booking",
+    at: "at",
+    nameLabel: "Your name *",
+    emailLabel: "Email *",
+    companyLabel: "Company",
+    websiteLabel: "Website",
+    descriptionLabel: "What do you want to automate?",
+    sending: "Booking…",
+    confirm: "Confirm booking",
+    slotTaken: "That time was just booked. Please pick another slot.",
+    genericError: "Something went wrong. Please try again.",
+    networkError: "Could not reach the booking service. Please try again.",
+  },
+  nl: {
+    dateLocale: "nl-NL",
+    loading: "Beschikbare tijden laden…",
+    calendarError: "De agenda kon niet worden geladen.",
+    calendarErrorBody: "dan plannen we samen een tijd.",
+    booked: "Je bent ingepland.",
+    bookedBody:
+      "Er is een agenda-uitnodiging onderweg naar je inbox. Komt die niet binnen een paar minuten aan, check dan je spamfolder of mail ons op",
+    pickATime: "Kies een tijd",
+    durationLabel: (tz) => `30 minuten · tijden weergegeven in ${tz}`,
+    noSlots: "Geen tijden meer op deze dag. Probeer een andere.",
+    bookingLabel: "Afspraak",
+    at: "om",
+    nameLabel: "Je naam *",
+    emailLabel: "E-mail *",
+    companyLabel: "Bedrijf",
+    websiteLabel: "Website",
+    descriptionLabel: "Wat wil je automatiseren?",
+    sending: "Bezig met inplannen…",
+    confirm: "Bevestig afspraak",
+    slotTaken: "Die tijd is net geboekt door iemand anders. Kies een andere.",
+    genericError: "Er ging iets mis. Probeer het opnieuw.",
+    networkError: "De boekingsservice is niet bereikbaar. Probeer het opnieuw.",
+  },
+};
+
+function formatDay(iso, dateLocale) {
   const d = new Date(iso + "T12:00:00");
   return {
-    weekday: d.toLocaleDateString("en-GB", { weekday: "short" }),
-    day: d.toLocaleDateString("en-GB", { day: "numeric" }),
-    month: d.toLocaleDateString("en-GB", { month: "short" }),
+    weekday: d.toLocaleDateString(dateLocale, { weekday: "short" }),
+    day: d.toLocaleDateString(dateLocale, { day: "numeric" }),
+    month: d.toLocaleDateString(dateLocale, { month: "short" }),
   };
 }
 
-export default function BookingWidget() {
+export default function BookingWidget({ locale = "en" }) {
+  const t = COPY[locale];
   const [status, setStatus] = useState("loading"); // loading | ready | error
   const [days, setDays] = useState([]);
   const [timezone, setTimezone] = useState("Europe/Amsterdam");
@@ -109,7 +168,7 @@ export default function BookingWidget() {
       // 409 means someone took the slot while this form was open. Pull fresh
       // availability so the visitor isn't staring at a stale grid.
       if (res.status === 409) {
-        setErrorMsg(body.message || "That time was just booked. Please pick another slot.");
+        setErrorMsg(body.message || t.slotTaken);
         setSlot(null);
         const fresh = await fetch(AVAILABILITY_ENDPOINT, {
           method: "POST",
@@ -120,11 +179,11 @@ export default function BookingWidget() {
           .catch(() => null);
         if (Array.isArray(fresh?.days)) setDays(fresh.days);
       } else {
-        setErrorMsg(body.message || "Something went wrong. Please try again.");
+        setErrorMsg(body.message || t.genericError);
       }
       setSubmitState("error");
     } catch {
-      setErrorMsg("Could not reach the booking service. Please try again.");
+      setErrorMsg(t.networkError);
       setSubmitState("error");
     }
   }
@@ -132,7 +191,7 @@ export default function BookingWidget() {
   if (status === "loading") {
     return (
       <div className="rounded-[var(--radius-card)] bg-white p-10 text-center">
-        <p className="body-base text-grey-600">Loading available times…</p>
+        <p className="body-base text-grey-600">{t.loading}</p>
       </div>
     );
   }
@@ -140,13 +199,12 @@ export default function BookingWidget() {
   if (status === "error") {
     return (
       <div className="rounded-[var(--radius-card)] bg-white p-10">
-        <p className="body-base text-navy">Couldn&apos;t load the calendar.</p>
+        <p className="body-base text-navy">{t.calendarError}</p>
         <p className="body-base mt-2 text-grey-600">
-          Email us at{" "}
           <a href="mailto:joey@getfasteradmin.com" className="text-brand hover:underline">
             joey@getfasteradmin.com
           </a>{" "}
-          and we&apos;ll sort a time.
+          {t.calendarErrorBody}
         </p>
       </div>
     );
@@ -155,10 +213,9 @@ export default function BookingWidget() {
   if (submitState === "booked") {
     return (
       <div className="rounded-[var(--radius-card)] bg-white p-10">
-        <h3 className="h-card text-navy">You&apos;re booked in.</h3>
+        <h3 className="h-card text-navy">{t.booked}</h3>
         <p className="body-base mt-4 text-grey-600">
-          A calendar invite is on its way to your inbox. If it doesn&apos;t arrive in a few
-          minutes, check your spam folder or email us at{" "}
+          {t.bookedBody}{" "}
           <a href="mailto:joey@getfasteradmin.com" className="text-brand hover:underline">
             joey@getfasteradmin.com
           </a>
@@ -171,16 +228,16 @@ export default function BookingWidget() {
   return (
     <div className="overflow-hidden rounded-[var(--radius-card)] bg-white">
       <div className="border-b border-grey-200 px-8 py-6">
-        <h3 className="h-card text-navy">Pick a time</h3>
+        <h3 className="h-card text-navy">{t.pickATime}</h3>
         <p className="mt-1 text-xs text-grey-600">
-          30 minutes · times shown in {timezone.replace("_", " ")}
+          {t.durationLabel(timezone.replace("_", " "))}
         </p>
       </div>
 
       {/* Day picker */}
       <div className="flex gap-2 overflow-x-auto border-b border-grey-200 px-8 py-5">
         {days.map((d) => {
-          const f = formatDay(d.date);
+          const f = formatDay(d.date, t.dateLocale);
           const active = d.date === activeDate;
           return (
             <button
@@ -224,7 +281,7 @@ export default function BookingWidget() {
             ))}
           </div>
         ) : (
-          <p className="body-base text-grey-600">No times left on this day. Try another.</p>
+          <p className="body-base text-grey-600">{t.noSlots}</p>
         )}
       </div>
 
@@ -232,24 +289,24 @@ export default function BookingWidget() {
       {slot && (
         <form onSubmit={handleSubmit} className="relative border-t border-grey-200 px-8 py-6">
           <p className="body-base text-navy">
-            <span className="text-grey-600">Booking</span>{" "}
-            {new Date(slot.start).toLocaleDateString("en-GB", {
+            <span className="text-grey-600">{t.bookingLabel}</span>{" "}
+            {new Date(slot.start).toLocaleDateString(t.dateLocale, {
               weekday: "long",
               day: "numeric",
               month: "long",
             })}{" "}
-            at {slot.time}
+            {t.at} {slot.time}
           </p>
 
           <div className="mt-6 grid gap-4 sm:grid-cols-2">
-            <Input name="fullName" label="Your name *" required />
-            <Input name="email" label="Email *" type="email" required />
-            <Input name="companyName" label="Company" />
-            <Input name="website" label="Website" />
+            <Input name="fullName" label={t.nameLabel} required />
+            <Input name="email" label={t.emailLabel} type="email" required />
+            <Input name="companyName" label={t.companyLabel} />
+            <Input name="website" label={t.websiteLabel} />
           </div>
 
           <label className="mt-4 block">
-            <span className="mb-2 block text-sm text-navy">What do you want to automate?</span>
+            <span className="mb-2 block text-sm text-navy">{t.descriptionLabel}</span>
             <textarea
               name="description"
               rows={3}
@@ -275,7 +332,7 @@ export default function BookingWidget() {
             disabled={submitState === "sending"}
             className="mt-6 w-full rounded-[40px] bg-navy px-8 py-4 text-sm font-medium text-white transition-colors hover:bg-navy/90 disabled:opacity-60"
           >
-            {submitState === "sending" ? "Booking…" : "Confirm booking"}
+            {submitState === "sending" ? t.sending : t.confirm}
           </button>
 
           {errorMsg && <p className="mt-4 text-sm text-accent">{errorMsg}</p>}

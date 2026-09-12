@@ -6,14 +6,16 @@ import ContactSection from "@/components/ContactSection";
 import { pageMetadata } from "@/lib/seo";
 import { headingSlug } from "@/lib/posts";
 
-// The homepage previously exported no metadata at all and inherited title and
-// description from the layout. That worked for both, but it also meant the
-// most-linked page on the site carried no canonical.
+// This used to be the site's actual homepage at "/". It moved here verbatim
+// when Dutch became the default at "/" (see app/(nl)/page.jsx) — same title,
+// same description, same content, only the path and the hreflang pair are
+// new.
 export const metadata = pageMetadata({
-  path: "/",
+  path: "/eng",
   title: "FasterAdmin.com | Get the work done, without the hire you can't make",
   description:
     "We put AI where someone has to read something and decide, and reliable code everywhere else, so it keeps running after go-live.",
+  languages: { nl: "/", en: "/eng", "x-default": "/" },
 });
 
 const mechanismSteps = [
@@ -62,8 +64,8 @@ export default function HomePage() {
             </p>
 
             <div className="mt-10 flex flex-wrap gap-4">
-              <Button href="/#section-meeting">Book The Ops Call — 20 Minutes, No Pitch</Button>
-              <Button href="/#section-proof" variant="outline">
+              <Button href="/eng/#section-meeting">Book The Ops Call — 20 Minutes, No Pitch</Button>
+              <Button href="/eng/#section-proof" variant="outline">
                 See a system that caught what a human missed
               </Button>
             </div>
@@ -252,7 +254,7 @@ export default function HomePage() {
             </li>
           </ol>
 
-          <Button href="/#section-meeting" variant="brand" className="mt-12">
+          <Button href="/eng/#section-meeting" variant="brand" className="mt-12">
             Book The Ops Call — 20 Minutes, No Pitch
           </Button>
         </div>

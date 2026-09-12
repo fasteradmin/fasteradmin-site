@@ -125,7 +125,7 @@ export default function BlogPost({ params }) {
             Twenty minutes, no pitch. We look at where the work actually goes and tell you
             whether there is anything worth fixing.
           </p>
-          <Button href="/#section-meeting" className="mt-10">
+          <Button href="/eng/#section-meeting" className="mt-10">
             Book The Ops Call — 20 Minutes, No Pitch
           </Button>
         </div>

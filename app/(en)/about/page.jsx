@@ -37,7 +37,7 @@ export default function AboutPage() {
             </p>
           </div>
 
-          <Button href="/#section-meeting" className="mt-10">
+          <Button href="/eng/#section-meeting" className="mt-10">
             Book The Ops Call
           </Button>
         </div>
@@ -107,7 +107,7 @@ export default function AboutPage() {
             </p>
           </div>
 
-          <Button href="/#section-meeting" variant="brand" className="mt-10">
+          <Button href="/eng/#section-meeting" variant="brand" className="mt-10">
             Book The Ops Call — 20 Minutes, No Pitch
           </Button>
         </div>

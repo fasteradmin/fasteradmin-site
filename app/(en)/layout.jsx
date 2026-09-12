@@ -1,51 +1,15 @@
-import "./globals.css";
+import "../globals.css";
 import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
 import Analytics, { GtmNoScript } from "@/components/Analytics";
-import {
-  FORM_ENDPOINT,
-  AVAILABILITY_ENDPOINT,
-  BOOKING_ENDPOINT,
-  TURNSTILE_SITE_KEY,
-} from "@/lib/config";
+import { assertConfig } from "@/lib/assertConfig";
 import { SITE_URL, SITE_NAME, OG_IMAGE, siteSchema } from "@/lib/seo";
 
-// Fail the build rather than ship a site that looks fine and does nothing.
-//
-// NEXT_PUBLIC_ values are inlined at build time. When they are missing the
-// site still builds, still deploys and still renders perfectly — but the
-// booking widget shows "couldn't load the calendar" and the contact form
-// silently falls back to mailto. That shipped once already and was only
-// caught by diffing the deployed bundle by hand.
-//
-// Note these can be overridden by real environment variables, which take
-// precedence over .env files. An empty-but-defined variable in a hosting
-// dashboard will beat .env.production and inline as "" — hence checking the
-// resolved value here, not merely that a file exists.
-if (process.env.NODE_ENV === "production") {
-  // Checks the RESOLVED config, not raw env. lib/config.js falls back to
-  // literals, so this should now be unreachable — it stays as a backstop in
-  // case an override sets one of these to an empty string, which would
-  // otherwise sail through and ship a dead form again.
-  const missing = Object.entries({
-    FORM_ENDPOINT,
-    AVAILABILITY_ENDPOINT,
-    BOOKING_ENDPOINT,
-    TURNSTILE_SITE_KEY,
-  })
-    .filter(([, v]) => !v || !String(v).trim())
-    .map(([k]) => k);
-
-  if (missing.length) {
-    throw new Error(
-      `Production build aborted. Config resolved empty:\n` +
-        missing.map((m) => `  - ${m}`).join("\n") +
-        `\n\nlib/config.js provides literal fallbacks, so an empty value here ` +
-        `means an environment variable is explicitly overriding it with "". ` +
-        `Check the hosting provider's environment variables.`,
-    );
-  }
-}
+// See lib/assertConfig.js: fails the production build if a NEXT_PUBLIC_ value
+// resolved empty, rather than shipping a site that renders fine and does
+// nothing. Called from both root layouts now that the booking widget this
+// guards renders on both the English and Dutch homepages.
+assertConfig();
 
 const TITLE = "FasterAdmin.com | Get the work done, without the hire you can't make";
 const DESCRIPTION =
@@ -60,6 +24,11 @@ const DESCRIPTION =
 // without calling pageMetadata(). Pages that do call it replace this wholesale,
 // which is why the helper re-states siteName, locale and images rather than
 // leaning on inheritance.
+//
+// This is now the ENGLISH root layout: it covers /eng plus every page that
+// has not had its Dutch pass yet (about, contact, works, learn, the two
+// legal pages, 404). Its fallback og:url points at /eng rather than "/",
+// because "/" is the Dutch homepage now — see the (nl) route group.
 export const metadata = {
   metadataBase: new URL(SITE_URL),
   title: TITLE,
@@ -70,7 +39,7 @@ export const metadata = {
     locale: "en_US",
     title: TITLE,
     description: DESCRIPTION,
-    url: `${SITE_URL}/`,
+    url: `${SITE_URL}/eng`,
     images: [OG_IMAGE],
   },
   twitter: {
@@ -103,14 +72,14 @@ export default function RootLayout({ children }) {
         */}
         <script
           type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(siteSchema) }}
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(siteSchema("en")) }}
         />
       </head>
       <body>
         <GtmNoScript />
-        <Nav />
+        <Nav locale="en" />
         <main>{children}</main>
-        <Footer />
+        <Footer locale="en" />
         <Analytics />
       </body>
     </html>

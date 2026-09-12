@@ -19,7 +19,17 @@ import { FORM_ENDPOINT, FA_TOKEN, CONTACT_EMAIL } from "@/lib/config";
 
 export { CONTACT_EMAIL };
 
-export default function ContactSection({ minimal = false }) {
+// Only the minimal variant needs locale support: it is the only variant used
+// on the Dutch homepage. The full form (heading, field labels, button,
+// status messages) only ever renders on /contact, which has no Dutch copy
+// yet — see the PR description.
+const MINIMAL_COPY = {
+  en: "Rather send a message first than pick a time?",
+  // Verbatim from the Dutch copy doc's AFSLUITING/CONTACT section.
+  nl: "Liever eerst een bericht dan meteen een tijd prikken?",
+};
+
+export default function ContactSection({ minimal = false, locale = "en" }) {
   const [state, setState] = useState("idle");
   // When this form rendered. The workflow rejects submissions that arrive
   // faster than a human could plausibly type. See the Abuse Gate node.
@@ -101,7 +111,7 @@ export default function ContactSection({ minimal = false }) {
       <section id="section-contact" className="bg-navy">
         <div className="container-site py-16 lg:py-20">
           <p className="body-base max-w-md text-grey-400">
-            Rather send a message first than pick a time?{" "}
+            {MINIMAL_COPY[locale]}{" "}
             <a
               href={`mailto:${CONTACT_EMAIL}`}
               className="text-brand hover:text-white"
