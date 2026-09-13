@@ -2,23 +2,67 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { isOwnDomain } from "@/lib/links";
 
-const links = [
-  { label: "About", href: "/about" },
-  { label: "Learn", href: "/learn" },
-  { label: "Contact", href: "/contact" },
-  { label: "Automation Checker", href: "https://tool.fasteradmin.com" },
-];
+/**
+ * Copy per locale. English is byte-identical to what shipped before the
+ * Dutch homepage existed — `locale` defaults to "en" so nothing that already
+ * rendered this component changes.
+ *
+ * "Automation Checker" -> "Tijdlek-scan": the tool at tool.fasteradmin.com
+ * was rebranded in a separate change (see fasteradmin-tool commit
+ * a92681a). This nav was never updated to match, on either locale, until
+ * now — the English label below is corrected at the same time as the Dutch
+ * one is added, not a new inconsistency.
+ */
+const COPY = {
+  // About, Contact, Learn, Works and the two policy pages all got their
+  // Dutch pass on 2026-09-13 and moved under /eng.
+  en: {
+    links: [
+      { label: "About", href: "/eng/about" },
+      { label: "Learn", href: "/eng/learn" },
+      { label: "Contact", href: "/eng/contact" },
+      { label: "Tijdlek-scan", href: "https://tool.fasteradmin.com" },
+    ],
+    bookACall: "Book a call",
+    meetingHref: "/eng/#section-meeting",
+    homeHref: "/eng",
+  },
+  nl: {
+    links: [
+      { label: "Over ons", href: "/about" },
+      { label: "Inzichten", href: "/learn" },
+      { label: "Contact", href: "/contact" },
+      { label: "Tijdlek-scan", href: "https://tool.fasteradmin.com" },
+    ],
+    bookACall: "Plan een gesprek",
+    meetingHref: "/#section-meeting",
+    homeHref: "/",
+  },
+};
 
-export default function Nav() {
+export default function Nav({ locale = "en" }) {
   const [open, setOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+  const t = COPY[locale];
+
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 8);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
 
   return (
-    <header className="sticky top-0 z-50 w-full bg-white">
+    <header
+      className={`sticky top-0 z-50 w-full bg-white/80 backdrop-blur-md transition-[box-shadow,border-color] ${
+        scrolled ? "border-b border-line" : "border-b border-transparent"
+      }`}
+    >
       <nav className="container-site flex h-[72px] items-center justify-between">
-        <Link href="/" className="flex items-center" aria-label="Faster Admin home">
+        <Link href={t.homeHref} className="flex items-center" aria-label="Faster Admin home">
           <Image
             src="/img/pJFWiP5x9jQeaGSDwZogaYz9Ot8.png"
             alt="Faster Admin"
@@ -29,14 +73,14 @@ export default function Nav() {
         </Link>
 
         <div className="hidden items-center gap-2 md:flex">
-          {links.map((l) => (
+          {t.links.map((l) => (
             <NavLink key={l.label} {...l} />
           ))}
           <Link
-            href="/#section-meeting"
+            href={t.meetingHref}
             className="rounded-[40px] bg-navy px-5 py-2.5 text-[13px] font-medium text-white transition-colors hover:bg-navy/90"
           >
-            Book a call
+            {t.bookACall}
           </Link>
         </div>
 
@@ -58,15 +102,15 @@ export default function Nav() {
       {open && (
         <div className="border-t border-grey-200 bg-white px-6 pb-6 pt-2 md:hidden">
           <div className="flex flex-col gap-1">
-            {links.map((l) => (
+            {t.links.map((l) => (
               <NavLink key={l.label} {...l} onClick={() => setOpen(false)} block />
             ))}
             <Link
-              href="/#section-meeting"
+              href={t.meetingHref}
               onClick={() => setOpen(false)}
               className="mt-2 rounded-[40px] bg-navy px-5 py-3 text-center text-[13px] font-medium text-white"
             >
-              Book a call
+              {t.bookACall}
             </Link>
           </div>
         </div>

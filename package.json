@@ -9,6 +9,8 @@
   },
   "dependencies": {
     "gray-matter": "^4.0.3",
+    "gsap": "^3.12.5",
+    "lenis": "^1.1.18",
     "marked": "^18.0.9",
     "next": "15.5.4",
     "react": "19.1.1",
