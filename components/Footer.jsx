@@ -39,8 +39,8 @@ const COPY = {
       {
         title: "Additionals",
         links: [
-          { label: "Terms of Service", href: "/terms-of-service-policy" },
-          { label: "Privacy Policy", href: "/privacy-policy-policy" },
+          { label: "Terms of Service", href: "/eng/terms-of-service-policy" },
+          { label: "Privacy Policy", href: "/eng/privacy-policy-policy" },
         ],
       },
     ],
@@ -92,6 +92,11 @@ const COPY = {
 
 export default function Footer({ locale = "en" }) {
   const t = COPY[locale];
+  // The bottom legal bar is shared markup (not per-locale JSX), but the two
+  // policy pages moved under /eng for English on 2026-09-13 — so the link
+  // targets, unlike everything else here, do need a locale branch.
+  const termsHref = locale === "nl" ? "/terms-of-service-policy" : "/eng/terms-of-service-policy";
+  const privacyHref = locale === "nl" ? "/privacy-policy-policy" : "/eng/privacy-policy-policy";
 
   return (
     <footer className="bg-surface-alt">
@@ -130,13 +135,13 @@ export default function Footer({ locale = "en" }) {
             © {new Date().getFullYear()} Faster Admin. {t.legal.rights}
           </p>
           <div className="flex gap-6">
-            <Link href="/terms-of-service-policy" className="hover:text-navy">
+            <Link href={termsHref} className="hover:text-navy">
               {t.legal.terms}
             </Link>
-            <Link href="/privacy-policy-policy" className="hover:text-navy">
+            <Link href={privacyHref} className="hover:text-navy">
               {t.legal.cookies}
             </Link>
-            <Link href="/privacy-policy-policy" className="hover:text-navy">
+            <Link href={privacyHref} className="hover:text-navy">
               {t.legal.privacy}
             </Link>
           </div>

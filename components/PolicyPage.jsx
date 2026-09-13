@@ -6,7 +6,7 @@ import { headingSlug } from "@/lib/posts";
  *
  * `blocks` is an array of { heading?, paras?, list? } rendered in order.
  */
-export default function PolicyPage({ title, intro, blocks, updated }) {
+export default function PolicyPage({ title, intro, blocks, updated, locale = "en" }) {
   return (
     <>
       <section className="bg-white">
@@ -53,7 +53,7 @@ export default function PolicyPage({ title, intro, blocks, updated }) {
         </div>
       </section>
 
-      <ContactSection />
+      <ContactSection locale={locale} />
     </>
   );
 }

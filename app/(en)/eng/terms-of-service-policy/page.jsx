@@ -2,10 +2,15 @@ import PolicyPage from "@/components/PolicyPage";
 import { pageMetadata } from "@/lib/seo";
 
 export const metadata = pageMetadata({
-  path: "/terms-of-service-policy",
+  path: "/eng/terms-of-service-policy",
   title: "Terms of Service - Policy",
   description:
     "Scope, payment terms, revisions and ownership for FasterAdmin engagements.",
+  languages: {
+    nl: "/terms-of-service-policy",
+    en: "/eng/terms-of-service-policy",
+    "x-default": "/terms-of-service-policy",
+  },
 });
 
 const blocks = [

@@ -13,6 +13,8 @@ const routes = [
   "/eng/contact",
   "/eng/works",
   "/eng/works/email-to-quote-system",
+  "/eng/terms-of-service-policy",
+  "/eng/privacy-policy-policy",
   "/about",
   "/contact",
   "/works",
