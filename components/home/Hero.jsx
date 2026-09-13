@@ -98,7 +98,7 @@ export default function Hero({ locale = "en" }) {
         </div>
 
         <div className="relative flex min-h-0 items-center md:min-h-[660px]">
-          <div className="w-full max-w-[840px] px-6 py-14 sm:px-10 md:pl-[100px] md:pr-10">
+          <div className="w-full max-w-full md:max-w-[42%] px-6 py-14 sm:px-10 md:pl-[100px] md:pr-10">
             <p data-fade className="eyebrow text-brand">
               {t.eyebrow}
             </p>
