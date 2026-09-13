@@ -10,11 +10,12 @@ const routes = [
   // paths, pending the same treatment.
   "/eng",
   "/eng/about",
+  "/eng/contact",
   "/about",
+  "/contact",
   "/works",
   "/works/email-to-quote-system",
   "/learn",
-  "/contact",
   "/terms-of-service-policy",
   "/privacy-policy-policy",
 ];

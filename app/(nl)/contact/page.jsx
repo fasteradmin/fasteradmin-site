@@ -6,7 +6,9 @@ export const metadata = pageMetadata({
   path: "/contact",
   title: "Contact | FasterAdmin.com",
   description:
-    "Book The Ops Call: 20 to 30 minutes, no pitch. Walk us through how work moves today and where it gets stuck.",
+    "Plan het startgesprek: 20 tot 30 minuten, geen verkooppraatje. Vertel ons hoe het werk nu loopt en waar het vastloopt.",
+  locale: "nl_NL",
+  languages: { nl: "/contact", en: "/eng/contact", "x-default": "/contact" },
 });
 
 export default function ContactPage() {
@@ -14,16 +16,16 @@ export default function ContactPage() {
     <>
       <section className="bg-white">
         <div className="container-site py-20 lg:py-24">
-          <p className="eyebrow text-grey-600">Book The Ops Call</p>
+          <p className="eyebrow text-grey-600">Plan het startgesprek</p>
           <h1 className="h-display mt-4 max-w-3xl text-navy">
-            Twenty minutes, no pitch.
+            Twintig minuten, geen verkooppraatje.
           </h1>
-          <p className="h-display mt-2 text-brand">Pick a time below.</p>
+          <p className="h-display mt-2 text-brand">Kies hieronder een tijd.</p>
         </div>
       </section>
 
-      <MeetingSection />
-      <ContactSection minimal />
+      <MeetingSection locale="nl" />
+      <ContactSection minimal locale="nl" />
     </>
   );
 }

@@ -28,7 +28,7 @@ const COPY = {
           { label: "About", href: "/eng/about" },
           { label: "Cases", href: "/works" },
           { label: "Learn", href: "/learn" },
-          { label: "Contact", href: "/contact" },
+          { label: "Contact", href: "/eng/contact" },
           { label: "Tijdlek-scan", href: "https://tool.fasteradmin.com" },
         ],
       },
