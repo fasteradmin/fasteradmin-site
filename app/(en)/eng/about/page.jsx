@@ -7,11 +7,10 @@ import { pageMetadata } from "@/lib/seo";
 
 /**
  * English /eng/about. Copy replaced 2026-09-13 with a shorter, single
- * essay, given verbatim — the team-bio prose and the "How it starts"
- * section are gone since nothing in the new text corresponds to them. The
- * team photos themselves are not copy and stay: banner image up top, the
- * three-person grid below the essay. MeetingSection/ContactSection stay
- * too, matching every other page. Mirrors app/(nl)/about/page.jsx.
+ * essay, given verbatim. 2026-09-13: office banner image removed, team
+ * grid given its own heading, and the "How we work"/"What we hold
+ * ourselves to" paragraphs moved below the team photos per follow-up
+ * feedback. Mirrors app/(nl)/about/page.jsx.
  */
 export const metadata = pageMetadata({
   path: "/eng/about",
@@ -49,19 +48,6 @@ export default function AboutPage() {
               already uses.
             </p>
             <p>
-              <span className="font-semibold text-navy">How we work.</span> Every engagement
-              is scoped, built and tested by the people you deal with directly. Nothing is
-              offshored, and nothing is handed to a subcontractor. The person who
-              understands your business is the person who builds it, which is also why we
-              take on a limited number of engagements at a time.
-            </p>
-            <p>
-              <span className="font-semibold text-navy">What we hold ourselves to.</span> A
-              fixed price, agreed before the build begins. A go-live date in writing. And one
-              standard behind both: if the system does not do what the scope said it would
-              by that date, we keep working until it does, at no extra charge.
-            </p>
-            <p>
               <span className="font-semibold text-navy">Based in Amsterdam.</span> We take on
               work where we can be decisive about the outcome, and we are candid when a
               build is not the answer.
@@ -72,19 +58,15 @@ export default function AboutPage() {
             <Button href="/eng/#section-meeting">Book The Ops Call</Button>
           </Reveal>
         </div>
-
-        <Image
-          src="/img/S8xogGWl7nZ0sT4esjnF1QeUkWg.png"
-          alt="The FasterAdmin team at work"
-          width={1200}
-          height={673}
-          className="h-auto w-full"
-        />
       </section>
 
       <section className="bg-surface-alt py-20 lg:py-24">
         <div className="container-site">
-          <Reveal className="grid gap-8 sm:grid-cols-3">
+          <Reveal as="h2" className="h-section text-navy">
+            Your Team of Experts
+          </Reveal>
+
+          <Reveal className="mt-10 grid gap-8 sm:grid-cols-3">
             {team.map((m) => (
               <div key={m.name}>
                 <Image
@@ -98,6 +80,22 @@ export default function AboutPage() {
                 <p className="text-sm text-grey-600">{m.role}</p>
               </div>
             ))}
+          </Reveal>
+
+          <Reveal className="body-base mt-12 max-w-2xl space-y-5 text-grey-600">
+            <p>
+              <span className="font-semibold text-navy">How we work.</span> Every engagement
+              is scoped, built and tested by the people you deal with directly. Nothing is
+              offshored, and nothing is handed to a subcontractor. The person who
+              understands your business is the person who builds it, which is also why we
+              take on a limited number of engagements at a time.
+            </p>
+            <p>
+              <span className="font-semibold text-navy">What we hold ourselves to.</span> A
+              fixed price, agreed before the build begins. A go-live date in writing. And one
+              standard behind both: if the system does not do what the scope said it would
+              by that date, we keep working until it does, at no extra charge.
+            </p>
           </Reveal>
         </div>
       </section>

@@ -7,11 +7,9 @@ import { pageMetadata } from "@/lib/seo";
 
 /**
  * Dutch /about. Copy replaced 2026-09-13 with a shorter, single essay,
- * given verbatim — the team-bio prose and the "Zo begint het" section are
- * gone since nothing in the new text corresponds to them. The team photos
- * themselves are not copy and stay: banner image up top, the three-person
- * grid below the essay. MeetingSection/ContactSection stay too, matching
- * every other page.
+ * given verbatim. 2026-09-13: office banner image removed, team grid
+ * given its own heading, and the "Hoe we werken"/"Waar we onszelf aan
+ * houden" paragraphs moved below the team photos per follow-up feedback.
  */
 export const metadata = pageMetadata({
   path: "/about",
@@ -50,20 +48,6 @@ export default function AboutPage() {
               bedrijf al gebruikt.
             </p>
             <p>
-              <span className="font-semibold text-navy">Hoe we werken.</span> Elk traject
-              wordt in kaart gebracht, gebouwd en getest door de mensen met wie je direct te
-              maken hebt. Niets gaat naar het buitenland, niets wordt uitbesteed aan een
-              onderaannemer. Degene die je bedrijf begrijpt, is degene die het bouwt. Daarom
-              nemen we ook een beperkt aantal trajecten tegelijk aan.
-            </p>
-            <p>
-              <span className="font-semibold text-navy">Waar we onszelf aan houden.</span> Een
-              vaste prijs, afgesproken voordat de bouw begint. Een opleverdatum die
-              zwart-op-wit staat. En één norm achter allebei: doet het systeem op die datum
-              niet wat is afgesproken, dan werken we door tot het dat wel doet, zonder
-              meerkosten.
-            </p>
-            <p>
               <span className="font-semibold text-navy">Gevestigd in Amsterdam.</span> We
               nemen werk aan waar we voor de uitkomst kunnen instaan, en we zijn eerlijk
               wanneer een bouw niet het antwoord is.
@@ -74,19 +58,15 @@ export default function AboutPage() {
             <Button href="/#section-meeting">Plan 20 minuten met ons</Button>
           </Reveal>
         </div>
-
-        <Image
-          src="/img/S8xogGWl7nZ0sT4esjnF1QeUkWg.png"
-          alt="Het team van FasterAdmin aan het werk"
-          width={1200}
-          height={673}
-          className="h-auto w-full"
-        />
       </section>
 
       <section className="bg-surface-alt py-20 lg:py-24">
         <div className="container-site">
-          <Reveal className="grid gap-8 sm:grid-cols-3">
+          <Reveal as="h2" className="h-section text-navy">
+            Jouw team van experts
+          </Reveal>
+
+          <Reveal className="mt-10 grid gap-8 sm:grid-cols-3">
             {team.map((m) => (
               <div key={m.name}>
                 <Image
@@ -100,6 +80,23 @@ export default function AboutPage() {
                 <p className="text-sm text-grey-600">{m.role}</p>
               </div>
             ))}
+          </Reveal>
+
+          <Reveal className="body-base mt-12 max-w-2xl space-y-5 text-grey-600">
+            <p>
+              <span className="font-semibold text-navy">Hoe we werken.</span> Elk traject
+              wordt in kaart gebracht, gebouwd en getest door de mensen met wie je direct te
+              maken hebt. Niets gaat naar het buitenland, niets wordt uitbesteed aan een
+              onderaannemer. Degene die je bedrijf begrijpt, is degene die het bouwt. Daarom
+              nemen we ook een beperkt aantal trajecten tegelijk aan.
+            </p>
+            <p>
+              <span className="font-semibold text-navy">Waar we onszelf aan houden.</span> Een
+              vaste prijs, afgesproken voordat de bouw begint. Een opleverdatum die
+              zwart-op-wit staat. En één norm achter allebei: doet het systeem op die datum
+              niet wat is afgesproken, dan werken we door tot het dat wel doet, zonder
+              meerkosten.
+            </p>
           </Reveal>
         </div>
       </section>
