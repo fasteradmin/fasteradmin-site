@@ -38,7 +38,7 @@ export default function HomePage() {
   return (
     <>
       <Hero locale="nl" />
-      <Manifesto />
+      <Manifesto locale="nl" />
       <ProofCupcake locale="nl" />
       <ProofMeetPartner locale="nl" />
       <OfferLadder locale="nl" />
