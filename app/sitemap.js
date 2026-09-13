@@ -4,10 +4,12 @@ import { SITE_URL as BASE } from "@/lib/seo";
 
 const routes = [
   "/",
-  // The preserved English homepage. Nothing else has an /eng counterpart
-  // yet — the other routes below are still English at their original paths,
-  // pending a Dutch pass (see the PR that introduced /eng).
+  // The preserved English homepage. /about is the first other page to get
+  // its Dutch pass (2026-09-13): English moved to /eng/about, Dutch now
+  // lives at /about. The rest below are still English at their original
+  // paths, pending the same treatment.
   "/eng",
+  "/eng/about",
   "/about",
   "/works",
   "/works/email-to-quote-system",

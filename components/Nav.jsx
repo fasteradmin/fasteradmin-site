@@ -24,7 +24,7 @@ const COPY = {
   // that's where the English homepage and its meeting section now live.
   en: {
     links: [
-      { label: "About", href: "/about" },
+      { label: "About", href: "/eng/about" },
       { label: "Learn", href: "/learn" },
       { label: "Contact", href: "/contact" },
       { label: "Tijdlek-scan", href: "https://tool.fasteradmin.com" },

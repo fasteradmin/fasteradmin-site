@@ -25,7 +25,7 @@ const COPY = {
         title: "Navigation",
         links: [
           { label: "Home", href: "/eng" },
-          { label: "About", href: "/about" },
+          { label: "About", href: "/eng/about" },
           { label: "Cases", href: "/works" },
           { label: "Learn", href: "/learn" },
           { label: "Contact", href: "/contact" },
