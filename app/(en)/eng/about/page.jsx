@@ -41,7 +41,7 @@ export default function AboutPage() {
               without adding the headcount to do it.
             </p>
             <p>
-              We work with owners of 20-to-50-person firms who have outgrown their back
+              We work with owners of 10-to-40-person firms who have outgrown their back
               office: the work still runs through spreadsheets, inboxes and one or two
               people&apos;s memory, and the owner has become the bottleneck for it. We build
               the system that takes that load off the desk, into the tools the company

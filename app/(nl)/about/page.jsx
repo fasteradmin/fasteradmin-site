@@ -41,7 +41,7 @@ export default function AboutPage() {
               mensen bij aan te nemen.
             </p>
             <p>
-              We werken met eigenaren van bedrijven van 20 tot 50 man die hun backoffice
+              We werken met eigenaren van bedrijven van 10 tot 40 man die hun backoffice
               zijn ontgroeid: het werk loopt nog via spreadsheets, mailboxen en het geheugen
               van één of twee mensen, en de eigenaar is er de flessenhals van geworden. Wij
               bouwen het systeem dat die last van het bureau haalt, in de tools die het
