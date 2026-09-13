@@ -114,7 +114,7 @@ export default function Hero({ locale = "en" }) {
                 </span>
               ))}
             </h1>
-            <p data-fade className="body-base mt-5 max-w-[645px] text-grey-600">
+            <p data-fade className="body-base mt-5 text-grey-600">
               {t.body}
             </p>
             <div data-fade className="mt-8">
