@@ -7,55 +7,61 @@ import { headingSlug } from "@/lib/posts";
 export const metadata = pageMetadata({
   path: "/works/email-to-quote-system",
   title:
-    "Cupcake STHLM - How We Save A Bakery 40h+ A Month With Email Order Handling Automation",
+    "Cupcake STHLM - Hoe we een bakkerij 40+ uur per maand besparen met automatisering van e-mailbestellingen",
   description:
-    "From 2-3 hours of manually replying to emails and copy/pasting details into their invoicing system, to less than 1 hour a day.",
+    "Van 2-3 uur handmatig e-mails beantwoorden en gegevens overtypen in hun facturatiesysteem, naar minder dan 1 uur per dag.",
   openGraph: { type: "article" },
+  locale: "nl_NL",
+  languages: {
+    nl: "/works/email-to-quote-system",
+    en: "/eng/works/email-to-quote-system",
+    "x-default": "/works/email-to-quote-system",
+  },
 });
 
 const relevantIf = [
-  "Most of your jobs start with a custom request by email or WhatsApp",
-  "You manually copy the same details into: quotes, invoices / accounting, internal planning",
-  "You sometimes send offers later than you’d like, simply because you were on site all day",
-  "A lot of your “system” lives in your head, and if you’re tired or busy, things slip",
+  "De meeste opdrachten beginnen met een aanvraag op maat per e-mail of WhatsApp",
+  "Je typt dezelfde gegevens handmatig over in: offertes, facturen/boekhouding, interne planning",
+  "Je verstuurt offertes soms later dan je zou willen, gewoon omdat je de hele dag op locatie was",
+  "Een groot deel van je “systeem” zit in je hoofd, en als je moe of druk bent, glipt er iets doorheen",
 ];
 
 const before = [
-  "Before automation... every email had to first be read carefully and “decoded”",
-  "Customer name, company, date, time, address, invoice details, products and quantities were copied by hand",
-  "Offers were created manually in Fortnox and downloaded as PDF",
-  "Every email written back to the client manually",
-  "If they didn’t stay on top of it, orders or confirmations would slip through",
+  "Vóór automatisering... moest elke e-mail eerst zorgvuldig gelezen en “vertaald” worden",
+  "Klantnaam, bedrijf, datum, tijd, adres, factuurgegevens, producten en aantallen werden met de hand overgetypt",
+  "Offertes werden handmatig gemaakt in Fortnox en als pdf gedownload",
+  "Elke e-mail werd handmatig terug naar de klant geschreven",
+  "Als het even niet bijgehouden werd, glipten bestellingen of bevestigingen erdoorheen",
 ];
 
 const after = [
-  "With automation... every email is instantly analysed and details are stored in their own record and designated fields",
-  "Create or link the customer in his invoicing tool Fortnox",
-  "Create the offer in Fortnox with correct details instantly",
-  "Generate a PDF offer and store it neatly in Google Drive",
-  "Generate a draft email that recaps everything and links to the PDF",
+  "Met automatisering... wordt elke e-mail direct geanalyseerd en worden de gegevens opgeslagen in hun eigen record en velden",
+  "De klant wordt aangemaakt of gekoppeld in facturatietool Fortnox",
+  "De offerte wordt direct met de juiste gegevens aangemaakt in Fortnox",
+  "Er wordt een pdf-offerte gegenereerd en netjes opgeslagen in Google Drive",
+  "Er wordt een conceptmail gegenereerd die alles samenvat en naar de pdf linkt",
 ];
 
 const built = [
-  "Incoming emails are turned into structured requests",
-  "Fortnox offers and PDF files are created with one click",
-  "Draft reply emails are generated automatically and just need approval",
-  "The email has a button so the customer can accept, decline or change their order",
-  "Once accepted, the customer and everyone involved in the company is notified.",
+  "Binnenkomende e-mails worden omgezet in gestructureerde aanvragen",
+  "Fortnox-offertes en pdf-bestanden worden met één klik aangemaakt",
+  "Conceptantwoorden worden automatisch gegenereerd en hoeven alleen goedgekeurd te worden",
+  "De e-mail heeft een knop waarmee de klant de bestelling kan accepteren, weigeren of wijzigen",
+  "Zodra de bestelling is geaccepteerd, worden de klant en iedereen binnen het bedrijf op de hoogte gebracht.",
 ];
 
 const outcomes = [
   {
-    title: "No more worry",
-    body: "The biggest win for the client is the relief of constant worry. Laying awake at night worrying if he made mistakes, if he missed anything and if everyone is up to date.",
+    title: "Geen zorgen meer",
+    body: "De grootste winst voor de klant is de opluchting van de constante zorg. 's Nachts wakker liggen met de vraag of hij fouten heeft gemaakt, iets is vergeten en of iedereen op de hoogte is.",
   },
   {
-    title: "No mistakes, nothing forgotten",
-    body: "With the new system they knows that in the flow of receiving an order, to confirming and letting the chef know when to make what. Every task is always done, and done correctly. No exceptions.",
+    title: "Geen fouten, niets vergeten",
+    body: "Met het nieuwe systeem weet hij dat, van het binnenkomen van een bestelling tot de bevestiging en het doorgeven aan de banketbakker wat wanneer gemaakt moet worden, elke stap altijd en correct gebeurt. Zonder uitzondering.",
   },
   {
-    title: "Saved 8h+/week",
-    body: "They went from 30–40 minutes per email inquiry to sending 5 offers in 1 hour, without hiring anyone. Less back-and-forth, fewer manual steps, faster turnaround. That time goes back into sales, customers, and growing the business.",
+    title: "8+ uur per week bespaard",
+    body: "Van 30 tot 40 minuten per e-mailaanvraag naar 5 offertes in 1 uur versturen, zonder iemand aan te nemen. Minder heen-en-weer, minder handmatige stappen, snellere doorlooptijd. Die tijd gaat terug naar verkoop, klanten en het laten groeien van het bedrijf.",
   },
 ];
 
@@ -65,32 +71,33 @@ export default function CaseStudyPage() {
       <section className="bg-white">
         <div className="container-site py-20 lg:py-28">
           <dl className="flex flex-wrap gap-x-16 gap-y-6">
-            <Meta label="Client" value="Cupcake STHLM" />
-            <Meta label="Duration" value="3 Weeks" />
-            <Meta label="Date" value="Nov 14, 2025" />
-            <Meta label="#" value="automation" icon="Fi1knLppTjSuF6gbXIU0LmembU.png" />
+            <Meta label="Klant" value="Cupcake STHLM" />
+            <Meta label="Duur" value="3 weken" />
+            <Meta label="Datum" value="14 nov 2025" />
+            <Meta label="#" value="automatisering" icon="Fi1knLppTjSuF6gbXIU0LmembU.png" />
           </dl>
 
           <h1 className="h-display mt-12 max-w-4xl text-navy">
-            How We Save A Bakery 40h+ A Month With Email Order Handling Automation
+            Hoe we een bakkerij 40+ uur per maand besparen met automatisering van
+            e-mailbestellingen
           </h1>
 
           <div className="body-base mt-10 max-w-2xl space-y-5 text-grey-600">
             <p>
-              From 2-3 hours of manually replying to emails, copy/pasting new customer details and
-              offer details into their invoicing system.
+              Van 2-3 uur handmatig e-mails beantwoorden en nieuwe klant- en offertegegevens
+              overtypen in hun facturatiesysteem.
             </p>
             <p>
-              A workflow where mistakes easily sneaked in and constant worry on his mind if he
-              missed anything…
+              Een werkwijze waar makkelijk fouten in slopen en de constante zorg of hij iets
+              gemist had...
             </p>
             <p>
-              To less than 1 hour a day and the peace of mind that everything is always done, and
-              more importantly, done correctly.
+              Naar minder dan 1 uur per dag en de gemoedsrust dat alles altijd gebeurt, en
+              vooral: correct gebeurt.
             </p>
             <p className="text-navy">
-              You might not be a bakery, but if you recognize this problem... This could be the best
-              thing you read this week.
+              Je bent misschien geen bakkerij, maar als je dit probleem herkent... dan is dit
+              wellicht het beste wat je deze week leest.
             </p>
           </div>
         </div>
@@ -112,7 +119,7 @@ export default function CaseStudyPage() {
             <div className="relative aspect-video w-full">
               <iframe
                 src="https://www.youtube.com/embed/O67qwb_2FF8?iv_load_policy=3&rel=0&modestbranding=1&playsinline=1"
-                title="Cupcake STHLM case study walkthrough"
+                title="Cupcake STHLM praktijkvoorbeeld"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                 allowFullScreen
                 loading="lazy"
@@ -122,9 +129,9 @@ export default function CaseStudyPage() {
           </div>
 
           <p className="body-base mt-6 text-grey-600">
-            Introduction: 00:00 - 03:00
+            Introductie: 00:00 - 03:00
             <br />
-            Case study: 03:00 - 10:27
+            Praktijkvoorbeeld: 03:00 - 10:27
           </p>
         </div>
       </section>
@@ -133,9 +140,9 @@ export default function CaseStudyPage() {
       <section className="bg-surface-alt">
         <div className="container-site py-20">
           <blockquote className="max-w-3xl text-2xl font-medium italic leading-tight tracking-[-0.03em] text-navy md:text-[32px]">
-            “Not only did I go from 2-3+ hours to less than 1 hour of admin a day (answering emails,
-            sending offers, etc.). More importantly, I don&apos;t have the worry of &quot;Did I miss
-            something or did I do it correct?&quot;
+            &ldquo;Ik ging niet alleen van 2-3+ uur naar minder dan 1 uur administratie per dag
+            (mails beantwoorden, offertes versturen, enzovoort). Belangrijker nog: ik heb niet
+            meer de zorg van &lsquo;heb ik iets gemist of heb ik het goed gedaan?&rsquo;&rdquo;
           </blockquote>
 
           <div className="mt-10 flex items-center gap-4">
@@ -157,8 +164,10 @@ export default function CaseStudyPage() {
       {/* Relevance */}
       <section className="bg-surface-alt py-24">
         <div className="container-site">
-          <p className="eyebrow text-grey-600">Recognise these problems?</p>
-          <h2 id="this-case-is-relevant-if" className="h-section mt-4 text-navy">This case is relevant if…</h2>
+          <p className="eyebrow text-grey-600">Herken je deze problemen?</p>
+          <h2 id="this-case-is-relevant-if" className="h-section mt-4 text-navy">
+            Dit praktijkvoorbeeld is relevant als…
+          </h2>
 
           <ul className="mt-10 max-w-3xl space-y-3">
             {relevantIf.map((r) => (
@@ -170,15 +179,15 @@ export default function CaseStudyPage() {
 
           <div className="body-base mt-10 max-w-2xl space-y-4 text-grey-600">
             <p>
-              Even though this is a bakery, the pattern is the same as in many MKB service
-              businesses:
+              Ook al is dit een bakkerij, het patroon is hetzelfde als bij veel
+              mkb-dienstverleners:
             </p>
             <p className="text-navy">
-              Plumbers, electricians, installation services, surveying, etc.
+              Loodgieters, elektriciens, installatiebedrijven, taxateurs, enzovoort.
             </p>
             <p>
-              Note that, in this case, the client used Fortnox as their invoicing tool. This can
-              easily be replaced by most other invoicing tools.
+              In dit geval gebruikte de klant Fortnox als facturatietool. Dat is eenvoudig te
+              vervangen door de meeste andere facturatietools.
             </p>
           </div>
         </div>
@@ -187,17 +196,19 @@ export default function CaseStudyPage() {
       {/* Before / after */}
       <section className="bg-white py-24">
         <div className="container-site">
-          <h2 id="time-saved-and-invested-elsewhere" className="h-section text-navy">Time saved and invested elsewhere</h2>
+          <h2 id="time-saved-and-invested-elsewhere" className="h-section text-navy">
+            Bespaarde tijd, elders geïnvesteerd
+          </h2>
 
           <div className="body-base mt-8 max-w-2xl space-y-4 text-grey-600">
             <p>
-              They don’t need to write emails and offers from scratch anymore, they just review and
-              approve what the system prepared.
+              Ze hoeven e-mails en offertes niet meer vanaf nul te schrijven, ze controleren en
+              keuren alleen nog goed wat het systeem heeft klaargezet.
             </p>
             <p>
-              Offers now go out faster and more consistently, and the overall mental load has
-              dropped because everyone involved — owner, baker, and client — are always up to date
-              of the order and the status.
+              Offertes gaan nu sneller en consistenter de deur uit, en de mentale belasting is
+              gedaald omdat iedereen die erbij betrokken is — eigenaar, banketbakker en klant —
+              altijd op de hoogte is van de bestelling en de status.
             </p>
           </div>
 
@@ -216,13 +227,13 @@ export default function CaseStudyPage() {
 
           <div className="mt-16 grid gap-8 lg:grid-cols-2">
             <Panel
-              title="Long boring hours"
+              title="Lange, saaie uren"
               items={before}
               tone="muted"
               img="kOxX0Fj00H0IQqmXMrdMaW1Bo.png"
             />
             <Panel
-              title="Done for you"
+              title="Voor je gedaan"
               items={after}
               tone="brand"
               img="ILYMXCofMk9NRNF0O8aD4DIVM.png"
@@ -234,17 +245,20 @@ export default function CaseStudyPage() {
       {/* What we built */}
       <section className="bg-white py-24">
         <div className="container-site">
-          <h2 id="what-we-actually-built" className="h-section text-navy">What we actually built</h2>
-          <p className="mt-6 text-xl text-brand">Core idea: Turn email chaos into a clean pipeline</p>
+          <h2 id="what-we-actually-built" className="h-section text-navy">
+            Wat we daadwerkelijk hebben gebouwd
+          </h2>
+          <p className="mt-6 text-xl text-brand">Kernidee: van e-mailchaos naar een schone pipeline</p>
 
           <div className="body-base mt-8 max-w-2xl space-y-4 text-ink-muted">
             <p>
-              We created a central base in a program called Airtable (think Google Sheets or Excel
-              2.0) where all information is stored and controlled in a custom designed interface.
+              We bouwden een centrale basis in een programma genaamd Airtable (denk aan Google
+              Sheets of Excel 2.0) waar alle informatie wordt opgeslagen en beheerd in een op
+              maat ontworpen interface.
             </p>
             <p>
-              From here the client controls what happens in Outlook and in their invoicing tool,
-              Fortnox.
+              Van daaruit bestuurt de klant wat er gebeurt in Outlook en in hun
+              facturatietool, Fortnox.
             </p>
           </div>
 
@@ -264,7 +278,7 @@ export default function CaseStudyPage() {
               <Image
                 key={f}
                 src={`/img/${f}`}
-                alt="The Airtable interface built for Cupcake STHLM"
+                alt="De Airtable-interface gebouwd voor Cupcake STHLM"
                 width={3000}
                 height={1494}
                 className="h-auto w-full rounded-[var(--radius-card)]"
@@ -274,11 +288,12 @@ export default function CaseStudyPage() {
 
           <div className="body-base mt-10 max-w-2xl space-y-4 text-ink-muted">
             <p>
-              By just clicking a few buttons the client generates emails, registers new clients and
-              creates offers.
+              Met een paar klikken genereert de klant e-mails, registreert hij nieuwe klanten
+              en maakt hij offertes aan.
             </p>
             <p>
-              All while keeping full control thanks to built-in human control &amp; approval steps.
+              En dat allemaal met volledige controle dankzij ingebouwde menselijke controle-
+              en goedkeuringsstappen.
             </p>
           </div>
         </div>
@@ -287,7 +302,7 @@ export default function CaseStudyPage() {
       {/* Outcomes */}
       <section className="bg-surface-alt py-24">
         <div className="container-site">
-          <h2 id="key-outcomes" className="h-section text-navy">Key Outcomes</h2>
+          <h2 id="key-outcomes" className="h-section text-navy">Belangrijkste resultaten</h2>
 
           <div className="mt-12 grid gap-6 md:grid-cols-3">
             {outcomes.map((o) => (
@@ -300,8 +315,8 @@ export default function CaseStudyPage() {
         </div>
       </section>
 
-      <MeetingSection />
-      <ContactSection minimal />
+      <MeetingSection locale="nl" />
+      <ContactSection minimal locale="nl" />
     </>
   );
 }

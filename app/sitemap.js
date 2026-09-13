@@ -11,6 +11,8 @@ const routes = [
   "/eng",
   "/eng/about",
   "/eng/contact",
+  "/eng/works",
+  "/eng/works/email-to-quote-system",
   "/about",
   "/contact",
   "/works",

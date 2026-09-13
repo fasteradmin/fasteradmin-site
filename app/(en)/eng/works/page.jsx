@@ -6,10 +6,11 @@ import { pageMetadata } from "@/lib/seo";
 import { headingSlug } from "@/lib/posts";
 
 export const metadata = pageMetadata({
-  path: "/works",
+  path: "/eng/works",
   title: "Case studies | FasterAdmin.com",
   description:
     "Stop guessing what automation can do. Here are the real builds: the workflow, the tools we connected, and the time we removed from the week.",
+  languages: { nl: "/works", en: "/eng/works", "x-default": "/works" },
 });
 
 // Case studies are data, not markup. Adding one is a new entry here plus a
@@ -44,7 +45,7 @@ export default function WorksPage() {
             {cases.map((c) => (
               <Link
                 key={c.slug}
-                href={`/works/${c.slug}`}
+                href={`/eng/works/${c.slug}`}
                 className="group overflow-hidden rounded-[var(--radius-block)] bg-white transition-shadow hover:shadow-lg"
               >
                 <div className="relative aspect-[3/2] w-full overflow-hidden">
