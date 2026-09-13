@@ -17,13 +17,12 @@ import { isOwnDomain } from "@/lib/links";
  * one is added, not a new inconsistency.
  */
 const COPY = {
-  // About and Contact got their Dutch pass on 2026-09-13 and moved under
-  // /eng. Learn has not yet, so it still lives at its original root path —
-  // the English nav points there directly, same as it always has.
+  // About, Contact, Learn, Works and the two policy pages all got their
+  // Dutch pass on 2026-09-13 and moved under /eng.
   en: {
     links: [
       { label: "About", href: "/eng/about" },
-      { label: "Learn", href: "/learn" },
+      { label: "Learn", href: "/eng/learn" },
       { label: "Contact", href: "/eng/contact" },
       { label: "Tijdlek-scan", href: "https://tool.fasteradmin.com" },
     ],
@@ -31,9 +30,6 @@ const COPY = {
     meetingHref: "/eng/#section-meeting",
     homeHref: "/eng",
   },
-  // Learn has no Dutch copy yet, so it still points at the real English page
-  // at its existing root path — the one deliberately mixed-language link
-  // left in this table. About and Contact now resolve to real Dutch pages.
   nl: {
     links: [
       { label: "Over ons", href: "/about" },

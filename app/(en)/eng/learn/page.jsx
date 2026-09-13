@@ -4,15 +4,16 @@ import { getPopulatedCollections } from "@/lib/collections";
 import { pageMetadata } from "@/lib/seo";
 
 export const metadata = pageMetadata({
-  path: "/learn",
+  path: "/eng/learn",
   title: "Learn | FasterAdmin",
   description:
     "How operations actually break in 20 to 50 person companies, and what it costs to fix.",
+  languages: { nl: "/learn", en: "/eng/learn", "x-default": "/learn" },
 });
 
 export default function BlogIndex() {
-  const posts = getPublishedPosts();
-  const topics = getPopulatedCollections(posts);
+  const posts = getPublishedPosts("en");
+  const topics = getPopulatedCollections(posts, "en");
 
   return (
     <main>
@@ -42,7 +43,7 @@ export default function BlogIndex() {
               {topics.map((t) => (
                 <Link
                   key={t.slug}
-                  href={`/learn/topic/${t.slug}/`}
+                  href={`/eng/learn/topic/${t.slug}/`}
                   className="group rounded-[var(--radius-card)] border border-line p-6 transition-colors hover:border-brand"
                 >
                   <h2 id={headingSlug(t.title)} className="text-lg font-medium tracking-[-0.03em] text-navy group-hover:text-brand">
@@ -71,7 +72,7 @@ export default function BlogIndex() {
               {posts.map((post) => (
                 <li key={post.slug}>
                   <Link
-                    href={`/learn/${post.slug}/`}
+                    href={`/eng/learn/${post.slug}/`}
                     className="group flex flex-col gap-2 py-8 transition-colors hover:bg-white/60 sm:px-4"
                   >
                     <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-ink-muted">

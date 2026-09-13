@@ -4,15 +4,15 @@ import { SITE_URL as BASE } from "@/lib/seo";
 
 const routes = [
   "/",
-  // The preserved English homepage. /about is the first other page to get
-  // its Dutch pass (2026-09-13): English moved to /eng/about, Dutch now
-  // lives at /about. The rest below are still English at their original
-  // paths, pending the same treatment.
+  // The whole site (except /learn's dynamic post/topic pages, added below)
+  // got its Dutch pass on 2026-09-13: Dutch takes the root path, English
+  // moved under /eng.
   "/eng",
   "/eng/about",
   "/eng/contact",
   "/eng/works",
   "/eng/works/email-to-quote-system",
+  "/eng/learn",
   "/eng/terms-of-service-policy",
   "/eng/privacy-policy-policy",
   "/about",
@@ -39,24 +39,28 @@ export default function sitemap() {
     priority: route === "/" ? 1 : 0.7,
   }));
 
-  // Only published posts appear. A future-dated post is excluded here for the
-  // same reason it is not built as a page: until its date passes it does not
-  // exist on the site, and listing it would advertise a 404.
-  const postEntries = getPublishedPosts().map((post) => ({
-    url: `${BASE}/learn/${post.slug}/`,
-    lastModified: post.updatedAt ?? post.publishedAt,
-    changeFrequency: "monthly",
-    priority: 0.6,
-  }));
+  // Only published posts appear, per locale. A future-dated post is excluded
+  // here for the same reason it is not built as a page: until its date
+  // passes it does not exist on the site, and listing it would advertise a 404.
+  const postEntries = ["en", "nl"].flatMap((locale) =>
+    getPublishedPosts(locale).map((post) => ({
+      url: `${BASE}${locale === "en" ? "/eng" : ""}/learn/${post.slug}/`,
+      lastModified: post.updatedAt ?? post.publishedAt,
+      changeFrequency: "monthly",
+      priority: 0.6,
+    })),
+  );
 
   // Only hubs that have posts. A collection with nothing in it has no page,
   // so listing it would advertise a 404.
-  const topicEntries = getPopulatedCollections(getPublishedPosts()).map((c) => ({
-    url: `${BASE}/learn/topic/${c.slug}/`,
-    lastModified: new Date(),
-    changeFrequency: "weekly",
-    priority: 0.6,
-  }));
+  const topicEntries = ["en", "nl"].flatMap((locale) =>
+    getPopulatedCollections(getPublishedPosts(locale), locale).map((c) => ({
+      url: `${BASE}${locale === "en" ? "/eng" : ""}/learn/topic/${c.slug}/`,
+      lastModified: new Date(),
+      changeFrequency: "weekly",
+      priority: 0.6,
+    })),
+  );
 
   return [...staticEntries, ...topicEntries, ...postEntries];
 }

@@ -10,32 +10,37 @@ import { pageMetadata } from "@/lib/seo";
  * what answer engines and search engines discount.
  */
 export function generateStaticParams() {
-  return getPopulatedCollections(getPublishedPosts()).map((c) => ({ slug: c.slug }));
+  return getPopulatedCollections(getPublishedPosts("en"), "en").map((c) => ({ slug: c.slug }));
 }
 
 export function generateMetadata({ params }) {
-  const collection = getCollection(params.slug);
+  const collection = getCollection(params.slug, "en");
   if (!collection) return {};
 
   return pageMetadata({
-    path: `/learn/topic/${collection.slug}`,
+    path: `/eng/learn/topic/${collection.slug}`,
+    languages: {
+      nl: `/learn/topic/${collection.slug}`,
+      en: `/eng/learn/topic/${collection.slug}`,
+      "x-default": `/learn/topic/${collection.slug}`,
+    },
     title: `${collection.title} | FasterAdmin`,
     description: collection.description,
   });
 }
 
 export default function TopicPage({ params }) {
-  const collection = getCollection(params.slug);
+  const collection = getCollection(params.slug, "en");
   if (!collection) notFound();
 
-  const posts = getPublishedPosts().filter((p) => p.collection === collection.slug);
+  const posts = getPublishedPosts("en").filter((p) => p.collection === collection.slug);
   if (posts.length === 0) notFound();
 
   return (
     <main>
       <section className="bg-white">
         <div className="container-site py-20 lg:py-28">
-          <Link href="/learn/" className="eyebrow text-grey-600 hover:text-brand">
+          <Link href="/eng/learn/" className="eyebrow text-grey-600 hover:text-brand">
             ← All writing
           </Link>
           <h1 className="h-display mt-4 max-w-3xl text-navy">{collection.title}</h1>
@@ -49,7 +54,7 @@ export default function TopicPage({ params }) {
             {posts.map((post) => (
               <li key={post.slug}>
                 <Link
-                  href={`/learn/${post.slug}/`}
+                  href={`/eng/learn/${post.slug}/`}
                   className="group flex flex-col gap-2 py-8 transition-colors hover:bg-white/60 sm:px-4"
                 >
                   <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-ink-muted">
