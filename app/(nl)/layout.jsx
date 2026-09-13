@@ -2,6 +2,7 @@ import "../globals.css";
 import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
 import Analytics, { GtmNoScript } from "@/components/Analytics";
+import SmoothScroll from "@/components/SmoothScroll";
 import { assertConfig } from "@/lib/assertConfig";
 import { SITE_URL, SITE_NAME, OG_IMAGE, siteSchema } from "@/lib/seo";
 
@@ -63,6 +64,7 @@ export default function RootLayout({ children }) {
       </head>
       <body>
         <GtmNoScript />
+        <SmoothScroll />
         <Nav locale="nl" />
         <main>{children}</main>
         <Footer locale="nl" />

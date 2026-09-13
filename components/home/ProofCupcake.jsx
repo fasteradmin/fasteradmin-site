@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Button from "@/components/Button";
+import Reveal from "@/components/Reveal";
 
 const COPY = {
   en: {
@@ -31,15 +32,22 @@ export default function ProofCupcake({ locale = "en" }) {
   return (
     <section className="bg-surface-alt">
       <div className="container-site py-24 lg:py-28">
-        <p className="eyebrow text-ink-muted">{t.eyebrow}</p>
+        <Reveal as="p" className="eyebrow text-ink-muted">
+          {t.eyebrow}
+        </Reveal>
 
-        <p className="mt-6 text-sm font-semibold uppercase tracking-wide text-navy">{t.stat}</p>
+        <Reveal as="p" className="mt-6 text-sm font-semibold uppercase tracking-wide text-navy">
+          {t.stat}
+        </Reveal>
 
-        <blockquote className="mt-4 max-w-3xl text-2xl font-medium italic leading-tight tracking-[-0.03em] text-navy md:text-[34px]">
+        <Reveal
+          as="blockquote"
+          className="mt-4 max-w-3xl text-2xl font-medium italic leading-tight tracking-[-0.02em] text-navy md:text-[32px]"
+        >
           {t.quote}
-        </blockquote>
+        </Reveal>
 
-        <div className="mt-12 flex items-center gap-4">
+        <Reveal className="mt-12 flex items-center gap-4">
           <Image
             src="/img/QfOGeqDA89lvkdBlJgLaqQuQY.jpeg"
             alt="Alexander Cordova"
@@ -51,11 +59,11 @@ export default function ProofCupcake({ locale = "en" }) {
             <p className="text-base font-medium text-navy">{t.name}</p>
             <p className="text-xs font-semibold text-ink-muted">{t.role}</p>
           </div>
-        </div>
+        </Reveal>
 
-        <Button href="/works/email-to-quote-system" className="mt-12">
-          {t.cta}
-        </Button>
+        <Reveal className="mt-12">
+          <Button href="/works/email-to-quote-system">{t.cta}</Button>
+        </Reveal>
       </div>
     </section>
   );

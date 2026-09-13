@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { isOwnDomain } from "@/lib/links";
 
 /**
@@ -52,10 +52,22 @@ const COPY = {
 
 export default function Nav({ locale = "en" }) {
   const [open, setOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
   const t = COPY[locale];
 
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 8);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
   return (
-    <header className="sticky top-0 z-50 w-full bg-white">
+    <header
+      className={`sticky top-0 z-50 w-full bg-white/80 backdrop-blur-md transition-[box-shadow,border-color] ${
+        scrolled ? "border-b border-line" : "border-b border-transparent"
+      }`}
+    >
       <nav className="container-site flex h-[72px] items-center justify-between">
         <Link href={t.homeHref} className="flex items-center" aria-label="Faster Admin home">
           <Image
