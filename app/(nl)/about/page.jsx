@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Button from "@/components/Button";
 import Reveal from "@/components/Reveal";
 import MeetingSection from "@/components/MeetingSection";
@@ -5,12 +6,12 @@ import ContactSection from "@/components/ContactSection";
 import { pageMetadata } from "@/lib/seo";
 
 /**
- * Dutch /about. Copy replaced 2026-09-13 with a shorter, single essay —
- * given verbatim, no longer the team-bio + "how it starts" layout from the
- * previous pass. The team photo grid and the "Zo begint het" section are
- * gone with it: nothing in the new copy corresponds to them, and inventing
- * a place to keep them would just be old content the new text doesn't ask
- * for. MeetingSection/ContactSection stay, matching every other page.
+ * Dutch /about. Copy replaced 2026-09-13 with a shorter, single essay,
+ * given verbatim — the team-bio prose and the "Zo begint het" section are
+ * gone since nothing in the new text corresponds to them. The team photos
+ * themselves are not copy and stay: banner image up top, the three-person
+ * grid below the essay. MeetingSection/ContactSection stay too, matching
+ * every other page.
  */
 export const metadata = pageMetadata({
   path: "/about",
@@ -20,6 +21,12 @@ export const metadata = pageMetadata({
   locale: "nl_NL",
   languages: { nl: "/about", en: "/eng/about", "x-default": "/about" },
 });
+
+const team = [
+  { name: "Joey Tan", role: "Oprichter", img: "cikrWotQJls4kqizrkcGapqI25k.png" },
+  { name: "Sarah de Bree", role: "Automations Engineer", img: "Tkeu4Z25LmXvGufjWDp2YIp6PuY.png" },
+  { name: "Dennis van der Molen", role: "Automations Engineer", img: "wBiVNcycdYsmtEfv9F6zAl06eF4.png" },
+];
 
 export default function AboutPage() {
   return (
@@ -65,6 +72,34 @@ export default function AboutPage() {
 
           <Reveal className="mt-10">
             <Button href="/#section-meeting">Plan 20 minuten met ons</Button>
+          </Reveal>
+        </div>
+
+        <Image
+          src="/img/S8xogGWl7nZ0sT4esjnF1QeUkWg.png"
+          alt="Het team van FasterAdmin aan het werk"
+          width={1200}
+          height={673}
+          className="h-auto w-full"
+        />
+      </section>
+
+      <section className="bg-surface-alt py-20 lg:py-24">
+        <div className="container-site">
+          <Reveal className="grid gap-8 sm:grid-cols-3">
+            {team.map((m) => (
+              <div key={m.name}>
+                <Image
+                  src={`/img/${m.img}`}
+                  alt={m.name}
+                  width={800}
+                  height={800}
+                  className="h-auto w-full rounded-[var(--radius-card)] object-cover"
+                />
+                <p className="mt-4 text-lg font-medium text-navy">{m.name}</p>
+                <p className="text-sm text-grey-600">{m.role}</p>
+              </div>
+            ))}
           </Reveal>
         </div>
       </section>
