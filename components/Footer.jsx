@@ -52,7 +52,7 @@ const COPY = {
     },
   },
   nl: {
-    tagline: "We automatiseren het repetitieve handwerk waar je een hekel aan hebt.",
+    tagline: "Betrouwbare automatisering & AI voor de backoffice.",
     // Left in English deliberately — see the file comment above.
     pitch: "The operations systems that let you handle more work without hiring for it.",
     privacy:
