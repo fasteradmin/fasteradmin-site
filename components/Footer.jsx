@@ -29,7 +29,7 @@ const COPY = {
           { label: "Cases", href: "/eng/works" },
           { label: "Learn", href: "/eng/learn" },
           { label: "Contact", href: "/eng/contact" },
-          { label: "Tijdlek-scan", href: "https://tool.fasteradmin.com" },
+          { label: "Onnodige-Kosten Scan", href: "https://tool.fasteradmin.com" },
         ],
       },
       {
@@ -66,7 +66,7 @@ const COPY = {
           { label: "Cases", href: "/works" },
           { label: "Inzichten", href: "/learn" },
           { label: "Contact", href: "/contact" },
-          { label: "Tijdlek-scan", href: "https://tool.fasteradmin.com" },
+          { label: "Onnodige-Kosten Scan", href: "https://tool.fasteradmin.com" },
         ],
       },
       {
