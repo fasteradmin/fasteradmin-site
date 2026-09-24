@@ -302,3 +302,113 @@ main > section > *,
   margin-inline: auto;
   padding-inline: 24px;
 }
+
+/* ---------------------------------------------------------------
+   Hero colour field + chain diagram (2026-09-24)
+
+   The field is the grainy, softly blended colour ground from the new
+   brand direction (memory/decisions/2026-09-24-brand-direction-black-ink-
+   colour-fields.md): colour lives only behind media, white type on it.
+   Every blob colour measures >= 4.5:1 against white. The grain is an SVG
+   feTurbulence tile blended with overlay.
+   --------------------------------------------------------------- */
+.hero-field {
+  --c0: #0b2f6e;
+  --c1: #1a5fc4;
+  --c2: #b8540a;
+  --c3: #176f90;
+  position: relative;
+  overflow: hidden;
+  border-radius: 16px;
+  color: #fff;
+  background:
+    radial-gradient(120% 90% at 18% 12%, var(--c1) 0%, transparent 62%),
+    radial-gradient(90% 80% at 88% 92%, var(--c2) 0%, transparent 60%),
+    radial-gradient(70% 60% at 72% 18%, var(--c3) 0%, transparent 58%),
+    var(--c0);
+}
+.hero-field::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.5;
+  mix-blend-mode: overlay;
+  background-size: 180px 180px;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='180' height='180'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.95' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 .9 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+}
+.hero-field > * {
+  position: relative;
+  z-index: 1;
+}
+
+/* Chain diagram: type roles and marks */
+.chain { width: 100%; height: auto; display: block; }
+.chain text { font-family: var(--font-sans); fill: #fff; }
+.chain .hd { font-size: 15px; font-weight: 500; }
+.chain .num { font-size: 11px; opacity: 0.7; }
+.chain .t2 { font-size: 11.5px; opacity: 0.85; }
+.chain .cause { font-size: 11.5px; opacity: 0.85; }
+.chain .track { fill: rgba(255, 255, 255, 0.08); stroke: rgba(255, 255, 255, 0.55); stroke-width: 1; }
+.chain .seg { fill: rgba(255, 255, 255, 0.85); stroke: #fff; stroke-width: 1.1; }
+.chain .ar { stroke: #fff; stroke-width: 1.4; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+.chain .xbg { fill: #000a12; opacity: 0.55; }
+.chain .x { stroke: #fff; stroke-width: 1.6; stroke-linecap: round; }
+.chain .ok { stroke: #000a12; stroke-width: 1.6; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+
+/* Chain diagram: the 14 s loop, in reading order. Each heading gets over a
+   second alone before the next arrives; the manual row then fills bar by
+   bar to the cross, the automated row to the tick; short hold; repeat. */
+.chain .g {
+  transform-box: fill-box;
+  transform-origin: left center;
+  animation-duration: 14s;
+  animation-iteration-count: infinite;
+  animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+.chain .pop {
+  animation-duration: 14s;
+  animation-iteration-count: infinite;
+  animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+@keyframes p-k-h1 { 0%, 2.9% { opacity: 0; } 6.4%, 95% { opacity: 1; } 100% { opacity: 0; } }
+.chain .pop.k-h1 { animation-name: p-k-h1; }
+@keyframes p-k-ar1 { 0%, 14.3% { opacity: 0; } 17.1%, 95% { opacity: 1; } 100% { opacity: 0; } }
+.chain .pop.k-ar1 { animation-name: p-k-ar1; }
+@keyframes p-k-h2 { 0%, 17.1% { opacity: 0; } 20.7%, 95% { opacity: 1; } 100% { opacity: 0; } }
+.chain .pop.k-h2 { animation-name: p-k-h2; }
+@keyframes p-k-ar2 { 0%, 28.6% { opacity: 0; } 31.4%, 95% { opacity: 1; } 100% { opacity: 0; } }
+.chain .pop.k-ar2 { animation-name: p-k-ar2; }
+@keyframes p-k-h3 { 0%, 31.4% { opacity: 0; } 35.0%, 95% { opacity: 1; } 100% { opacity: 0; } }
+.chain .pop.k-h3 { animation-name: p-k-h3; }
+@keyframes p-k-ml { 0%, 44.3% { opacity: 0; } 47.1%, 95% { opacity: 1; } 100% { opacity: 0; } }
+.chain .pop.k-ml { animation-name: p-k-ml; }
+@keyframes g-k-mb1 { 0%, 47.1% { transform: scaleX(0); } 52.1%, 95% { transform: scaleX(1); } 100% { transform: scaleX(0); } }
+.chain .g.k-mb1 { animation-name: g-k-mb1; }
+@keyframes p-k-ma1 { 0%, 52.1% { opacity: 0; } 53.6%, 95% { opacity: 1; } 100% { opacity: 0; } }
+.chain .pop.k-ma1 { animation-name: p-k-ma1; }
+@keyframes g-k-mb2 { 0%, 53.6% { transform: scaleX(0); } 58.6%, 95% { transform: scaleX(1); } 100% { transform: scaleX(0); } }
+.chain .g.k-mb2 { animation-name: g-k-mb2; }
+@keyframes p-k-ma2 { 0%, 58.6% { opacity: 0; } 60.0%, 95% { opacity: 1; } 100% { opacity: 0; } }
+.chain .pop.k-ma2 { animation-name: p-k-ma2; }
+@keyframes g-k-mb3 { 0%, 60.0% { transform: scaleX(0); } 65.0%, 95% { transform: scaleX(1); } 100% { transform: scaleX(0); } }
+.chain .g.k-mb3 { animation-name: g-k-mb3; }
+@keyframes p-k-mx { 0%, 65.7% { opacity: 0; } 67.9%, 95% { opacity: 1; } 100% { opacity: 0; } }
+.chain .pop.k-mx { animation-name: p-k-mx; }
+@keyframes p-k-al { 0%, 72.9% { opacity: 0; } 75.7%, 95% { opacity: 1; } 100% { opacity: 0; } }
+.chain .pop.k-al { animation-name: p-k-al; }
+@keyframes g-k-ab1 { 0%, 75.7% { transform: scaleX(0); } 80.0%, 95% { transform: scaleX(1); } 100% { transform: scaleX(0); } }
+.chain .g.k-ab1 { animation-name: g-k-ab1; }
+@keyframes p-k-aa1 { 0%, 80.0% { opacity: 0; } 81.4%, 95% { opacity: 1; } 100% { opacity: 0; } }
+.chain .pop.k-aa1 { animation-name: p-k-aa1; }
+@keyframes g-k-ab2 { 0%, 81.4% { transform: scaleX(0); } 85.7%, 95% { transform: scaleX(1); } 100% { transform: scaleX(0); } }
+.chain .g.k-ab2 { animation-name: g-k-ab2; }
+@keyframes p-k-aa2 { 0%, 85.7% { opacity: 0; } 87.1%, 95% { opacity: 1; } 100% { opacity: 0; } }
+.chain .pop.k-aa2 { animation-name: p-k-aa2; }
+@keyframes g-k-ab3 { 0%, 87.1% { transform: scaleX(0); } 91.4%, 95% { transform: scaleX(1); } 100% { transform: scaleX(0); } }
+.chain .g.k-ab3 { animation-name: g-k-ab3; }
+@keyframes p-k-ax { 0%, 92.1% { opacity: 0; } 94.3%, 95% { opacity: 1; } 100% { opacity: 0; } }
+.chain .pop.k-ax { animation-name: p-k-ax; }
+@media (prefers-reduced-motion: reduce) {
+  .chain .g, .chain .pop { animation: none; }
+}
