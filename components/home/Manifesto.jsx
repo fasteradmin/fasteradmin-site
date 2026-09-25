@@ -18,7 +18,7 @@ const COPY = {
     problemCards: [
       {
         heading: "Why does everything get harder as you grow?",
-        body: "You've built a good business. Steady clients, enough work, margins that work. And yet: the bigger you get, the more falls through the cracks. A request gets retyped three times.",
+        body: "You've built a good business. Steady clients, enough work, margins that work. And yet: the bigger you get, the more falls through the cracks.",
       },
       {
         heading: "Already hired people, and it's still a mess?",
@@ -64,7 +64,7 @@ const COPY = {
     problemCards: [
       {
         heading: "Waarom kost alles meer moeite naarmate je groeit?",
-        body: "Je hebt een goed bedrijf opgebouwd. Vaste klanten, genoeg werk, marges die kloppen. En toch: hoe groter je wordt, hoe meer er blijft hangen. Een aanvraag wordt drie keer overgetypt.",
+        body: "Je hebt een goed bedrijf opgebouwd. Vaste klanten, genoeg werk, marges die kloppen. En toch: hoe groter je wordt, hoe meer er blijft hangen.",
       },
       {
         heading: "Al iemand aangenomen, en toch een zooitje?",
