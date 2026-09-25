@@ -67,8 +67,8 @@ const COPY = {
         body: "Je hebt een goed bedrijf opgebouwd. Vaste klanten, genoeg werk, marges die kloppen. En toch: hoe groter je wordt, hoe meer er blijft hangen. Een aanvraag wordt drie keer overgetypt.",
       },
       {
-        heading: "Al mensen aangenomen, toch is het een zooitje?",
-        body: "Je hebt iemand aangenomen voor de administratie, en die loopt nu net zo hard achter de feiten aan. Je hebt een tool gekocht die het zou oplossen, en die staat erbij.",
+        heading: "Al iemand aangenomen, en toch een zooitje?",
+        body: "Je hebt iemand aangenomen voor de administratie, en die loopt nu net zo hard achter de feiten aan. Je hebt een tool gekocht die het zou oplossen, en die staat er ongebruikt bij.",
       },
       {
         heading: "Meegaan of achterblijven.",
