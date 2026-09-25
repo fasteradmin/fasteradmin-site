@@ -28,7 +28,7 @@ const COPY = {
   nl: {
     heads: [
       ["Snelheid", "bureauwerk"],
-      ["Tijd voor", "projecten"],
+      ["Ruimte voor", "projectwerk"],
       ["Kwaliteit", ""],
     ],
     manual: "Handmatig",
