@@ -12,6 +12,21 @@ const headers = {
 };
 
 /**
+ * Same shape and event-naming convention as fasteradmin-tool's lib/meten.ts:
+ * GA4 via gtag plus a dataLayer push for GTM, anonymous (no name/email in the
+ * payload — only what step happened and which day/time/reason). Before this,
+ * the only signal on the whole booking flow was the final `generate_lead` on
+ * success, so a visitor who opened the day picker and left was invisible.
+ * Now day/slot selection and every failure path fire too, so drop-off inside
+ * the widget is visible, not just the conversion at the end.
+ */
+function meet(naam, data = {}) {
+  if (typeof window === "undefined") return;
+  window.gtag?.("event", naam, data);
+  window.dataLayer?.push({ event: naam, ...data });
+}
+
+/**
  * UI copy per locale. This is functional/interface text (loading states,
  * form labels, error and success messages), not sales copy, so it was
  * translated in this pass under the same discretion Joey gave for the nav
@@ -190,6 +205,7 @@ export default function BookingWidget({ locale = "en" }) {
       if (res.status === 409) {
         setErrorMsg(body.message || t.slotTaken);
         setSlot(null);
+        meet("boeking_mislukt", { reden: "slot_bezet" });
         const fresh = await fetch(AVAILABILITY_ENDPOINT, {
           method: "POST",
           headers,
@@ -200,10 +216,12 @@ export default function BookingWidget({ locale = "en" }) {
         if (Array.isArray(fresh?.days)) setDays(fresh.days);
       } else {
         setErrorMsg(body.message || t.genericError);
+        meet("boeking_mislukt", { reden: "server_fout" });
       }
       setSubmitState("error");
     } catch {
       setErrorMsg(t.networkError);
+      meet("boeking_mislukt", { reden: "netwerk" });
       setSubmitState("error");
     }
   }
@@ -266,6 +284,7 @@ export default function BookingWidget({ locale = "en" }) {
               onClick={() => {
                 setActiveDate(d.date);
                 setSlot(null);
+                meet("dag_klik", { datum: d.date });
               }}
               className={`flex min-w-[72px] shrink-0 flex-col items-center rounded-[var(--radius-card)] border px-3 py-3 transition-colors ${
                 active
@@ -289,7 +308,10 @@ export default function BookingWidget({ locale = "en" }) {
               <button
                 key={s.start}
                 type="button"
-                onClick={() => setSlot(s)}
+                onClick={() => {
+                  setSlot(s);
+                  meet("slot_klik", { datum: activeDate, tijd: s.time });
+                }}
                 className={`rounded-[40px] border px-3 py-2.5 text-sm transition-colors ${
                   slot?.start === s.start
                     ? "border-navy bg-navy text-white"
