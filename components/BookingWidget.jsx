@@ -36,7 +36,9 @@ const COPY = {
     emailLabel: "Email *",
     companyLabel: "Company",
     websiteLabel: "Website",
-    descriptionLabel: "What do you want to automate?",
+    challengeLabel: "What's the biggest challenge you want to solve right now?",
+    triedLabel: "What have you already tried to solve this?",
+    whyNowLabel: "Why is now the right time to tackle this?",
     sending: "Booking…",
     confirm: "Confirm booking",
     slotTaken: "That time was just booked. Please pick another slot.",
@@ -60,7 +62,9 @@ const COPY = {
     emailLabel: "E-mail *",
     companyLabel: "Bedrijf",
     websiteLabel: "Website",
-    descriptionLabel: "Wat wil je automatiseren?",
+    challengeLabel: "Wat is de grootste uitdaging die je nu wilt oplossen?",
+    triedLabel: "Wat heb je al geprobeerd om dit op te lossen?",
+    whyNowLabel: "Waarom is nu het juiste moment dit aan te pakken?",
     sending: "Bezig met inplannen…",
     confirm: "Bevestig afspraak",
     slotTaken: "Die tijd is net geboekt door iemand anders. Kies een andere.",
@@ -137,6 +141,22 @@ export default function BookingWidget({ locale = "en" }) {
     setSubmitState("sending");
     setErrorMsg("");
 
+    // Three separate questions, combined into the one `description` field
+    // the booking webhook already expects — keeps the wire contract with
+    // n8n unchanged (see FasterAdmin | Booking | Create Booking, "Evaluate"),
+    // no backend deploy needed for this. Each answer keeps its own label so
+    // it stays legible in the calendar event description, not one run-on
+    // paragraph. Blank answers are dropped rather than left in as empty
+    // labels.
+    const qa = [
+      [t.challengeLabel, data.get("challenge")],
+      [t.triedLabel, data.get("tried")],
+      [t.whyNowLabel, data.get("whyNow")],
+    ]
+      .filter(([, value]) => value?.trim())
+      .map(([label, value]) => `${label}\n${value.trim()}`)
+      .join("\n\n");
+
     try {
       const res = await fetch(BOOKING_ENDPOINT, {
         method: "POST",
@@ -146,7 +166,7 @@ export default function BookingWidget({ locale = "en" }) {
           email: data.get("email") || "",
           companyName: data.get("companyName") || "",
           website: data.get("website") || "",
-          description: data.get("description") || "",
+          description: qa,
           start: slot.start,
           hp_field: data.get("hp_field") || "",
           t: renderedAt.current,
@@ -305,14 +325,11 @@ export default function BookingWidget({ locale = "en" }) {
             <Input name="website" label={t.websiteLabel} />
           </div>
 
-          <label className="mt-4 block">
-            <span className="mb-2 block text-sm text-navy">{t.descriptionLabel}</span>
-            <textarea
-              name="description"
-              rows={3}
-              className="w-full rounded-xl border border-grey-300 px-4 py-3 text-base text-navy focus:border-brand focus:outline-none"
-            />
-          </label>
+          <div className="mt-4 space-y-4">
+            <Textarea name="challenge" label={t.challengeLabel} />
+            <Textarea name="tried" label={t.triedLabel} />
+            <Textarea name="whyNow" label={t.whyNowLabel} />
+          </div>
 
           {/* Honeypot: off-screen, aria-hidden, not tabbable. See ContactSection. */}
           <div
@@ -350,6 +367,19 @@ function Input({ name, label, type = "text", required }) {
         type={type}
         name={name}
         required={required}
+        className="w-full rounded-xl border border-grey-300 px-4 py-3 text-base text-navy focus:border-brand focus:outline-none"
+      />
+    </label>
+  );
+}
+
+function Textarea({ name, label }) {
+  return (
+    <label className="block">
+      <span className="mb-2 block text-sm text-navy">{label}</span>
+      <textarea
+        name={name}
+        rows={2}
         className="w-full rounded-xl border border-grey-300 px-4 py-3 text-base text-navy focus:border-brand focus:outline-none"
       />
     </label>
