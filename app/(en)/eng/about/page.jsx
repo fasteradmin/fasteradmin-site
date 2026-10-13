@@ -22,8 +22,6 @@ export const metadata = pageMetadata({
 
 const team = [
   { name: "Joey Tan", role: "Founder", img: "cikrWotQJls4kqizrkcGapqI25k.png" },
-  { name: "Sarah de Bree", role: "Automations Engineer", img: "Tkeu4Z25LmXvGufjWDp2YIp6PuY.png" },
-  { name: "Dennis van der Molen", role: "Automations Engineer", img: "wBiVNcycdYsmtEfv9F6zAl06eF4.png" },
 ];
 
 export default function AboutPage() {
