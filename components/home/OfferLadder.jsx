@@ -40,7 +40,7 @@ const COPY = {
       },
       {
         title: "De bouw",
-        body: "Geoffreerd bij de knelpuntanalyse en vastgehouden op die prijs tot oplevering, met de opleverdatum zwart-op-wit. Doet het op die datum niet wat is afgesproken, dan werken we door tot het dat wel doet. Zonder meerkosten.\n\nNog niet klaar voor het hele systeem? Begin met één workflow live voor €1.500 tot €2.500. Ga je verder, dan rolt dat bedrag volledig door.",
+        body: "Geoffreerd bij de knelpuntanalyse en vastgehouden op die prijs tot oplevering, met de opleverdatum zwart-op-wit. Doet het op die datum niet wat is afgesproken, dan werken we door tot het dat wel doet. Zonder meerkosten.\n\nNog niet klaar voor het hele systeem? Begin met één workflow live vanaf €1.500. Ga je verder, dan rolt dat bedrag volledig door.",
       },
       {
         title: "Aftercare",
