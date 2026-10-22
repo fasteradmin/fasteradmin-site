@@ -177,6 +177,10 @@ export default function BookingWidget({ locale = "en" }) {
         method: "POST",
         headers,
         body: JSON.stringify({
+          // Bron en taal: n8n kiest hiermee de uitnodiging (video, NL of EN). Zie
+          // FasterAdmin | Booking | Create Booking, Validate Input en Evaluate.
+          mode: "site",
+          locale,
           fullName: data.get("fullName") || "",
           email: data.get("email") || "",
           companyName: data.get("companyName") || "",

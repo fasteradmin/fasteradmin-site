@@ -105,6 +105,9 @@ export default function PilotBookingWidget({ onBooked }) {
         method: "POST",
         headers,
         body: JSON.stringify({
+          // n8n: belafspraak van 15 min, Joey belt dit nummer (Create Booking, Validate Input).
+          mode: "pilot",
+          phone: data.get("phone") || "",
           fullName: data.get("fullName") || "",
           email: data.get("email") || "",
           companyName: data.get("companyName") || "",
