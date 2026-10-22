@@ -22,7 +22,7 @@ export default function PolicyPage({ title, intro, blocks, updated, locale = "en
             {blocks.map((b) => (
               <div key={b.heading || b.paras?.[0]}>
                 {b.heading && (
-                  <h2 id={headingSlug(b.heading)} className="text-xl font-semibold tracking-[-0.03em] text-navy">
+                  <h2 id={headingSlug(b.heading)} className="text-xl font-medium tracking-[-0.015em] text-navy">
                     {b.heading}
                   </h2>
                 )}
