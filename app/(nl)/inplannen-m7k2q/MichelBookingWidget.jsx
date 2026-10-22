@@ -58,6 +58,7 @@ export default function MichelBookingWidget() {
   const [soort, setSoort] = useState("onsite");
   const [status, setStatus] = useState("loading"); // loading | ready | error
   const [days, setDays] = useState([]);
+  const [notice, setNotice] = useState("");
   const [activeDate, setActiveDate] = useState(null);
   const [slot, setSlot] = useState(null);
   const [submitState, setSubmitState] = useState("idle"); // idle | sending | booked | error
@@ -79,6 +80,8 @@ export default function MichelBookingWidget() {
       const data = await res.json();
       if (!res.ok || !Array.isArray(data.days)) return setStatus("error");
       setDays(data.days);
+      // Melding uit n8n (Config & Range / Build Slots), bv. een gesloten periode.
+      setNotice(typeof data.notice === "string" ? data.notice : "");
       setActiveDate((prev) => (data.days.some((d) => d.date === prev) ? prev : data.days[0]?.date ?? null));
       setStatus("ready");
     } catch {
@@ -199,6 +202,9 @@ export default function MichelBookingWidget() {
             </button>
           ))}
         </div>
+        {notice && (
+          <p className="mt-4 rounded-xl border border-grey-300 bg-grey-50 px-4 py-3 text-sm text-navy">{notice}</p>
+        )}
       </div>
 
       {status === "loading" && <p className="body-base px-8 py-6 text-grey-600">De agenda wordt geladen…</p>}
