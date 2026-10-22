@@ -26,6 +26,25 @@ const SOORTEN = {
   video: { label: "Videogesprek", uitleg: "Via Google Meet. 30 minuten." },
 };
 
+// Intakevragen (Joey, 2026-10-22). Interne informatie: gaat mee in `notes`.
+const INTAKE = [
+  {
+    name: "proces",
+    label: "Proces van interesse",
+    placeholder: "Offreren en calculeren, factureren, werkvoorbereiding, planning, etc.",
+  },
+  {
+    name: "problemen",
+    label: "Grootste problemen",
+    placeholder: "Moeten projecten afwijzen omdat ze geen tijd hebben, klantenverlies door traag offreren, etc.",
+  },
+  {
+    name: "doel",
+    label: "Doel",
+    placeholder: "Tijd voor meer projecten, betere kwaliteit leveren, minder fouten, etc.",
+  },
+];
+
 function formatDay(iso) {
   const d = new Date(iso + "T12:00:00");
   return {
@@ -95,7 +114,15 @@ export default function MichelBookingWidget() {
           companyName: data.get("companyName") || "",
           phone: data.get("phone") || "",
           address: soort === "onsite" ? data.get("address") || "" : "",
-          notes: data.get("notes") || "",
+          // Intake en notities zijn intern: n8n zet `notes` alleen in Telegram en de
+          // privé-reistijdafspraak, nooit in de uitnodiging aan de klant.
+          notes: [
+            ...INTAKE.map((v) => [v.label, data.get(v.name)]),
+            ["Overige notities", data.get("notes")],
+          ]
+            .filter(([, value]) => value?.trim())
+            .map(([label, value]) => `${label}: ${value.trim()}`)
+            .join("\n"),
           start: slot.start,
           hp_field: data.get("hp_field") || "",
           t: formOpenedAt.current,
@@ -250,15 +277,21 @@ export default function MichelBookingWidget() {
             {soort === "onsite" && <Input name="address" label="Bezoekadres *" required />}
           </div>
 
-          <label className="mt-4 block">
-            <span className="mb-2 block text-sm text-navy">Notities voor Joey (niet zichtbaar voor de klant)</span>
-            <textarea
-              name="notes"
-              rows={4}
-              placeholder="Bijvoorbeeld: wie de beslissing neemt, waar het werk vastloopt, de openstaande vacature en wat is afgesproken."
-              className="w-full rounded-xl border border-grey-300 px-4 py-3 text-base text-navy focus:border-brand focus:outline-none"
-            />
-          </label>
+          <div className="mt-8 border-t border-grey-200 pt-6">
+            <p className="text-sm font-medium text-navy">Intake</p>
+            <p className="mt-1 text-xs text-grey-600">Interne informatie voor Joey. Niet zichtbaar voor de klant.</p>
+            <div className="mt-4 space-y-4">
+              {INTAKE.map((v) => (
+                <Textarea key={v.name} name={v.name} label={v.label} placeholder={v.placeholder} rows={2} />
+              ))}
+              <Textarea
+                name="notes"
+                label="Overige notities"
+                placeholder="Bijvoorbeeld: wie de beslissing neemt, de openstaande vacature en wat is afgesproken."
+                rows={3}
+              />
+            </div>
+          </div>
 
           <div className="absolute left-[-9999px] top-auto h-px w-px overflow-hidden" aria-hidden="true">
             <label>
@@ -281,6 +314,20 @@ export default function MichelBookingWidget() {
         </form>
       )}
     </div>
+  );
+}
+
+function Textarea({ name, label, placeholder, rows = 2 }) {
+  return (
+    <label className="block">
+      <span className="mb-2 block text-sm text-navy">{label}</span>
+      <textarea
+        name={name}
+        rows={rows}
+        placeholder={placeholder}
+        className="w-full rounded-xl border border-grey-300 px-4 py-3 text-base text-navy focus:border-brand focus:outline-none"
+      />
+    </label>
   );
 }
 
