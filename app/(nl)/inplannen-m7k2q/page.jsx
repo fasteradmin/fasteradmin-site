@@ -18,7 +18,7 @@ export default function InplannenMichelPage() {
         <h1 className="h-display text-navy">Afspraak inplannen</h1>
         <div className="body-base mt-6 space-y-3 text-grey-600">
           <p>
-            Op deze pagina plant u een kennismaking in de agenda van Joey Tan. Kies het type
+            Op deze pagina plan je een kennismaking in de agenda van Joey Tan. Kies het type
             afspraak, een datum en een tijd, en vul de gegevens van de klant in. Alleen tijden
             waarop Joey beschikbaar is worden getoond; bij een afspraak op locatie is de reistijd
             meegerekend.
