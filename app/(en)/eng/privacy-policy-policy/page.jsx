@@ -78,7 +78,7 @@ const blocks = [
       "Tell us to stop contacting you",
     ],
   },
-  { paras: ["To do any of that, just email us at joey@getfasteradmin.com"] },
+  { paras: ["To do any of that, just email us at joey@fasteradmin.com"] },
   {
     heading: "7. Data Retention",
     paras: [

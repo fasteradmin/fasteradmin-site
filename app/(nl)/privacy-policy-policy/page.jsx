@@ -79,7 +79,7 @@ const blocks = [
       "Ons vragen te stoppen met contact opnemen",
     ],
   },
-  { paras: ["Om dat te doen, mail je ons gewoon op joey@getfasteradmin.com"] },
+  { paras: ["Om dat te doen, mail je ons gewoon op joey@fasteradmin.com"] },
   {
     heading: "7. Bewaartermijn",
     paras: [

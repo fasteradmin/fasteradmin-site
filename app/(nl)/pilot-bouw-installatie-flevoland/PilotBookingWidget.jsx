@@ -163,8 +163,8 @@ export default function PilotBookingWidget({ onBooked }) {
             06 - 193 993 30
           </a>{" "}
           of mail{" "}
-          <a href="mailto:joey@getfasteradmin.com" className="text-brand hover:underline">
-            joey@getfasteradmin.com
+          <a href="mailto:joey@fasteradmin.com" className="text-brand hover:underline">
+            joey@fasteradmin.com
           </a>
           , dan plannen we samen een tijd.
         </p>
@@ -179,8 +179,8 @@ export default function PilotBookingWidget({ onBooked }) {
         <p className="body-base mt-4 text-grey-600">
           We bellen je op het gekozen tijdstip. Er is een agenda-uitnodiging onderweg naar je
           inbox. Vragen? Mail ons op{" "}
-          <a href="mailto:joey@getfasteradmin.com" className="text-brand hover:underline">
-            joey@getfasteradmin.com
+          <a href="mailto:joey@fasteradmin.com" className="text-brand hover:underline">
+            joey@fasteradmin.com
           </a>
           .
         </p>

@@ -239,8 +239,8 @@ export default function BookingWidget({ locale = "en" }) {
       <div className="rounded-[var(--radius-card)] bg-white p-10">
         <p className="body-base text-navy">{t.calendarError}</p>
         <p className="body-base mt-2 text-grey-600">
-          <a href="mailto:joey@getfasteradmin.com" className="text-brand hover:underline">
-            joey@getfasteradmin.com
+          <a href="mailto:joey@fasteradmin.com" className="text-brand hover:underline">
+            joey@fasteradmin.com
           </a>{" "}
           {t.calendarErrorBody}
         </p>
@@ -254,8 +254,8 @@ export default function BookingWidget({ locale = "en" }) {
         <h3 className="h-card text-navy">{t.booked}</h3>
         <p className="body-base mt-4 text-grey-600">
           {t.bookedBody}{" "}
-          <a href="mailto:joey@getfasteradmin.com" className="text-brand hover:underline">
-            joey@getfasteradmin.com
+          <a href="mailto:joey@fasteradmin.com" className="text-brand hover:underline">
+            joey@fasteradmin.com
           </a>
           .
         </p>
