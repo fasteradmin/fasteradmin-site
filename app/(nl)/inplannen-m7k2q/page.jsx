@@ -18,12 +18,14 @@ export default function InplannenMichelPage() {
         <h1 className="h-display text-navy">Afspraak inplannen</h1>
         <div className="body-base mt-6 space-y-3 text-grey-600">
           <p>
-            Voor Michel. Kies op locatie of video, een dag en een tijd, en vul de gegevens van de
-            klant in. Je ziet alleen tijden waarop Joey vrij is, bij op locatie inclusief reistijd.
+            Op deze pagina plant u een kennismaking in de agenda van Joey Tan. Kies het type
+            afspraak, een datum en een tijd, en vul de gegevens van de klant in. Alleen tijden
+            waarop Joey beschikbaar is worden getoond; bij een afspraak op locatie is de reistijd
+            meegerekend.
           </p>
           <p>
-            De klant krijgt meteen een uitnodiging in zijn agenda, met een persoonlijk bericht van
-            Joey. Je notities komen niet in die uitnodiging: die ziet alleen Joey.
+            De klant ontvangt direct een agenda-uitnodiging met een persoonlijk bericht van Joey.
+            Notities zijn alleen zichtbaar voor Joey en worden niet in de uitnodiging opgenomen.
           </p>
         </div>
         <div className="mt-10">

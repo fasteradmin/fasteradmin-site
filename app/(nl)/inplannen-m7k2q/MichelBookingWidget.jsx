@@ -22,8 +22,8 @@ const headers = {
 };
 
 const SOORTEN = {
-  onsite: { label: "Op locatie", uitleg: "Joey komt langs. 45 minuten, met een uur reistijd ervoor en erna." },
-  video: { label: "Video", uitleg: "Google Meet. 30 minuten." },
+  onsite: { label: "Op locatie", uitleg: "Bezoek door Joey. 45 minuten, met een uur reistijd voor en na." },
+  video: { label: "Videogesprek", uitleg: "Via Google Meet. 30 minuten." },
 };
 
 function formatDay(iso) {
@@ -115,14 +115,14 @@ export default function MichelBookingWidget() {
         setSubmitState("booked");
         return;
       }
-      setErrorMsg(body.message || "Inplannen lukte niet. Probeer het opnieuw.");
+      setErrorMsg(body.message || "Het inplannen is niet gelukt. Probeer het opnieuw.");
       setSubmitState("error");
       if (res.status === 409) {
         setSlot(null);
         load(soort);
       }
     } catch {
-      setErrorMsg("Geen verbinding met de agenda. Probeer het opnieuw.");
+      setErrorMsg("Er is geen verbinding met de agenda. Probeer het opnieuw.");
       setSubmitState("error");
     }
   }
@@ -137,17 +137,17 @@ export default function MichelBookingWidget() {
   if (submitState === "booked" && geboekt) {
     return (
       <div className="rounded-[var(--radius-card)] bg-white p-10">
-        <h3 className="h-card text-navy">Ingepland.</h3>
+        <h3 className="h-card text-navy">De afspraak is ingepland.</h3>
         <p className="body-base mt-4 text-grey-600">
           {geboekt.bedrijf}, {geboekt.wanneer} ({geboekt.soort}). De uitnodiging is verstuurd naar{" "}
-          {geboekt.email}. Joey krijgt een bericht met je notities.
+          {geboekt.email}. Joey ontvangt een bericht met de notities.
         </p>
         <button
           type="button"
           onClick={opnieuw}
           className="mt-6 rounded-[40px] bg-navy px-8 py-4 text-sm font-medium text-white hover:bg-navy/90"
         >
-          Nog een afspraak inplannen
+          Nieuwe afspraak inplannen
         </button>
       </div>
     );
@@ -156,7 +156,7 @@ export default function MichelBookingWidget() {
   return (
     <div className="overflow-hidden rounded-[var(--radius-card)] bg-white">
       <div className="border-b border-grey-200 px-8 py-6">
-        <h3 className="h-card text-navy">Soort afspraak</h3>
+        <h3 className="h-card text-navy">Type afspraak</h3>
         <div className="mt-4 grid gap-2 sm:grid-cols-2">
           {Object.entries(SOORTEN).map(([key, s]) => (
             <button
@@ -174,10 +174,10 @@ export default function MichelBookingWidget() {
         </div>
       </div>
 
-      {status === "loading" && <p className="body-base px-8 py-6 text-grey-600">Agenda laden…</p>}
+      {status === "loading" && <p className="body-base px-8 py-6 text-grey-600">De agenda wordt geladen…</p>}
       {status === "error" && (
         <p className="body-base px-8 py-6 text-navy">
-          De agenda kon niet worden geladen. Ververs de pagina of bel Joey op 06-19399330.
+          De agenda kon niet worden geladen. Vernieuw de pagina of bel Joey op 06-19399330.
         </p>
       )}
 
@@ -227,7 +227,7 @@ export default function MichelBookingWidget() {
                 ))}
               </div>
             ) : (
-              <p className="body-base text-grey-600">Geen vrije tijden op deze dag. Kies een andere dag.</p>
+              <p className="body-base text-grey-600">Op deze dag zijn geen tijden beschikbaar. Kies een andere dag.</p>
             )}
           </div>
         </>
@@ -244,25 +244,25 @@ export default function MichelBookingWidget() {
           <div className="mt-6 grid gap-4 sm:grid-cols-2">
             <Input name="firstName" label="Voornaam *" required />
             <Input name="lastName" label="Achternaam" />
-            <Input name="companyName" label="Bedrijf *" required />
-            <Input name="email" label="E-mail (krijgt de uitnodiging) *" type="email" required />
-            <Input name="phone" label="Telefoon *" type="tel" required />
+            <Input name="companyName" label="Bedrijfsnaam *" required />
+            <Input name="email" label="E-mailadres (ontvangt de uitnodiging) *" type="email" required />
+            <Input name="phone" label="Telefoonnummer *" type="tel" required />
             {soort === "onsite" && <Input name="address" label="Bezoekadres *" required />}
           </div>
 
           <label className="mt-4 block">
-            <span className="mb-2 block text-sm text-navy">Notities voor Joey (alleen Joey ziet dit)</span>
+            <span className="mb-2 block text-sm text-navy">Notities voor Joey (niet zichtbaar voor de klant)</span>
             <textarea
               name="notes"
               rows={4}
-              placeholder="Wie neemt de beslissing, waar loopt het vast, de vacature, wat is afgesproken."
+              placeholder="Bijvoorbeeld: wie de beslissing neemt, waar het werk vastloopt, de openstaande vacature en wat is afgesproken."
               className="w-full rounded-xl border border-grey-300 px-4 py-3 text-base text-navy focus:border-brand focus:outline-none"
             />
           </label>
 
           <div className="absolute left-[-9999px] top-auto h-px w-px overflow-hidden" aria-hidden="true">
             <label>
-              Niet invullen
+              Dit veld niet invullen
               <input type="text" name="hp_field" tabIndex={-1} autoComplete="off" />
             </label>
           </div>
@@ -274,7 +274,7 @@ export default function MichelBookingWidget() {
             disabled={submitState === "sending"}
             className="mt-6 w-full rounded-[40px] bg-navy px-8 py-4 text-sm font-medium text-white transition-colors hover:bg-navy/90 disabled:opacity-60"
           >
-            {submitState === "sending" ? "Inplannen…" : "Inplannen en uitnodiging versturen"}
+            {submitState === "sending" ? "Bezig met inplannen…" : "Afspraak inplannen en uitnodiging versturen"}
           </button>
 
           {errorMsg && <p className="mt-4 text-sm text-accent">{errorMsg}</p>}
