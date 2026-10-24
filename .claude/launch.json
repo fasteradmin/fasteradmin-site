@@ -4,7 +4,15 @@
     {
       "name": "fasteradmin-dev",
       "runtimeExecutable": "npm",
-      "runtimeArgs": ["run", "dev"],
+      "runtimeArgs": [
+        "run",
+        "dev"
+      ],
+      "port": 3210
+    },
+    {
+      "name": "fasteradmin-static",
+      "url": "http://localhost:3210",
       "port": 3210
     }
   ]
