@@ -89,6 +89,12 @@ export default function VragenMeetPartner() {
   const [done, setDone] = useState("idle"); // idle | sending | sent | error
   const timers = useRef({});
   const codeRef = useRef("");
+  // Per vraag: de laatste tekst, een volgnummer per toetsaanslag, en of er een opslagactie loopt.
+  // Het veld wordt nooit teruggezet op een oudere tekst: na het opslaan wordt alleen het tijdstip bijgewerkt,
+  // en loopt er al een opslagactie, dan wacht de volgende tot die klaar is (nooit twee tegelijk per vraag).
+  const latest = useRef({});
+  const seq = useRef({});
+  const inflight = useRef({});
 
   const load = useCallback(async (c) => {
     const r = await call({ action: "list", code: c });
@@ -109,8 +115,10 @@ export default function VragenMeetPartner() {
     setAnswers(merged);
     writeStorage(CACHE_KEY, merged);
     for (const id of resend) {
+      latest.current[id] = merged[id].antwoord;
+      seq.current[id] = (seq.current[id] || 0) + 1;
       // eslint-disable-next-line no-use-before-define
-      saveNow(c, id, merged[id].antwoord);
+      flush(id);
     }
     return r;
   }, []);
@@ -141,12 +149,13 @@ export default function VragenMeetPartner() {
     if (!c) return;
     setLoginError("");
     setPhase("checking");
+    codeRef.current = c;
     const r = await load(c);
     if (r.ok) {
-      codeRef.current = c;
       writeStorage(CODE_KEY, c);
       setPhase("ready");
     } else {
+      codeRef.current = "";
       setPhase("login");
       setLoginError(
         r.status === 403
@@ -163,26 +172,38 @@ export default function VragenMeetPartner() {
     setPhase("login");
   }
 
-  async function saveNow(c, id, text) {
+  async function flush(id) {
+    if (inflight.current[id]) return; // de lopende actie plant zelf een vervolg als er intussen getypt is
     const q = BY_ID[id];
+    const mySeq = seq.current[id] || 0;
+    const text = latest.current[id] ?? "";
+    inflight.current[id] = true;
     setPending((p) => ({ ...p, [id]: "saving" }));
     setNet("saving");
     const r = await call({
       action: "save",
-      code: c,
+      code: codeRef.current,
       vraag_id: id,
       onderdeel: q.sectieTitel,
       nummer: q.nummer,
       vraag: q.vraag,
       antwoord: text,
     });
+    inflight.current[id] = false;
+    const nieuwerGetypt = (seq.current[id] || 0) !== mySeq;
     if (r.ok) {
       const bijgewerkt = r.data.bijgewerkt || new Date().toISOString();
+      // Alleen het tijdstip bijwerken; de tekst in het veld blijft wat de gebruiker nu heeft staan.
       setAnswers((a) => {
-        const next = { ...a, [id]: { ...(a[id] || {}), antwoord: text, bijgewerkt } };
+        const next = { ...a, [id]: { ...(a[id] || {}), antwoord: a[id] ? a[id].antwoord : text, bijgewerkt } };
         writeStorage(CACHE_KEY, next);
         return next;
       });
+      if (nieuwerGetypt) {
+        clearTimeout(timers.current[id]);
+        timers.current[id] = setTimeout(() => flush(id), SAVE_DELAY_MS);
+        return;
+      }
       setPending((p) => {
         const n = { ...p };
         delete n[id];
@@ -198,6 +219,8 @@ export default function VragenMeetPartner() {
 
   function onChange(id, text) {
     const now = new Date().toISOString();
+    latest.current[id] = text;
+    seq.current[id] = (seq.current[id] || 0) + 1;
     setAnswers((a) => {
       const next = { ...a, [id]: { ...(a[id] || {}), antwoord: text, bijgewerkt: now } };
       writeStorage(CACHE_KEY, next);
@@ -205,7 +228,7 @@ export default function VragenMeetPartner() {
     });
     setPending((p) => ({ ...p, [id]: "typing" }));
     clearTimeout(timers.current[id]);
-    timers.current[id] = setTimeout(() => saveNow(codeRef.current, id, text), SAVE_DELAY_MS);
+    timers.current[id] = setTimeout(() => flush(id), SAVE_DELAY_MS);
   }
 
   async function handleDone() {
