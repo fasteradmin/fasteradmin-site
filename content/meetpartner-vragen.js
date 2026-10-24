@@ -12,7 +12,7 @@ export const SECTIONS = [
  {id:"p2", vraag:"Hoort een bestand bij het project (geldt voor alle werkdagen) of bij één werkdag, of kan het allebei?",
   waarom:"Dit bepaalt waar een bestand wordt bewaard en waarover de herinnering gaat: één keer per project, of per dag. Een tekening geldt meestal voor het hele project; een dagopdracht van de uitvoerder maar voor één dag.",
   vb:["Allebei. Tekening en palenplan horen bij het project. Een dagopdracht of een lijstje putnummers hoort bij die ene werkdag."]},
- {id:"p3", vraag:"Ontbreekt een verplicht bestand de dag ervoor: schuift de werkdag dan vanzelf op, of altijd via jouw ja? En moet \"wacht op bestand\" voor iedereen zichtbaar zijn?",
+ {id:"p3", vraag:"Ontbreekt een verplicht bestand de dag ervoor: schuift de werkdag dan vanzelf op, of altijd pas met jouw akkoord? En moet \"wacht op bestand\" voor iedereen zichtbaar zijn?",
   waarom:"Het systeem maakt het concept, maar schrijft nooit zelf in de bevestigde planning. De vraag is of een werkdag zonder bestand mag opschuiven met een melding aan jou, of dat jij altijd eerst ja zegt. En of de Medewerker mag zien dat zijn dag wacht op een bestand, zodat hij weet waarom hij nog niets heeft.",
   vb:["Nooit vanzelf opschuiven, ik beslis. De Medewerker mag wel zien: 'wacht op tekening'."]},
  {id:"p4", vraag:"Wanneer beginnen de bestandsherinneringen: drie dagen vooraf, de dag ervoor om 18:00, of zodra het concept er is?",
