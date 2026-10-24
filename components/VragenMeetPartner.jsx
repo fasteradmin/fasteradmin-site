@@ -130,7 +130,7 @@ export default function VragenMeetPartner() {
       else {
         setPhase("login");
         if (r.status === 403) writeStorage(CODE_KEY, "");
-        else setLoginError("Geen verbinding met de opslag. Probeer het zo nog eens.");
+        else setLoginError("Geen verbinding met de server. Probeer het later opnieuw.");
       }
     });
   }, [load]);
@@ -150,8 +150,8 @@ export default function VragenMeetPartner() {
       setPhase("login");
       setLoginError(
         r.status === 403
-          ? "Deze code klopt niet. Kijk het bericht van Joey nog eens na."
-          : "Geen verbinding met de opslag. Probeer het zo nog eens.",
+          ? "De toegangscode is onjuist."
+          : "Geen verbinding met de server. Probeer het later opnieuw.",
       );
     }
   }
@@ -229,7 +229,7 @@ export default function VragenMeetPartner() {
   if (phase === "boot" || phase === "checking") {
     return (
       <section className="bg-white">
-        <div className="container-site py-24 text-grey-600">Even geduld…</div>
+        <div className="container-site py-24 text-grey-600">Laden…</div>
       </section>
     );
   }
@@ -240,10 +240,10 @@ export default function VragenMeetPartner() {
         <div className="container-site py-20 lg:py-28">
           <div className="max-w-md">
             <p className="eyebrow text-grey-600">MeetPartner · fase 2</p>
-            <h1 className="h-section mt-4 text-navy">Vragenlijst voor Lodi</h1>
+            <h1 className="h-section mt-4 text-navy">Vragenlijst fase 2</h1>
             <p className="body-base mt-4 text-grey-600">
-              Vul de toegangscode in die je van Joey hebt gekregen. Je antwoorden worden
-              daarna vanzelf bewaard.
+              Voer de toegangscode in om de vragenlijst te openen. Antwoorden worden
+              automatisch opgeslagen.
             </p>
             <form onSubmit={handleLogin} className="mt-8 flex flex-col gap-3 sm:flex-row">
               <label className="sr-only" htmlFor="mp-code">
@@ -264,7 +264,7 @@ export default function VragenMeetPartner() {
                 type="submit"
                 className="inline-flex h-12 items-center justify-center rounded-[40px] bg-navy px-6 text-sm font-medium tracking-[-0.02em] text-white hover:bg-navy/90"
               >
-                Verder
+                Openen
               </button>
             </form>
             {loginError && (
@@ -280,10 +280,10 @@ export default function VragenMeetPartner() {
 
   const statusLabel =
     net === "error"
-      ? "Opslaan lukt niet, probeer het zo nog eens"
+      ? "Opslaan mislukt. Controleer de verbinding."
       : net === "saving" || Object.keys(pending).length
         ? "Opslaan…"
-        : "Alles opgeslagen";
+        : "Alle antwoorden opgeslagen";
   const statusDot = net === "error" ? "bg-[#b42318]" : net === "saving" ? "bg-brand" : "bg-[#1f8a4c]";
 
   return (
@@ -310,20 +310,19 @@ export default function VragenMeetPartner() {
             MeetPartner · fase 2
           </p>
           <h1 className="h-display mt-6 max-w-3xl text-navy">
-            Jouw antwoorden bepalen <span className="text-ink-muted">hoe de planning gebouwd wordt.</span>
+            Vragenlijst fase 2 <span className="text-ink-muted">voor de planning van MeetPartner.</span>
           </h1>
           <p className="body-lg mt-6 max-w-2xl text-grey-600">
-            Lodi, hieronder staan alle open vragen voor fase 2, in zes onderdelen. Bij elke
-            vraag kun je uitklappen <strong className="font-semibold text-navy">waarom we het vragen</strong> en{" "}
-            <strong className="font-semibold text-navy">hoe een antwoord eruit kan zien</strong>. Typ je
-            antwoord in het veld eronder, in je eigen woorden. Kort mag; &ldquo;weet ik niet&rdquo; of
-            &ldquo;later&rdquo; mag ook.
+            Hieronder staan de open vragen voor fase 2, in zes onderdelen. Per vraag is een
+            toelichting beschikbaar: <strong className="font-semibold text-navy">waarom de vraag gesteld wordt</strong> en{" "}
+            <strong className="font-semibold text-navy">hoe een antwoord eruit kan zien</strong>. Een kort
+            antwoord in eigen woorden volstaat. &ldquo;Nog onbekend&rdquo; is ook een geldig antwoord.
           </p>
           <div className="mt-8 grid gap-3 sm:grid-cols-3">
             {[
-              ["Niets opslaan", "Alles wat je typt wordt direct bewaard. Je kunt dit tabblad gewoon sluiten."],
-              ["In delen", "Je hoeft niet alles in één keer te doen. Kom later terug, ook op een ander apparaat."],
-              ["Aanpassen mag", "Een antwoord veranderen? Typ gewoon over het oude heen."],
+              ["Automatisch opgeslagen", "Elk antwoord wordt direct opgeslagen. Er is geen opslaan-knop."],
+              ["In delen in te vullen", "De lijst kan in meerdere keren worden ingevuld, ook op een ander apparaat."],
+              ["Aan te passen", "Een antwoord kan later worden gewijzigd."],
             ].map(([h, t]) => (
               <div key={h} className="rounded-[var(--radius-card)] border border-line p-4 text-[15px] leading-relaxed text-ink-muted">
                 <b className="mb-0.5 block font-semibold text-navy">{h}</b>
@@ -395,12 +394,11 @@ export default function VragenMeetPartner() {
       <section className="bg-white">
         <div className="container-site py-16 lg:py-20">
           <div className="grid gap-4 rounded-[var(--radius-block)] border border-line p-6 lg:p-8">
-            <h3 className="h-card text-navy">Klaar, of klaar voor nu?</h3>
+            <h3 className="h-card text-navy">Afronden</h3>
             <p className="body-base max-w-2xl text-grey-600">
-              Je hoeft niets te versturen: je antwoorden zijn al bewaard en Joey kan ze zien.
-              Ben je helemaal klaar, of wil je dat Joey alvast naar je antwoorden kijkt? Druk
-              dan op de knop; hij krijgt dan een mail met alles wat je tot nu toe hebt
-              ingevuld.
+              Alle antwoorden zijn opgeslagen; versturen is niet nodig. Is de lijst volledig
+              ingevuld, of moeten de antwoorden tot nu toe alvast beoordeeld worden? Gebruik dan
+              de knop hieronder. Faster Admin ontvangt dan een overzicht per e-mail.
             </p>
             <div className="flex flex-wrap items-center gap-3">
               <button
@@ -409,7 +407,7 @@ export default function VragenMeetPartner() {
                 disabled={done === "sending"}
                 className="inline-flex items-center justify-center rounded-[40px] bg-navy px-6 py-3 text-sm font-medium tracking-[-0.02em] text-white hover:bg-navy/90 disabled:opacity-60"
               >
-                {done === "sending" ? "Bezig…" : "Ik ben klaar, laat het Joey weten"}
+                {done === "sending" ? "Bezig met verzenden…" : "Antwoorden doorsturen"}
               </button>
               <button
                 type="button"
@@ -421,12 +419,12 @@ export default function VragenMeetPartner() {
             </div>
             {done === "sent" && (
               <p className="text-sm text-[#1f8a4c]" role="status">
-                Joey heeft een mail gekregen met je antwoorden. Je kunt later altijd nog iets aanpassen.
+                Het overzicht is verzonden. Antwoorden kunnen daarna nog worden gewijzigd.
               </p>
             )}
             {done === "error" && (
               <p className="text-sm text-[#b42318]" role="alert">
-                Dat lukte niet. Je antwoorden zijn wel bewaard; stuur Joey even een berichtje.
+                Verzenden is mislukt. De antwoorden zijn wel opgeslagen. Neem contact op met Faster Admin.
               </p>
             )}
           </div>
@@ -451,9 +449,9 @@ function QuestionCard({ q, nummer, sectieTitel, value, bijgewerkt, state, onChan
 
   const meta =
     state === "typing" || state === "saving"
-      ? "Wordt opgeslagen…"
+      ? "Opslaan…"
       : state === "error"
-        ? "Niet opgeslagen, probeer het zo nog eens"
+        ? "Niet opgeslagen. Controleer de verbinding."
         : answered
           ? `Opgeslagen ${fmtTime(bijgewerkt)}`
           : "";
@@ -483,7 +481,7 @@ function QuestionCard({ q, nummer, sectieTitel, value, bijgewerkt, state, onChan
               )}
               {q.known && (
                 <span className="rounded-[40px] border border-[#1f8a4c]/45 px-2.5 py-0.5 text-[11.5px] font-semibold text-[#1f8a4c]">
-                  Al beantwoord
+                  Beantwoord op 22-10
                 </span>
               )}
             </div>
@@ -493,7 +491,7 @@ function QuestionCard({ q, nummer, sectieTitel, value, bijgewerkt, state, onChan
 
       {q.known && (
         <p className="mx-4 mt-3.5 border-t border-line pt-3 text-[15px] leading-relaxed text-grey-600 sm:mx-6 sm:ml-[66px]">
-          <b className="font-semibold text-navy">Antwoord 22-10.</b> {q.known.replace(/^Beantwoord op 22-10: /, "")}
+          <b className="font-semibold text-navy">Afgesproken op 22-10.</b> {q.known.replace(/^Beantwoord op 22-10: /, "")}
         </p>
       )}
 
@@ -505,7 +503,7 @@ function QuestionCard({ q, nummer, sectieTitel, value, bijgewerkt, state, onChan
           aria-controls={`panel-${q.id}`}
           className="flex w-full items-center justify-between gap-3 border-t border-line py-2.5 text-left text-sm font-medium text-navy"
         >
-          <span>{q.known ? "Wat er op 22-10 is afgesproken" : "Waarom deze vraag, en een voorbeeld"}</span>
+          <span>{q.known ? "Toelichting" : "Toelichting en voorbeeld"}</span>
           <span
             aria-hidden
             className={`inline-flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-black text-base leading-none text-white transition-transform ${open ? "rotate-45" : ""}`}
@@ -516,12 +514,12 @@ function QuestionCard({ q, nummer, sectieTitel, value, bijgewerkt, state, onChan
         {open && (
           <div id={`panel-${q.id}`} className="grid gap-3.5 pb-3.5 pt-1 text-[15px] leading-relaxed text-grey-600">
             <div>
-              <h4 className="eyebrow mb-1 text-ink-muted">Waarom we dit vragen</h4>
+              <h4 className="eyebrow mb-1 text-ink-muted">Waarom deze vraag</h4>
               <p>{q.waarom}</p>
             </div>
             {q.vb.length > 0 && (
               <div>
-                <h4 className="eyebrow mb-1 text-ink-muted">Zo kan een antwoord eruitzien</h4>
+                <h4 className="eyebrow mb-1 text-ink-muted">Voorbeeld van een antwoord</h4>
                 <div className="border-l-[3px] border-line pl-3.5 italic text-navy">
                   {q.vb.map((v) => (
                     <p key={v} className="[&+p]:mt-1.5">
@@ -542,7 +540,7 @@ function QuestionCard({ q, nummer, sectieTitel, value, bijgewerkt, state, onChan
           rows={1}
           value={value}
           onChange={(e) => onChange(e.target.value)}
-          placeholder={q.known ? "Alleen invullen als dit niet meer klopt" : "Typ je antwoord…"}
+          placeholder={q.known ? "Alleen invullen als de afspraak gewijzigd is" : "Antwoord"}
           aria-label={`Antwoord op vraag ${nummer} van ${sectieTitel}`}
           className="min-h-[56px] w-full resize-none overflow-hidden rounded-[10px] border border-grey-300 px-3.5 py-3 text-base leading-relaxed text-ink outline-none placeholder:text-grey-500 focus:border-brand focus:ring-[3px] focus:ring-brand/20"
         />
