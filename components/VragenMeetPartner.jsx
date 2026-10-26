@@ -336,7 +336,9 @@ export default function VragenMeetPartner() {
             Vragenlijst fase 2 <span className="text-ink-muted">voor de planning van MeetPartner.</span>
           </h1>
           <p className="body-lg mt-6 max-w-2xl text-grey-600">
-            Hieronder staan de open vragen voor fase 2, in zes onderdelen. Per vraag is een
+            Hieronder staan de open vragen voor fase 2, in zeven onderdelen.{" "}
+            <strong className="font-semibold text-navy">Het eerste onderdeel blokkeert de start van fase 2</strong>: die elf
+            vragen eerst, de rest mag later. Per vraag is een
             toelichting beschikbaar: <strong className="font-semibold text-navy">waarom de vraag gesteld wordt</strong> en{" "}
             <strong className="font-semibold text-navy">hoe een antwoord eruit kan zien</strong>. Een kort
             antwoord in eigen woorden volstaat. &ldquo;Nog onbekend&rdquo; is ook een geldig antwoord.
@@ -495,11 +497,16 @@ function QuestionCard({ q, nummer, sectieTitel, value, bijgewerkt, state, onChan
         </span>
         <div className="min-w-0 text-[16.5px] font-medium leading-relaxed text-navy">
           {q.vraag}
-          {(q.need || q.known) && (
+          {(q.blok || q.need || q.known) && (
             <div className="mt-2 flex flex-wrap gap-1.5">
+              {q.blok && (
+                <span className="rounded-[40px] border border-accent bg-accent px-2.5 py-0.5 text-[11.5px] font-semibold text-white">
+                  Blokkeert de start van fase 2
+                </span>
+              )}
               {q.need && (
                 <span className="rounded-[40px] border border-accent/45 px-2.5 py-0.5 text-[11.5px] font-semibold text-accent">
-                  Nodig vóór de bouw
+                  Nodig vóór {q.need === true ? "de bouw" : q.need}
                 </span>
               )}
               {q.known && (
