@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Concept planning | MeetPartner</title>
+<!--
+  Tijdelijke klantpagina, net als /vragen/meetpartner: na de toegangscode haalt deze pagina de concept-planning op
+  bij de n8n-webhook meetpartner-vragen (workflow 4lpjONIBMkSgcfTp, actie "planning") en toont die. De planning
+  zelf staat niet op de website; de code wordt in de workflow gecontroleerd, niet hier. Antwoorden gaan via dezelfde
+  webhook naar Airtable klantvragen_fase2. Bron van de planning: meetpartner-automatisering, src/n8n/planning/page.js.
+-->
+<style>
+  :root { color-scheme: light; }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: #fff; color: #0e2a44; font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; -webkit-font-smoothing: antialiased; }
+  main { max-width: 440px; margin: 0 auto; padding: 72px 16px; }
+  .eyebrow { font-size: 12px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: #5a6b7a; margin: 0; }
+  h1 { font-size: 28px; line-height: 1.15; margin: 10px 0 8px; letter-spacing: -.02em; }
+  p { color: #5a6b7a; line-height: 1.5; margin: 0 0 20px; }
+  label { display: block; font-size: 14px; font-weight: 500; margin-bottom: 6px; }
+  input { width: 100%; font: inherit; font-size: 16px; padding: 12px 14px; border: 1px solid #dfe4e9; border-radius: 12px; min-height: 48px; text-transform: uppercase; }
+  input:focus-visible, button:focus-visible { outline: 2px solid #0a6fd1; outline-offset: 2px; }
+  button { margin-top: 14px; width: 100%; min-height: 48px; border: 0; border-radius: 40px; background: #0a6fd1; color: #fff; font: inherit; font-size: 15px; font-weight: 500; cursor: pointer; }
+  button:hover { background: #08579f; }
+  button[disabled] { opacity: .6; cursor: default; }
+  .fout { color: #b3261e; font-size: 14px; margin: 12px 0 0; min-height: 1.4em; }
+</style>
+</head>
+<body>
+<main>
+  <p class="eyebrow">MeetPartner</p>
+  <h1>Concept planning</h1>
+  <p>Vul de toegangscode in. Het is dezelfde code als voor de vragenlijst.</p>
+  <form id="inloggen" novalidate>
+    <label for="code">Toegangscode</label>
+    <input id="code" name="code" autocomplete="off" autocapitalize="characters" spellcheck="false" required>
+    <button type="submit" id="knop">Openen</button>
+    <p class="fout" id="fout" role="alert"></p>
+  </form>
+</main>
+<script>
+(function () {
+  var URL = "https://jcmt.app.n8n.cloud/webhook/meetpartner-vragen";
+  var TOKEN = "KeB_w7j2FRkIvV5CmTxJMpZl1PEAV3Yw"; // publiek sitetoken, zelfde als lib/config.js FA_TOKEN
+  var CODE_KEY = "mp-vragen-code"; // gedeeld met /vragen/meetpartner: wie daar al ingelogd is, hoeft niets in te typen
+  var form = document.getElementById("inloggen"), veld = document.getElementById("code"), knop = document.getElementById("knop"), fout = document.getElementById("fout");
+
+  function lees() { try { return JSON.parse(localStorage.getItem(CODE_KEY) || '""') || ""; } catch (e) { return ""; } }
+  function schrijf(c) { try { localStorage.setItem(CODE_KEY, JSON.stringify(c)); } catch (e) {} }
+
+  async function open(code, stil) {
+    knop.disabled = true; knop.textContent = "Openen…"; fout.textContent = "";
+    try {
+      var res = await fetch(URL, { method: "POST", headers: { "Content-Type": "application/json", "Accept": "application/json", "x-fa-token": TOKEN },
+        body: JSON.stringify({ action: "planning", code: code }) });
+      var d = null; try { d = await res.json(); } catch (e) {}
+      if (res.ok && d && d.ok && d.html) {
+        schrijf(code);
+        try { sessionStorage.setItem("mp-planning", JSON.stringify({ code: code, url: URL, token: TOKEN, antwoorden: d.antwoorden || {} })); } catch (e) {}
+        document.open(); document.write(d.html); document.close();
+        return;
+      }
+      if (res.status === 403) { schrijf(""); if (!stil) fout.textContent = "Deze code klopt niet."; }
+      else if (!stil) fout.textContent = "Openen lukt nu niet. Probeer het zo nog eens.";
+    } catch (e) { if (!stil) fout.textContent = "Geen verbinding. Probeer het zo nog eens."; }
+    knop.disabled = false; knop.textContent = "Openen";
+  }
+
+  form.addEventListener("submit", function (ev) {
+    ev.preventDefault();
+    var c = veld.value.trim().toUpperCase();
+    if (!c) { fout.textContent = "Vul de toegangscode in."; veld.focus(); return; }
+    open(c, false);
+  });
+  var bekend = lees();
+  if (bekend) open(bekend, true);
+})();
+</script>
+</body>
+</html>
