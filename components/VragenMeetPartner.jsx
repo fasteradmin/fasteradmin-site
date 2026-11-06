@@ -336,8 +336,8 @@ export default function VragenMeetPartner() {
             Vragenlijst fase 2 <span className="text-ink-muted">voor de planning van MeetPartner.</span>
           </h1>
           <p className="body-lg mt-6 max-w-2xl text-grey-600">
-            Hieronder staan de open vragen voor fase 2, in zeven onderdelen.{" "}
-            <strong className="font-semibold text-navy">Het eerste onderdeel blokkeert de start van fase 2</strong>: die elf
+            Hieronder staan de open vragen voor fase 2, in acht onderdelen.{" "}
+            <strong className="font-semibold text-navy">Het eerste onderdeel is nodig voor de planning van week 46</strong>: die zeven
             vragen eerst, de rest mag later. Per vraag is een
             toelichting beschikbaar: <strong className="font-semibold text-navy">waarom de vraag gesteld wordt</strong> en{" "}
             <strong className="font-semibold text-navy">hoe een antwoord eruit kan zien</strong>. Een kort
