@@ -4,10 +4,10 @@
  * vraag, waarom (waarom we het vragen), vb (voorbeeldantwoorden), blok (blokkeert
  * de start van fase 2; onderdeel 1, herschikt 26-10), need (nodig vóór een latere
  * stage, tekst is het label), known (al beantwoord op 22-10). Ids blijven vast.
- * Onderdeel week46 (w1 t/m w5, 06-11): wat het eerste voorstel voor week 46 nodig heeft.
+ * Onderdeel week46 (w1 t/m w6, 06-11): wat het eerste voorstel voor week 46 nodig heeft.
  */
 export const SECTIONS = [
-{ id:"week46", title:"Nu: planning week 46 (9 t/m 15 november)", sub:"Vijf vragen. Het systeem maakt voor week 46 het eerste voorstel; daarna pas jij het aan in de planner. Wat hieronder staat is niet uit de gegevens te halen. Waar het systeem al iets weet, staat het er als voorstel bij: je hoeft alleen te zeggen wat niet klopt.", q:[
+{ id:"week46", title:"Nu: planning week 46 (9 t/m 15 november)", sub:"Zes vragen. Het systeem maakt voor week 46 het eerste voorstel; daarna pas jij het aan in de planner. Wat hieronder staat is niet uit de gegevens te halen. Waar het systeem al iets weet, staat het er als voorstel bij: je hoeft alleen te zeggen wat niet klopt.", q:[
  {id:"w1", need:"het voorstel voor week 46", vraag:"Vaste bezetting in week 46. Voorstel: Mustafa op 21E045278 LNR Plesmanlaan (maandag t/m vrijdag), Jer op 0507821.100 Waterpasmeting Bergen-Alkmaar, Milton op Heijmans, Mithanuel op Kompas (maandag, dinsdag, woensdag en vrijdag). Klopt dit voor week 46, en ontbreekt er iemand of een project?",
   waarom:"Vaste bezetting is werk waar elke week dezelfde persoon op staat. Het systeem zet dit als eerste in de week en plant de rest eromheen. Mustafa en Jer volgen uit de uren in Keeping van week 43 tot en met 45. Milton en Mithanuel hebben in die weken geen uren in Keeping; voor hen komt het voorstel uit jouw planning van eind oktober en is het een aanname. Uit Keeping alleen is vaste bezetting niet betrouwbaar af te leiden: een woningbouwproject met drie bezoeken in een week ziet er hetzelfde uit. Daarom bevestig jij het.",
   vb:["Klopt, behalve Mithanuel: die staat in week 46 ook donderdag op Kompas. Mike hoort er ook bij: twee dagen per week op de waterpasmeting."]},
@@ -22,7 +22,10 @@ export const SECTIONS = [
   vb:["Inner circle. In week 46 nog naast Barry; bij waterpassen mag hij als tweede persoon mee."]},
  {id:"w5", need:"het voorstel voor week 46", vraag:"Roel heeft in Airtable het contract DT. Geldt voor hem hetzelfde als voor Barry en Mirza (vaste uren): beschikbaar van maandag t/m vrijdag, 07:00 tot 17:00, tenzij hij zich afmeldt? Of geeft hij zijn dagen per week op?",
   waarom:"Wie vaste uren heeft hoeft zijn beschikbaarheid niet op te geven; alle anderen wel. Voor DT is dat nog niet vastgelegd. De regel is dat een dag waarvoor niets is doorgegeven niet als beschikbaar telt; zonder antwoord wordt Roel op zo'n dag dus niet ingepland. In week 43 tot en met 45 boekte Roel op één tot drie dagen per week tekenwerk (AutoCad) voor P11128 Dijkverbetering De Hoef Kromme Mijdrecht.",
-  vb:["Zelfde als Barry: maandag t/m vrijdag, tenzij afgemeld.", "Of: Roel geeft zijn dagen per week op; meestal twee."]}
+  vb:["Zelfde als Barry: maandag t/m vrijdag, tenzij afgemeld.", "Of: Roel geeft zijn dagen per week op; meestal twee."]},
+ {id:"w6", need:"het voorstel voor week 46", vraag:"Wanneer is een project voor jou af, en hoe wil je dat aan het systeem doorgeven?",
+  waarom:"Een project heeft in Airtable de status actief, afgerond of moet nog starten. Op dit moment staat geen enkel project op afgerond: 48 staan op actief, ook projecten waarvan je op 1 november zei dat ze af zijn (Medemblik peilen, Westrandplan). Het systeem ziet alleen wanneer er voor het laatst uren zijn geboekt. Een project dat af is blijft daardoor in de lijst van de planner staan en kan in een voorstel terugkomen. Voorstel: je zegt het één keer, in de planner of tegen de assistent, en het systeem zet de status op afgerond. Wat we van jou moeten weten: wanneer telt een project als af (laatste meting gedaan, uitwerking geleverd, of factuur verstuurd), en is dat voor elk soort werk hetzelfde?",
+  vb:["Af is als de laatste meting is uitgewerkt en geleverd. Ik zeg het tegen de assistent: 'Westrandplan is af'. Bij Kuin-projecten is het af als de aannemer de laatste fase heeft afgemeld."]}
 ]},
 { id:"f2a-start", title:"Eerst: dit blokkeert de start van fase 2", sub:"Elf vragen. Zonder deze antwoorden kan het systeem geen voorstel maken dat iets zegt: het weet dan niet voor wie het plant, hoe iemands beschikbaarheid werkt, wat de projecten en de codes betekenen, en waar de planning nu leeft. Deze eerst; alle andere vragen kunnen tijdens of na de bouw.", q:[
  {id:"s2", blok:true, vraag:"Per persoon de kring: wie zit in de vaste pool (inner), wie is inhuur die je per dag belt (outer), wie is alleen recruitment? Te beginnen met de 18 in Airtable plus Ahmed, Denzel, Marchano, Seyfi, Mirza en Hamid.",
