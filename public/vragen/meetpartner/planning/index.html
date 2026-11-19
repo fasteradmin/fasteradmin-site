@@ -11,6 +11,11 @@
   zelf staat niet op de website; de code wordt in de workflow gecontroleerd, niet hier. Antwoorden gaan via dezelfde
   webhook naar Airtable klantvragen_fase2. Bron van de planning: meetpartner-automatisering, src/n8n/planning/page.js.
 -->
+<script>
+  // Al ingelogd (code in deze tab of onthouden op dit apparaat): geen invulscherm tonen, alleen "laden".
+  // Zo ziet de Klant bij het wisselen van tab (Planning, Projecten, Beschikbaarheid, Vaardigheden) geen toegangscode meer.
+  try { var mpS = JSON.parse(sessionStorage.getItem("mp-planning") || "{}") || {}; if (mpS.code || JSON.parse(localStorage.getItem("mp-vragen-code") || '""')) document.documentElement.className = "bekend"; } catch (e) {}
+</script>
 <style>
   :root { color-scheme: light; }
   * { box-sizing: border-box; }
@@ -25,6 +30,9 @@
   button { margin-top: 14px; width: 100%; min-height: 48px; border: 0; border-radius: 40px; background: #0a6fd1; color: #fff; font: inherit; font-size: 15px; font-weight: 500; cursor: pointer; }
   button:hover { background: #08579f; }
   button[disabled] { opacity: .6; cursor: default; }
+  #laden { display: none; }
+  .bekend #invoer { display: none; }
+  .bekend #laden { display: block; }
   .fout { color: #b3261e; font-size: 14px; margin: 12px 0 0; min-height: 1.4em; }
 </style>
 </head>
@@ -32,6 +40,8 @@
 <main>
   <p class="eyebrow">MeetPartner</p>
   <h1>Concept planning</h1>
+  <p id="laden" role="status">Laden…</p>
+  <div id="invoer">
   <p>Vul de toegangscode in. Het is dezelfde code als voor de vragenlijst.</p>
   <form id="inloggen" novalidate>
     <label for="code">Toegangscode</label>
@@ -39,6 +49,7 @@
     <button type="submit" id="knop">Openen</button>
     <p class="fout" id="fout" role="alert"></p>
   </form>
+  </div>
 </main>
 <script>
 (function () {
@@ -47,7 +58,13 @@
   var CODE_KEY = "mp-vragen-code"; // gedeeld met /vragen/meetpartner: wie daar al ingelogd is, hoeft niets in te typen
   var form = document.getElementById("inloggen"), veld = document.getElementById("code"), knop = document.getElementById("knop"), fout = document.getElementById("fout");
 
-  function lees() { try { return JSON.parse(localStorage.getItem(CODE_KEY) || '""') || ""; } catch (e) { return ""; } }
+  function lees() {
+    try { var t = JSON.parse(sessionStorage.getItem("mp-planning") || "{}") || {}; if (t.code) return t.code; } catch (e) {}
+    try { return JSON.parse(localStorage.getItem(CODE_KEY) || '""') || ""; } catch (e) { return ""; }
+  }
+  var namen = { "#projecten": "Projecten", "#beschikbaarheid": "Beschikbaarheid", "#vaardigheden": "Vaardigheden" };
+  document.getElementById("laden").textContent = (namen[location.hash] || "Planning") + " laden…";
+  function toonInvoer() { document.documentElement.className = ""; }
   function schrijf(c) { try { localStorage.setItem(CODE_KEY, JSON.stringify(c)); } catch (e) {} }
 
   async function open(code, stil) {
@@ -62,10 +79,11 @@
         document.open(); document.write(d.html); document.close();
         return;
       }
-      if (res.status === 403) { schrijf(""); if (!stil) fout.textContent = "Deze code klopt niet."; }
-      else if (!stil) fout.textContent = "Openen lukt nu niet. Probeer het zo nog eens.";
-    } catch (e) { if (!stil) fout.textContent = "Geen verbinding. Probeer het zo nog eens."; }
+      if (res.status === 403) { schrijf(""); try { sessionStorage.removeItem("mp-planning"); } catch (e) {} if (!stil) fout.textContent = "Deze code klopt niet."; }
+      else fout.textContent = "Openen lukt nu niet. Probeer het zo nog eens.";
+    } catch (e) { fout.textContent = "Geen verbinding. Probeer het zo nog eens."; }
     knop.disabled = false; knop.textContent = "Openen";
+    toonInvoer();
   }
 
   form.addEventListener("submit", function (ev) {
@@ -75,7 +93,7 @@
     open(c, false);
   });
   var bekend = lees();
-  if (bekend) open(bekend, true);
+  if (bekend) open(bekend, true); else toonInvoer();
 })();
 </script>
 </body>
